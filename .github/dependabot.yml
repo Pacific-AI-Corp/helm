@@ -4,8 +4,20 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      uv:
+        patterns: ["*"]
 
   - package-ecosystem: "npm"
     directory: "/helm-frontend/"
     schedule:
       interval: "weekly"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      npm:
+        patterns: ["*"]
