@@ -34,4 +34,5 @@ jobs:
       - name: Run scenario tests
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_DATASETS_TRUST_REMOTE_CODE: "1"
         run: uv run pytest -m scenarios
