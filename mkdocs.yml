@@ -1,8 +1,12 @@
-site_name: CRFM HELM
-repo_url: https://github.com/stanford-crfm/helm/
-edit_uri: blob/main/docs/
+site_name: MedHELM
+site_url: https://medhelm.org
+repo_url: https://github.com/Pacific-AI-Corp/medhelm/
+edit_uri: edit/main/docs/
 theme:
-  name: readthedocs
+  name: material
+  palette:
+    primary: indigo
+    accent: indigo
   highlightjs: false
 plugins:
   - search
@@ -11,6 +15,9 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
+          setup_commands:
+            - import sys
+            - sys.path.append("src")
           options:
             show_root_heading: true
             show_signature_annotations: true
@@ -69,3 +76,5 @@ nav:
     - developer_adding_new_models.md
     - proxy_server.md
     - editing_documentation.md
+extra:
+  cname: medhelm.org
