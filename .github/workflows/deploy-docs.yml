@@ -25,6 +25,7 @@ jobs:
 
       - name: Install MedHELM and Docs Dependencies
         run: |
+          uv venv
           uv pip install -e . 
           uv pip install \
             mkdocs-material \
