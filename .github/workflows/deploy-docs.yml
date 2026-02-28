@@ -25,9 +25,8 @@ jobs:
 
       - name: Install MedHELM and Docs Dependencies
         run: |
-          # This installs your library in editable mode so the hooks can import it
-          uv pip install --system -e . 
-          uv pip install --system \
+          uv pip install -e . 
+          uv pip install \
             mkdocs-material \
             mkdocs-macros-plugin \
             mkdocstrings[python] \
