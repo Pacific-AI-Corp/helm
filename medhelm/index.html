@@ -1,0 +1,3357 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://medhelm.org/medhelm/">
+      
+      
+        <link rel="prev" href="../reeval/">
+      
+      
+        <link rel="next" href="../models/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>MedHELM: Holistic Evaluation of Large Language Models for Medical Applications - MedHELM</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../docstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#medhelm-holistic-evaluation-of-large-language-models-for-medical-applications" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MedHELM" class="md-header__button md-logo" aria-label="MedHELM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MedHELM
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MedHELM: Holistic Evaluation of Large Language Models for Medical Applications
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Pacific-AI-Corp/medhelm/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MedHELM" class="md-nav__button md-logo" aria-label="MedHELM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MedHELM
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Pacific-AI-Corp/medhelm/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Holistic Evaluation of Language Models (HELM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quick_start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../run_entries_configuration_files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run Entries Configuration Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../run_entries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run Entries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../credentials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credentials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../importing_custom_modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Importing Custom Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding_new_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding New Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding_new_scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding New Scenarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding_new_tokenizers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding New Tokenizers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downloading_raw_results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Downloading Raw Results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reproducing_leaderboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducing Leaderboards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../get_helm_rank/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Efficient-HELM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Benchmarking Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../huggingface_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hugging Face Model Hub Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Papers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Papers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../heim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HEIM (Text-to-image Model Evaluation)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vhelm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VHELM (Vision-Language Models)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enterprise_benchmark/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise benchmark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reeval/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliable and Efficient Amortized Model-based Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MedHELM: Holistic Evaluation of Large Language Models for Medical Applications
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MedHELM: Holistic Evaluation of Large Language Models for Medical Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart-15-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quickstart (15 minutes)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quickstart (15 minutes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-install-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Install Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-download-leaderboard-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Download Leaderboard Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-a-tiny-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Run a Tiny Evaluation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-build-and-open-the-local-leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Build and Open the Local Leaderboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Concepts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clinicianvalidated-taxonomy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clinician‑Validated Taxonomy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-create-a-virtual-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Create a Virtual Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-install-helm-and-medhelm-specific-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Install HELM and MedHELM-specific Dependencies:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-your-first-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run Your First Evaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Run Your First Evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-run-the-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Run the Benchmark
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-create-the-leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Create the Leaderboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-the-leaderboard-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Run the Leaderboard Locally
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchmark-access-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Access Levels
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benchmark Access Levels">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-decision-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Decision Guide
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#viewing-and-reproducing-leaderboard-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewing and Reproducing Leaderboard Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Viewing and Reproducing Leaderboard Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#view-the-official-leaderboard-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View the Official Leaderboard Locally
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="View the Official Leaderboard Locally">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-create-a-local-directory-to-store-leaderboard-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Create a Local Directory to Store Leaderboard Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-download-leaderboard-results_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Download Leaderboard Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-launch-the-local-leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Launch the Local Leaderboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reproduce-leaderboard-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproduce Leaderboard Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-new-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a New Benchmark
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a New Benchmark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benchmark Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-prompt-template-txt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Prompt Template (.txt)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-dataset-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Dataset (.csv)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-benchmark-config-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Benchmark Config (.yaml)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Benchmark Config (.yaml)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-create-your-own-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Steps to Create Your Own Benchmark
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Steps to Create Your Own Benchmark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-create-a-prompt-template-txt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Create a Prompt Template (.txt)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-prepare-a-dataset-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Prepare a Dataset (.csv)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-congifure-the-benchmark-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Congifure the Benchmark (.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-define-a-run-configuration-conf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Define a Run Configuration (.conf)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-run-the-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Run the Benchmark
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-example-jury-score-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Example: Jury Score Benchmark
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Example: Jury Score Benchmark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-create-a-prompt-template-txt_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Create a Prompt Template (.txt)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-prepare-a-dataset-csv_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Prepare a Dataset (.csv)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-congifure-the-benchmark-yaml_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Congifure the Benchmark (.yaml)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Congifure the Benchmark (.yaml)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-judge-prompt-txt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Judge Prompt (.txt)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-selecting-judges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Selecting Judges
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-full-benchmark-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Full Benchmark Config
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-define-a-run-configuration-conf_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Define a Run Configuration (.conf)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-run-the-benchmark_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Run the Benchmark
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-differences-from-the-exact-match-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Differences from the Exact Match Demo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../perturbations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Perturbations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_adding_new_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding New Clients
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proxy_server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proxy Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editing_documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editing Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart-15-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quickstart (15 minutes)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quickstart (15 minutes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-install-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Install Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-download-leaderboard-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Download Leaderboard Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-a-tiny-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Run a Tiny Evaluation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-build-and-open-the-local-leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Build and Open the Local Leaderboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Concepts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clinicianvalidated-taxonomy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clinician‑Validated Taxonomy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-create-a-virtual-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Create a Virtual Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-install-helm-and-medhelm-specific-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Install HELM and MedHELM-specific Dependencies:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-your-first-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run Your First Evaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Run Your First Evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-run-the-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Run the Benchmark
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-create-the-leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Create the Leaderboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-the-leaderboard-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Run the Leaderboard Locally
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchmark-access-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Access Levels
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benchmark Access Levels">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-decision-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Decision Guide
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#viewing-and-reproducing-leaderboard-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewing and Reproducing Leaderboard Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Viewing and Reproducing Leaderboard Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#view-the-official-leaderboard-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View the Official Leaderboard Locally
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="View the Official Leaderboard Locally">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-create-a-local-directory-to-store-leaderboard-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Create a Local Directory to Store Leaderboard Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-download-leaderboard-results_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Download Leaderboard Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-launch-the-local-leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Launch the Local Leaderboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reproduce-leaderboard-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproduce Leaderboard Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-new-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a New Benchmark
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a New Benchmark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benchmark Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-prompt-template-txt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Prompt Template (.txt)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-dataset-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Dataset (.csv)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-benchmark-config-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Benchmark Config (.yaml)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Benchmark Config (.yaml)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-create-your-own-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Steps to Create Your Own Benchmark
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Steps to Create Your Own Benchmark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-create-a-prompt-template-txt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Create a Prompt Template (.txt)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-prepare-a-dataset-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Prepare a Dataset (.csv)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-congifure-the-benchmark-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Congifure the Benchmark (.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-define-a-run-configuration-conf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Define a Run Configuration (.conf)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-run-the-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Run the Benchmark
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-example-jury-score-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Example: Jury Score Benchmark
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Example: Jury Score Benchmark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-create-a-prompt-template-txt_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Create a Prompt Template (.txt)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-prepare-a-dataset-csv_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Prepare a Dataset (.csv)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-congifure-the-benchmark-yaml_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Congifure the Benchmark (.yaml)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Congifure the Benchmark (.yaml)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-judge-prompt-txt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Judge Prompt (.txt)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-selecting-judges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Selecting Judges
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-full-benchmark-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Full Benchmark Config
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-define-a-run-configuration-conf_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Define a Run Configuration (.conf)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-run-the-benchmark_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Run the Benchmark
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-differences-from-the-exact-match-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Differences from the Exact Match Demo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="medhelm-holistic-evaluation-of-large-language-models-for-medical-applications">MedHELM: Holistic Evaluation of Large Language Models for Medical Applications</h1>
+<p><strong>Who it’s for:</strong> Data scientists at health systems benchmarking LLMs for medical use cases.</p>
+<p><strong>What you’ll do here:</strong> Install MedHELM, run a small evaluation locally, understand access levels, view leaderboards, and learn how to contribute new scenarios/models.</p>
+<p><strong>Time required:</strong> ~15 minutes for the Quickstart.</p>
+<p>MedHELM extends the HELM framework to evaluate <strong>large language models (LLMs) in medical applications</strong>, focusing on realistic tasks, safety, and reproducibility.</p>
+<hr />
+<h2 id="requirements">Requirements</h2>
+<p>Before you install MedHELM, make sure your system meets the following requirements:</p>
+<ol>
+<li>
+<p><a href="https://www.anaconda.com/docs/getting-started/getting-started">Conda</a> (~30 minutes to install)</p>
+<p>Used to manage the Python virtual environment for MedHELM.</p>
+</li>
+<li>
+<p><a href="https://cloud.google.com/sdk/docs/install">Google Cloud CLI</a> (~30 minutes to install)</p>
+<p>Required for downloading MedHELM results stored in Google Cloud.</p>
+<p><strong>Note:</strong> During installation, the installer will recommend Python 3.12 for full feature support. These features are not needed. MedHELM is <strong>only</strong> compatible with <code>Python 3.10</code>.</p>
+</li>
+<li>
+<p>GPU Access</p>
+<p>Needed for running models locally. The exact GPU requirements depend on the model size and benchmark.</p>
+</li>
+</ol>
+<hr />
+<h2 id="quickstart-15-minutes">Quickstart (15 minutes)</h2>
+<p><strong>Goal:</strong> Install MedHELM, download the live leaderboard, run a 10-instance evaluation on a public scenario, and create a local leaderboard.</p>
+<h4 id="1-install-dependencies">1. Install Dependencies</h4>
+<p>Run the following commands to create and activate a new python virtual environment:</p>
+<pre><code># Create and activate a clean environment
+conda create -n crfm-helm python=3.10 pip wget
+conda activate crfm-helm
+pip install -U setuptools
+</code></pre>
+<p>Run the following command to install HELM and the necessary MedHELM extensions:</p>
+<pre><code>pip install -U &quot;crfm-helm[summarization,medhelm]&quot;
+</code></pre>
+<h4 id="2-download-leaderboard-results">2. Download Leaderboard Results</h4>
+<p>Create the directory where the downloaded results will be stored:</p>
+<pre><code class="language-bash">export OUTPUT_PATH=&quot;./benchmark_output&quot;
+mkdir $OUTPUT_PATH
+</code></pre>
+<p>Download the results:</p>
+<pre><code># Set the GCS path to the MedHELM results
+export GCS_BENCHMARK_OUTPUT_PATH=&quot;gs://crfm-helm-public/medhelm/benchmark_output&quot;
+
+# (Optional): Check the leaderboard results size before downloading
+# gcloud storage du -sr $GCS_BENCHMARK_OUTPUT_PATH
+
+# Download the results
+gcloud storage rsync -r $GCS_BENCHMARK_OUTPUT_PATH $OUTPUT_PATH
+</code></pre>
+<h4 id="3-run-a-tiny-evaluation">3. Run a Tiny Evaluation</h4>
+<pre><code class="language-bash"># Set variables
+RUN_ENTRIES=&quot;pubmed_qa:model=qwen/qwen2.5-7b-instruct,model_deployment=huggingface/qwen2.5-7b-instruct&quot;
+SUITE=&quot;my-medhelm-suite&quot;
+MAX_EVAL_INSTANCES=10
+
+# Run evaluation
+helm-run \
+   --run-entries $RUN_ENTRIES \
+   --suite $SUITE \
+   --max-eval-instances $MAX_EVAL_INSTANCES \
+   --output-path $OUTPUT_PATH
+</code></pre>
+<h4 id="4-build-and-open-the-local-leaderboard">4. Build and Open the Local Leaderboard</h4>
+<pre><code class="language-bash">SCHEMA=&quot;schema_medhelm.yaml&quot;
+RELEASE=&quot;my-medhelm-release&quot;
+LIVE_LEADERBOARD_SUITE=&quot;v2.0.0&quot;
+
+wget -O $SCHEMA \
+   https://raw.githubusercontent.com/stanford-crfm/helm/v0.5.7/src/helm/benchmark/static/schema_medhelm.yaml
+
+# Create the leaderboard
+helm-summarize \
+  --suites $SUITE $LIVE_LEADERBOARD_SUITE \
+  --schema $SCHEMA \
+  --release $RELEASE \
+  --output-path $OUTPUT_PATH
+
+# Load the leaderboard
+helm-server \
+  --release $RELEASE \
+  --output-path $OUTPUT_PATH
+</code></pre>
+<p><strong>Expected outcome:</strong></p>
+<ul>
+<li>Benchmark results for the tiny evaluation at <code>$OUTPUT_PATH/runs/$SUITE</code>.</li>
+<li>A local leaderboard combining results from the live leaderboard and the tiny evaluation (the URL will be printed in the terminal).</li>
+</ul>
+<hr />
+<h2 id="core-concepts">Core Concepts</h2>
+<ul>
+<li><strong>Scenario:</strong> Dataset + prompt/response formatting logic.</li>
+<li><strong>Run entry:</strong> A <code>(model, scenario)</code> pair given to <code>helm-run</code>.</li>
+<li><strong>Suite:</strong> Named collection of runs; appears as a tab/section in the leaderboard.</li>
+<li><strong>Annotator:</strong> Optional post‑processing (e.g., LLM‑as‑a‑judge).</li>
+<li><strong>Schema:</strong> Task taxonomy + metrics configuration powering <code>helm-summarize</code> and the UI.</li>
+<li><strong>Release:</strong> The release name of the leaderboard.</li>
+</ul>
+<hr />
+<h2 id="clinicianvalidated-taxonomy">Clinician‑Validated Taxonomy</h2>
+<p>MedHELM evaluates models across a clinician‑validated taxonomy: <strong>5 categories</strong>, <strong>22 subcategories</strong>, <strong>121 tasks</strong>.</p>
+<ul>
+<li>
+<p><strong>Clinical Decision Support</strong></p>
+<ul>
+<li>Supporting Diagnostic Decisions</li>
+<li>Planning Treatments</li>
+<li>Predicting Patient Risks and Outcomes</li>
+<li>Providing Clinical Knowledge Support</li>
+</ul>
+</li>
+<li>
+<p><strong>Clinical Note Generation</strong></p>
+<ul>
+<li>Documenting Patient Visits</li>
+<li>Recording Procedures</li>
+<li>Documenting Diagnostic Reports</li>
+<li>Documenting Care Plans</li>
+</ul>
+</li>
+<li>
+<p><strong>Patient Communication and Education</strong></p>
+<ul>
+<li>Providing Patient Education Resources</li>
+<li>Delivering Personalized Care Instructions</li>
+<li>Patient-Provider Messaging</li>
+<li>Enhancing Patient Understanding and Accessibility in Health Communication</li>
+<li>Facilitating Patient Engagement and Support</li>
+</ul>
+</li>
+<li>
+<p><strong>Medical Research Assistance</strong></p>
+<ul>
+<li>Conducting Literature Research</li>
+<li>Analyzing Clinical Research Data</li>
+<li>Recording Research Processes</li>
+<li>Ensuring Clinical Research Quality</li>
+<li>Managing Research Enrollment</li>
+</ul>
+</li>
+<li>
+<p><strong>Administration and Workflow</strong></p>
+<ul>
+<li>Scheduling Resources and Staff</li>
+<li>Overseeing Financial Activities</li>
+<li>Organizing Workflow Processes</li>
+<li>Care Coordination and Planning</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="installation">Installation</h2>
+<p><strong>NOTE</strong>: MedHELM is compatible <strong>only</strong> with <code>Python 3.10</code>. Other Python versions are not supported.</p>
+<h4 id="1-create-a-virtual-environment">1. Create a Virtual Environment</h4>
+<p>Run the following commands to create and activate a new python virtual environment:</p>
+<pre><code class="language-bash"># Create and activate a clean environment
+conda create -n crfm-helm python=3.10 pip wget
+conda activate crfm-helm
+pip install -U setuptools
+</code></pre>
+<h4 id="2-install-helm-and-medhelm-specific-dependencies">2. Install HELM and MedHELM-specific Dependencies:</h4>
+<pre><code class="language-bash">pip install -U &quot;crfm-helm[summarization,medhelm]&quot;
+</code></pre>
+<hr />
+<h2 id="run-your-first-evaluation">Run Your First Evaluation</h2>
+<p>The example below evaluates <strong>Qwen2.5‑7B‑Instruct</strong> on the <strong>PubMedQA</strong> scenario using 10 instances.</p>
+<h4 id="1-run-the-benchmark">1. Run the Benchmark</h4>
+<p>The following command runs <strong>PubMedQA</strong> on <strong>Qwen2.5‑7B‑Instruct</strong> for 10 instances and stores the results under <code>./benchmark_output/runs/my-medhelm-suite</code>. </p>
+<pre><code class="language-bash"># Set variables
+RUN_ENTRIES=&quot;pubmed_qa:model=qwen/qwen2.5-7b-instruct,model_deployment=huggingface/qwen2.5-7b-instruct&quot;
+SUITE=&quot;my-medhelm-suite&quot;
+MAX_EVAL_INSTANCES=10
+OUTPUT_PATH=&quot;./benchmark_output&quot;
+
+# Run evaluation
+helm-run \
+   --run-entries $RUN_ENTRIES \
+   --suite $SUITE \
+   --max-eval-instances $MAX_EVAL_INSTANCES \
+   --output-path $OUTPUT_PATH
+</code></pre>
+<p>For more information about <code>helm-run</code>, refer to the <a href="../tutorial/#using-helm-run">Using helm-run</a> page.</p>
+<h4 id="2-create-the-leaderboard">2. Create the Leaderboard</h4>
+<p>The following commands convert the results from step 1 into an interactive leaderboard.</p>
+<pre><code class="language-bash">SCHEMA=&quot;schema_medhelm.yaml&quot;
+RELEASE=&quot;my-medhelm-release&quot;
+
+wget -O $SCHEMA \
+   https://raw.githubusercontent.com/stanford-crfm/helm/v0.5.7/src/helm/benchmark/static/schema_medhelm.yaml
+helm-summarize \
+  --suites $SUITE \
+  --schema $SCHEMA \
+  --release $RELEASE \
+  --output-path $OUTPUT_PATH
+</code></pre>
+<p>For more information about <code>helm-summarize</code>, refer to the <a href="../tutorial/#using-helm-summarize">Using helm-summarize</a> page.</p>
+<h4 id="3-run-the-leaderboard-locally">3. Run the Leaderboard Locally</h4>
+<p>This command runs the leaderboard on a local server. The exact address and port will show on the command output.</p>
+<pre><code class="language-bash">helm-server \
+  --release $RELEASE \
+  --output-path $OUTPUT_PATH
+</code></pre>
+<p>For more information about <code>helm-run</code>, refer to the <a href="../tutorial/#using-helm-server">Using helm-server</a> page.</p>
+<hr />
+<h2 id="benchmark-access-levels">Benchmark Access Levels</h2>
+<p>MedHELM scenarios fall into three access patterns. Use the right <strong>run entries</strong> file to register new runs and to reproduce results.</p>
+<h3 id="quick-decision-guide">Quick Decision Guide</h3>
+<table>
+<thead>
+<tr>
+<th>Data Access</th>
+<th>Example Sources</th>
+<th>Run Entries File</th>
+<th>Who can Reproduce?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public</td>
+<td>Hugging Face, GitHub</td>
+<td><code>run_entries_medhelm_public.conf</code></td>
+<td>Anyone</td>
+</tr>
+<tr>
+<td>Gated</td>
+<td>PhysioNet, Redivis</td>
+<td><code>run_entries_medhelm_gated.conf</code></td>
+<td>Credentialed users</td>
+</tr>
+<tr>
+<td>Private</td>
+<td>Internal clinical datasets</td>
+<td><code>run_entries_medhelm_private_{org}.conf</code></td>
+<td>Authorized org members</td>
+</tr>
+</tbody>
+</table>
+<p>When contributing or reproducing results, ensure you’re using the correct file for the benchmark’s access level.</p>
+<hr />
+<h2 id="viewing-and-reproducing-leaderboard-results">Viewing and Reproducing Leaderboard Results</h2>
+<p>You can interact with MedHELM results by <strong>viewing</strong> pre‑computed results locally or by <strong>reproducing</strong> evaluations from scratch.</p>
+<h3 id="view-the-official-leaderboard-locally">View the Official Leaderboard Locally</h3>
+<h4 id="1-create-a-local-directory-to-store-leaderboard-results">1. Create a Local Directory to Store Leaderboard Results</h4>
+<p>Run the following commands to create the local directory where leaderboard results will be stored. Adjust the directory path as needed.</p>
+<pre><code class="language-bash">export OUTPUT_PATH=&quot;./benchmark_output&quot;
+mkdir $OUTPUT_PATH
+</code></pre>
+<h4 id="2-download-leaderboard-results_1">2. Download Leaderboard Results</h4>
+<p>Run the following commands to download the leaderboard results to the <code>OUTPUT_PATH</code> created in the previous step.</p>
+<pre><code class="language-bash"># Set the GCS path to the MedHELM results
+export GCS_BENCHMARK_OUTPUT_PATH=&quot;gs://crfm-helm-public/medhelm/benchmark_output&quot;
+
+# (Optional): Check the leaderboard results size before downloading
+# gcloud storage du -sr $GCS_BENCHMARK_OUTPUT_PATH
+
+# Download the results
+gcloud storage rsync -r $GCS_BENCHMARK_OUTPUT_PATH $OUTPUT_PATH
+</code></pre>
+<h4 id="3-launch-the-local-leaderboard">3. Launch the Local Leaderboard</h4>
+<p>Run the following command to launch the MedHELM leaderboard locally. Use the numbered <code>release</code> version you want to display. Check out all release versions on the upper right corner of the official <a href="https://crfm.stanford.edu/helm/medhelm/latest">leaderboard website</a>.</p>
+<pre><code class="language-bash"># Sample command to launch the MedHELM leaderboard version 2.0.0.
+helm-server --release v2.0.0 --output-path $OUTPUT_PATH
+</code></pre>
+<h3 id="reproduce-leaderboard-results">Reproduce Leaderboard Results</h3>
+<ul>
+<li><strong>Public benchmarks:</strong> Anyone can reproduce the <strong>public subset</strong> using entries in <code>run_entries_medhelm_public.conf</code>.</li>
+<li><strong>Gated benchmarks:</strong> Require credentials/approval (e.g., EHRSHOT); entries live in <code>run_entries_medhelm_gated.conf</code>.</li>
+<li><strong>Private benchmarks:</strong> Org‑specific; entries follow <code>run_entries_medhelm_private_{organization}.conf</code>.</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> The <code>model_deployments</code> of the models listed in these run entries are specific to Stanford Healthcare, please change them for the appropriate deployments as needed. For more information on model_deployments, refer to the <a href="../adding_new_models/">Adding New Models</a> page.</p>
+</blockquote>
+<hr />
+<h2 id="creating-a-new-benchmark">Creating a New Benchmark</h2>
+<p>MedHELM allows you to define and run custom LLM benchmarks by combining a few simple configuration files:</p>
+<ol>
+<li><strong>Prompt template (<code>.txt</code>)</strong> — contains the instructions shown to the model, with placeholders (e.g., <code>{column_name}</code>) that will be filled in from the dataset.  </li>
+<li><strong>Dataset (<code>.csv</code>)</strong> — provides the data for each benchmark instance. Each row populates the prompt template and must include required columns like <code>correct_answer</code>.  </li>
+<li><strong>Benchmark config (<code>.yaml</code>)</strong> — specifies the benchmark metadata (name, description), file paths (prompt, dataset), evaluation settings (e.g., max tokens), and the list of metrics to compute.</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> This feature requires <strong>crfm-helm &gt;= 0.5.8</strong>.<br />
+Make sure you upgrade before continuing:  </p>
+</blockquote>
+<pre><code class="language-bash">pip install -U crfm-helm
+</code></pre>
+<hr />
+<h3 id="benchmark-components">Benchmark Components</h3>
+<h4 id="1-prompt-template-txt">1. Prompt Template (<code>.txt</code>)</h4>
+<p>A text file containing the task instructions with placeholders for dataset fields.  </p>
+<ul>
+<li>Placeholders are written as <code>{column_name}</code>.  </li>
+<li>At runtime, they will be replaced with values from the dataset.  </li>
+<li>Only columns explicitly referenced in the template will appear in the final prompt.  </li>
+</ul>
+<p>Example:  </p>
+<pre><code class="language-txt">You are a clinical assistant. Your task is to answer the following medical question based on the patient history.
+
+Patient ID: {patient_id}
+
+Patient Note:
+{note}
+
+Question:
+{question}
+
+Answer with a single token: &quot;Yes&quot; or &quot;No&quot;
+</code></pre>
+<h4 id="2-dataset-csv">2. <strong>Dataset</strong> (<code>.csv</code>)</h4>
+<p>A CSV file with one row per benchmark instance.</p>
+<ul>
+<li>
+<p>Must contain all columns referenced in the prompt.  </p>
+</li>
+<li>
+<p>Must include the following columns:</p>
+<ul>
+<li><code>correct_answer</code>: The reference answer against which model outputs are compared. </li>
+<li><code>incorrect_answers</code>: JSON-serialized list of incorrect alternatives.</li>
+</ul>
+</li>
+</ul>
+<p>Example:  </p>
+<pre><code class="language-csv">patient_id,note,question,correct_answer,incorrect_answers
+001,&quot;Patient with hypertension.&quot;,&quot;Does the patient have hypertension?&quot;,&quot;Yes&quot;,&quot;[&quot;&quot;No&quot;&quot;]&quot;
+002,&quot;Patient denies smoking.&quot;,&quot;Does the patient smoke?&quot;,&quot;No&quot;,&quot;[&quot;&quot;Yes&quot;&quot;]&quot;
+</code></pre>
+<h4 id="3-benchmark-config-yaml">3. <strong>Benchmark Config</strong> (<code>.yaml</code>)</h4>
+<p>The benchmark config file must contain the following details of the benchmark:</p>
+<ol>
+<li><strong>Name:</strong> A unique identifier for the benchmark.</li>
+<li><strong>Description:</strong> A concise description of what the benchmark measures.</li>
+<li><strong>Prompt Template Path:</strong> The path to the prompt template file.</li>
+<li><strong>Dataset Path:</strong> The path to the csv dataset.</li>
+<li><strong>Max tokens:</strong> The maximum number of tokens allowed for model responses. </li>
+<li><strong>Metrics:</strong> A list of all metrics to evaluate and their required arguments (if any). The first metric in the list will be considered the <strong>main metric</strong> for the leaderboard.</li>
+</ol>
+<p>Example:</p>
+<pre><code class="language-yaml"># Name of your benchmark
+name: EXACT-MATCH-DEMO
+
+# Description of your benchmark
+description: EXACT-MATCH-DEMO measures LLMs performance on answering yes/no questions based on clinical notes.
+
+# Path to the prompt template
+prompt_file: exact_match_demo_prompt.txt
+
+# Path to the dataset
+dataset_file: exact_match_demo_dataset.csv
+
+# Max tokens to generate
+max_tokens: 1
+
+# Metrics list
+# The main metric will be the first one in the list.
+metrics:
+  - name: exact_match
+</code></pre>
+<h5 id="supported-metrics">Supported Metrics</h5>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Metric(s)</th>
+<th>Description</th>
+<th>Requirements</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accuracy Metrics</strong></td>
+<td><code>exact_match</code></td>
+<td>Checks if the model output matches the reference exactly.</td>
+<td>CPU only (light)</td>
+</tr>
+<tr>
+<td><strong>Summarization Metrics</strong></td>
+<td><code>rouge_1</code>, <code>rouge_2</code>, <code>rouge_l</code></td>
+<td>N-gram overlap metrics commonly used for text comparison.</td>
+<td>CPU only</td>
+</tr>
+<tr>
+<td></td>
+<td><code>BERTScore-P</code>, <code>BERTScore-R</code>, <code>BERTScore-F</code></td>
+<td>Precision, Recall, and F1 based on semantic similarity.</td>
+<td>GPU required</td>
+</tr>
+<tr>
+<td><strong>LLM-as-Judge Metrics</strong></td>
+<td><code>jury_score</code></td>
+<td>Uses one or more judge models (LLMs) to evaluate correctness/quality.</td>
+<td>LLM API or GPU</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="steps-to-create-your-own-benchmark">Steps to Create Your Own Benchmark</h3>
+<p>We’ll illustrate each step with <code>EXACT-MATCH-DEMO</code>, a benchmark that measures LLMs performance on answering yes/no questions based on clinical notes. You can find this example, along with several others, in the <strong><a href="https://drive.google.com/uc?export=download&amp;id=1Y8aT6O3cpGPcZ9KPDz99D5lyoP7qZdgU">examples.zip</a></strong> archive. After downloading and unzipping, look for the <code>exact_match_demo/</code> directory.</p>
+<h4 id="1-create-a-prompt-template-txt">1. Create a Prompt Template (<code>.txt</code>)</h4>
+<p>Write the task instructions in plain text, and use <code>{column_name}</code> placeholders wherever you want values from the dataset to be inserted. Every placeholder must match a column name in your dataset exactly.</p>
+<p><strong>Example — <code>exact_match_demo_prompt.txt</code>:</strong></p>
+<pre><code class="language-txt">You are a clinical assistant. Your task is to answer the following medical question based on the patient history.
+
+Patient ID: {patient_id}
+
+Patient Note:
+{note}
+
+Question:
+{question}
+
+Answer with a single token: &quot;Yes&quot; or &quot;No&quot;
+</code></pre>
+<h4 id="2-prepare-a-dataset-csv">2. Prepare a Dataset (<code>.csv</code>)</h4>
+<p>Build a CSV file where each row represents one benchmark instance.  </p>
+<ul>
+<li>Include all columns referenced in your prompt template.  </li>
+<li>Add a <code>correct_answer</code> column (required).  </li>
+<li>Add an <code>incorrect_answers</code> column containing a JSON-serialized list of alternative answers.</li>
+</ul>
+<p><strong>Example — <code>exact_match_demo_dataset.csv</code>:</strong></p>
+<pre><code class="language-csv">patient_id,note,question,correct_answer,incorrect_answers
+001,&quot;Patient with hypertension.&quot;,&quot;Does the patient have hypertension?&quot;,&quot;Yes&quot;,&quot;[&quot;&quot;No&quot;&quot;]&quot;
+002,&quot;Patient denies smoking.&quot;,&quot;Does the patient smoke?&quot;,&quot;No&quot;,&quot;[&quot;&quot;Yes&quot;&quot;]&quot;
+...
+</code></pre>
+<h4 id="3-congifure-the-benchmark-yaml">3. Congifure the Benchmark (<code>.yaml</code>)</h4>
+<p>Create a YAML file that defines:</p>
+<ul>
+<li><code>name:</code> The name of the benchmark. This will appear on the leaderboard.</li>
+<li><code>description:</code> A short description of the benchmark. This will also be shown on the leaderboard.</li>
+<li><code>prompt_file:</code> Path to the prompt template file for your benchmark.</li>
+<li><code>dataset_file:</code> Path to the dataset file for your benchmark.</li>
+<li><code>max_tokens:</code> The maximum number of tokens that models are allowed to generate in response to your benchmark prompts. Choose this value based on the expected response length.</li>
+<li><code>metrics:</code> A list of evaluation metrics to be used for your benchmark.</li>
+</ul>
+<p><strong>Example — <code>exact_match_demo.yaml</code>:</strong></p>
+<pre><code class="language-yaml"># Name of your benchmark
+name: EXACT-MATCH-DEMO
+
+# Description of your benchmark
+description: EXACT-MATCH-DEMO measures LLMs performance on answering yes/no questions based on clinical notes.
+
+# Path to the prompt template
+prompt_file: exact_match_demo_prompt.txt
+
+# Path to the dataset
+dataset_file: exact_match_demo_dataset.csv
+
+# Max tokens to generate
+max_tokens: 1
+
+# Metrics list
+# The main metric will be the first one in the list.
+metrics:
+  - name: exact_match
+</code></pre>
+<h4 id="4-define-a-run-configuration-conf">4. Define a Run Configuration (<code>.conf</code>)</h4>
+<p>List the models you want to evaluate on your benchmark. Each entry specifies a model, its deployment, and the path to your YAML config.</p>
+<p><strong>Example — <code>exact_match_demo.conf</code>:</strong></p>
+<pre><code class="language-yaml">entries: [
+  {description: &quot;medhelm_configurable_benchmark:model=qwen/qwen2.5-7b-instruct,model_deployment=huggingface/qwen2.5-7b-instruct,config_path=exact_match_demo.yaml&quot;, priority: 1},
+]
+</code></pre>
+<p><strong>Note:</strong>  All benchmarks defined this way must begin with the prefix <code>medhelm_configurable_benchmark</code>.<br />
+The only part that changes between benchmarks is the <code>config_path</code>, which should point to the YAML config file for the specific benchmark you want to run.</p>
+<h4 id="5-run-the-benchmark">5. Run the Benchmark</h4>
+<p>With the prompt template, dataset, YAML config, and run configuration prepared, you can now run the benchmark. The following steps are bundled into the <code>run.sh</code> script.</p>
+<p>First, set a few environment variables to configure the run:  </p>
+<pre><code class="language-bash"># Name of the benchmark suite (used to group results)
+export SUITE_NAME=DEMO
+
+# Path to your run configuration file (.conf)
+export RUN_ENTRIES_CONF_PATH=&quot;./exact_match_demo.conf&quot;
+
+# Maximum number of evaluation instances to run (useful for quick testing)
+export MAX_EVAL_INSTANCES=2
+
+# Path to the directory where the results will be stored. (helm-run will create it if it doesn't exist)
+export OUTPUT_PATH=&quot;./benchmark_output&quot;
+</code></pre>
+<p>Then, run the benchmark with:</p>
+<pre><code class="language-bash">helm-run \
+  --conf-paths $RUN_ENTRIES_CONF_PATH \
+  --max-eval-instances $MAX_EVAL_INSTANCES \
+  --suite $SUITE_NAME \
+  --output-path $OUTPUT_PATH
+</code></pre>
+<p>With the benchmarks results from <code>helm-run</code>, run the following command to recreate the leaderboard:</p>
+<pre><code class="language-bash">helm-summarize \
+  --auto-generate-schema \
+  --suite $SUITE_NAME \
+  --output-path $OUTPUT_PATH
+</code></pre>
+<p>Once the leaderboard is created with <code>helm-summarize</code>, launch the leaderboard to see it live.</p>
+<pre><code class="language-bash">helm-server \
+  --suite $SUITE_NAME \
+  --output-path $OUTPUT_PATH
+</code></pre>
+<hr />
+<h3 id="advanced-example-jury-score-benchmark">Advanced Example: Jury Score Benchmark</h3>
+<p>In some healthcare tasks, standard accuracy or overlap metrics (like <code>exact_match</code> or <code>rouge</code>) may fail to capture the quality of an LLM’s response. To handle these cases, MedHELM supports <strong>rubric-based evaluation</strong>, where a set of LLMs — called <em>judges</em> — evaluate model responses according to predefined criteria.  </p>
+<p>This example, <code>LLM-JURY-SCORE-DEMO</code>, demonstrates how to create a benchmark that uses the <code>jury_score</code> metric to evaluate patient-friendly discharge summaries based on clinical notes. The setup is similar to the Exact Match Demo; here we only highlight the differences where necessary.  </p>
+<p>To follow along, navigate to the <code>llm_jury_score_demo/</code> directory from the unzipped <a href="https://drive.google.com/uc?export=download&amp;id=1Y8aT6O3cpGPcZ9KPDz99D5lyoP7qZdgU">examples.zip</a>.</p>
+<hr />
+<h4 id="1-create-a-prompt-template-txt_1">1. Create a Prompt Template (<code>.txt</code>)</h4>
+<p><strong>Example — <code>llm_jury_score_demo_prompt.txt</code>:</strong></p>
+<pre><code class="language-txt">You are a clinical assistant. Your task is to write a plain-language discharge summary for patients.
+
+Patient ID: {patient_id}
+
+Patient Note:
+{note}
+
+Constraints:
+- The summary's length should be at most 120 words.
+- The summary should include diagnosis, medications, warning signs, and follow-up.
+
+Please provide your response below:
+</code></pre>
+<h4 id="2-prepare-a-dataset-csv_1">2. Prepare a Dataset (<code>.csv</code>)</h4>
+<p><strong>Example — <code>llm_jury_score_demo_dataset.csv</code>:</strong></p>
+<pre><code class="language-csv">patient_id,note
+4001,&quot;67-year-old with cough and fever; chest X-ray shows pneumonia. Current meds: metformin 500 mg BID, atorvastatin 20 mg QHS. New Rx: amoxicillin-clavulanate 875/125 mg PO BID x7 days. Return if worse. Follow-up PCP in 3 days.&quot;
+4002,&quot;58-year-old with CKD stage 3. Meds: metformin 1000 mg BID; ibuprofen stopped; lisinopril 10 mg daily started. Cr 1.8 mg/dL. Counsel to avoid NSAIDs.&quot;
+...
+</code></pre>
+<h4 id="3-congifure-the-benchmark-yaml_1">3. Congifure the Benchmark (<code>.yaml</code>)</h4>
+<p>The key difference in this example is the <strong>metrics list</strong>, where we define a <code>jury_score</code> metric. This requires a <em>judge prompt</em> and a list of judge models.  </p>
+<h5 id="31-judge-prompt-txt">3.1 Judge Prompt (<code>.txt</code>)</h5>
+<p>The judge prompt instructs the judge models on how to evaluate outputs. It must include:  </p>
+<ol>
+<li><code>{QUESTION}</code> — the original prompt shown to the evaluated model.  </li>
+<li><code>{RESPONSE}</code> — the evaluated model’s output.  </li>
+<li><code>{GOLD_RESPONSE}</code> <em>(optional)</em> — the gold answer from the dataset.  </li>
+<li><code>&lt;rubric_criteria&gt;</code> — the evaluation rubric in JSON format, where each criterion is a JSON object with a <code>score</code> (0–5) and an explanation.  </li>
+</ol>
+<p><strong>Example — <code>llm_jury_score_demo_judge_prompt.txt</code>:</strong></p>
+<pre><code class="language-txt">You are an expert in clinical communication. Your task is to evaluate the quality of the following discharge summary written for a patient.
+
+&lt;QUESTION&gt;
+{QUESTION}
+&lt;/QUESTION&gt;
+
+The response given to the above question is:
+
+&lt;RESPONSE&gt;
+{RESPONSE}
+&lt;/RESPONSE&gt;
+
+Evaluate the model under the following criteria (assign a score from 0 to 5 for each):
+
+Faithfulness (0 = completely inaccurate; 5 = entirely accurate).  
+Completeness (0 = missing required elements; 5 = fully covers diagnosis, meds, follow-up, warning signs).  
+Safety (0 = harmful advice; 5 = completely safe).  
+Clarity (0 = incomprehensible; 5 = crystal clear for patients).  
+Conciseness (0 = too short/verbose; 5 = meets length and avoids repetition).  
+
+Output Format:  
+Generate a valid JSON object inside &lt;rubric_criteria&gt;:  
+
+&lt;rubric_criteria&gt;
+{
+  &quot;faithfulness&quot;: { 
+    &quot;score&quot;: 0,
+    &quot;explanation&quot;: &quot;Explain why this score was given.&quot; 
+  },
+  &quot;completeness&quot;: {
+    &quot;score&quot;: 0,
+    &quot;explanation&quot;: &quot;Explain why this score was given.&quot;
+  },
+  &quot;safety&quot;: {
+    &quot;score&quot;: 0,
+    &quot;explanation&quot;: &quot;Explain why this score was given.&quot;
+  },
+  &quot;clarity&quot;: {
+    &quot;score&quot;: 0,
+    &quot;explanation&quot;: &quot;Explain why this score was given.&quot;
+  },
+  &quot;conciseness&quot;: {
+    &quot;score&quot;: 0,
+    &quot;explanation&quot;: &quot;Explain why this score was given.&quot;
+  }
+}
+&lt;/rubric_criteria&gt;
+
+Ensure the output is valid JSON:
+- Use double quotes (&quot;) for all keys and values.  
+- Escape quotes inside explanations (e.g., \&quot;like this\&quot;).  
+- Do not include any text outside the JSON.
+</code></pre>
+<p><strong>Notes:</strong> </p>
+<ol>
+<li>Judge responses must be a valid JSON in the specified format. Invalid responses are ignored. </li>
+<li>Score scales must start at 0.</li>
+<li>Currently, we only support criteria where a higher value means better performance.</li>
+</ol>
+<h5 id="32-selecting-judges">3.2 Selecting Judges</h5>
+<p>Each judge must be defined with:<br />
+- <code>name</code>: The deployment identifier (must match <code>name</code> in <code>model_deployments.yaml</code>).<br />
+- <code>model_name</code>: The model name (must match <code>model_name</code> in <code>model_deployments.yaml</code>).  </p>
+<h5 id="33-full-benchmark-config">3.3 Full Benchmark Config</h5>
+<p>With the judge prompt defined (3.1) and the judges selected (3.2), you can now put everything together into the full benchmark configuration file.</p>
+<p><strong>Example — <code>llm_jury_score_demo.yaml</code>:</strong></p>
+<pre><code class="language-yaml"># Name of your benchmark
+name: LLM-JURY-SCORE-DEMO
+
+# Description of your benchmark
+description: LLM-JURY-SCORE-DEMO measures LLM performance on creating patient-friendly discharge summaries.
+
+# Path to the prompt template
+prompt_file: llm_jury_score_demo_prompt.txt
+
+# Path to the dataset
+dataset_file: llm_jury_score_demo_dataset.csv
+
+# Max tokens to generate
+max_tokens: 1024
+
+# Metrics list
+# The main metric will be the first one in the list.
+metrics:
+  - name: &quot;jury_score&quot;
+    # Path to the judge prompt
+    prompt_file: llm_jury_score_demo_judge_prompt.txt
+    # List of LLM judges
+    judges:
+      - name: &quot;huggingface/qwen2.5-7b-instruct&quot;
+        model_name: &quot;qwen/qwen2.5-7b-instruct&quot;
+</code></pre>
+<p><strong>How the Jury Score is Calculated</strong>  </p>
+<p>For each instance, every judge model evaluates the output using the rubric criteria.  </p>
+<ul>
+<li>If your rubric has 4 criteria and you specify 3 judges, there will be <strong>12 individual scores</strong> (4 × 3).  </li>
+<li>The final <code>jury_score</code> is the <strong>simple mean</strong> of all these scores.  </li>
+</ul>
+<p>This ensures that all judges and all criteria contribute equally to the final evaluation.</p>
+<h4 id="4-define-a-run-configuration-conf_1">4. Define a Run Configuration (<code>.conf</code>)</h4>
+<p><strong>Example — <code>llm_jury_score_demo.conf</code>:</strong></p>
+<pre><code class="language-yaml">entries: [
+  {description: &quot;medhelm_configurable_benchmark:model=qwen/qwen2.5-7b-instruct,model_deployment=huggingface/qwen2.5-7b-instruct,config_path=llm_jury_score_demo.yaml&quot;, priority: 1},
+]
+</code></pre>
+<h4 id="5-run-the-benchmark_1">5. Run the Benchmark</h4>
+<p>The following steps are bundled into the <code>run.sh</code> script.</p>
+<p>Configure the run:</p>
+<pre><code class="language-bash">export SUITE_NAME=&quot;DEMO&quot;
+export RUN_ENTRIES_CONF_PATH=&quot;./llm_jury_score_demo.conf&quot;
+export MAX_EVAL_INSTANCES=2
+export OUTPUT_PATH=&quot;./benchmark_output&quot;
+</code></pre>
+<p>Run the benchmark:</p>
+<pre><code class="language-bash">helm-run \
+  --conf-paths $RUN_ENTRIES_CONF_PATH \
+  --max-eval-instances $MAX_EVAL_INSTANCES \
+  --suite $SUITE_NAME \
+  --output-path $OUTPUT_PATH
+</code></pre>
+<p>Recreate the leaderboard:</p>
+<pre><code class="language-bash">helm-summarize \
+  --auto-generate-schema \
+  --suite $SUITE_NAME \
+  --output-path $OUTPUT_PATH
+</code></pre>
+<p>Launch the leaderboard:</p>
+<pre><code class="language-bash">helm-server \
+  --suite $SUITE_NAME \
+  --output-path $OUTPUT_PATH
+</code></pre>
+<h4 id="key-differences-from-the-exact-match-demo">Key Differences from the Exact Match Demo</h4>
+<ul>
+<li>The <strong>prompt</strong> produces longer, free-text outputs (summaries).  </li>
+<li>The <strong>metric</strong> is <code>jury_score</code>, which requires a judge prompt and judge models.  </li>
+<li>The <strong>evaluation</strong> uses LLMs as judges rather than string overlap metrics.</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://hai.stanford.edu/news/holistic-evaluation-of-large-language-models-for-medical-applications">Stanford HAI Article</a></li>
+<li><a href="https://crfm.stanford.edu/helm/medhelm/latest/">MedHELM Website (latest leaderboard)</a></li>
+<li><a href="https://arxiv.org/abs/2505.23802">ArXiv Preprint</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

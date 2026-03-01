@@ -1,0 +1,2231 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://medhelm.org/enterprise_benchmark/">
+      
+      
+        <link rel="prev" href="../vhelm/">
+      
+      
+        <link rel="next" href="../reeval/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>Enterprise benchmark - MedHELM</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../docstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#enterprise-benchmarks-for-large-language-model-evaluation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MedHELM" class="md-header__button md-logo" aria-label="MedHELM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MedHELM
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Enterprise benchmark
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Pacific-AI-Corp/medhelm/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MedHELM" class="md-nav__button md-logo" aria-label="MedHELM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MedHELM
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Pacific-AI-Corp/medhelm/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Holistic Evaluation of Language Models (HELM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quick_start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../run_entries_configuration_files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run Entries Configuration Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../run_entries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run Entries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../credentials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credentials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../importing_custom_modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Importing Custom Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding_new_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding New Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding_new_scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding New Scenarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding_new_tokenizers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding New Tokenizers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downloading_raw_results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Downloading Raw Results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reproducing_leaderboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducing Leaderboards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../get_helm_rank/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Efficient-HELM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Benchmarking Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../huggingface_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hugging Face Model Hub Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Papers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Papers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../heim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HEIM (Text-to-image Model Evaluation)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vhelm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VHELM (Vision-Language Models)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise benchmark
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise benchmark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting started
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-of-the-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage of the scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage of the scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Finance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conv_fin_qa_calc-convfinqacalc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        conv_fin_qa_calc (ConvFinQACalc)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#financial_phrasebank-financial-phrasebank" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        financial_phrasebank (Financial Phrasebank)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gold_commodity_news-gold-commodity-news" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gold_commodity_news (Gold Commodity News)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kpi_edgar-kpi-edgar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        kpi_edgar (KPI EDGAR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#legal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Legal
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Legal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#casehold-casehold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        casehold (CASEHold)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#echr_judgment_classification-echr-judgement-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        echr_judgment_classification (ECHR Judgement Classification)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#legal_contract_summarization-legal-contract-summarization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        legal_contract_summarization (Legal Contract Summarization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#legal_opinion_sentiment_classification-legal-opinion-sentiment-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        legal_opinion_sentiment_classification (Legal Opinion Sentiment Classification)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#climate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Climate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Climate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sumosum-sumo-web-claims-summarization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sumosum (SUMO Web Claims Summarization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cyber-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cyber security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cyber security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cti_to_mitre-cti-to-mitre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cti_to_mitre (CTI to MITRE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paper
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contributors
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reeval/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliable and Efficient Amortized Model-based Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../medhelm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MedHELM: Holistic Evaluation of Large Language Models for Medical Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../perturbations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Perturbations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_adding_new_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding New Clients
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proxy_server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proxy Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editing_documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editing Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting started
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-of-the-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage of the scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage of the scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Finance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conv_fin_qa_calc-convfinqacalc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        conv_fin_qa_calc (ConvFinQACalc)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#financial_phrasebank-financial-phrasebank" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        financial_phrasebank (Financial Phrasebank)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gold_commodity_news-gold-commodity-news" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gold_commodity_news (Gold Commodity News)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kpi_edgar-kpi-edgar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        kpi_edgar (KPI EDGAR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#legal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Legal
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Legal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#casehold-casehold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        casehold (CASEHold)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#echr_judgment_classification-echr-judgement-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        echr_judgment_classification (ECHR Judgement Classification)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#legal_contract_summarization-legal-contract-summarization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        legal_contract_summarization (Legal Contract Summarization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#legal_opinion_sentiment_classification-legal-opinion-sentiment-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        legal_opinion_sentiment_classification (Legal Opinion Sentiment Classification)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#climate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Climate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Climate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sumosum-sumo-web-claims-summarization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sumosum (SUMO Web Claims Summarization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cyber-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cyber security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cyber security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cti_to_mitre-cti-to-mitre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cti_to_mitre (CTI to MITRE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paper
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contributors
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<!--intro-start-->
+<h1 id="enterprise-benchmarks-for-large-language-model-evaluation">Enterprise Benchmarks for Large Language Model Evaluation</h1>
+<!-- This is a fork from the original HELM for a study of enterprise benchmarking of LLMs using domain-specific datasets.
+The original README continues after this section. -->
+
+<h2 id="introduction">Introduction</h2>
+<p>This is a set of benchmarks and metrics for a study of enterprise benchmarking of LLMs using domain-specific datasets
+from finance, legal, climate, and cyber security domains.</p>
+<p>In many enterprise applications of LLMs, a model needs to process domain-specific text data.
+In such cases, the performance of a model can be different from what is expected
+from non-domain-specific benchmarks, such as benchmarks for language capabilities and common-sense knowledges.
+Therefore, it is important to use a domain-specific dataset whose distribution is close to that of the actual application domain.</p>
+<!-- Here, public datasets from the above four domains were curated and corresponding scenarios were implemented. -->
+<p>The following scenarios are added.</p>
+<ul>
+<li>Finance<ul>
+<li>conv_fin_qa_calc</li>
+<li>financial_phrasebank</li>
+<li>gold_commodity_news (news_headline)</li>
+<li>kpi_edgar</li>
+</ul>
+</li>
+<li>Legal<ul>
+<li>casehold</li>
+<li>echr_judgment_classification</li>
+<li>legal_contract_summarization</li>
+<li>legal_opinion_sentiment_classification</li>
+</ul>
+</li>
+<li>Climate<ul>
+<li>sumosum</li>
+</ul>
+</li>
+<li>Cyber security<ul>
+<li>cti_to_mitre</li>
+</ul>
+</li>
+</ul>
+<!-- The following metrics are added or modified.
+- kpi_edgar_metrics
+- classification_metrics  (weighted_f1)
+- basic_metrics  (float_equiv, a bug fix for f1_score) -->
+
+<h2 id="getting-started">Getting started</h2>
+<p>Please follow the standard installation procedure. No additional steps are required for these benchmarks.</p>
+<p>Here is an example of <code>run_specs.conf</code></p>
+<pre><code class="language-json">entries: [
+  {description: &quot;gold_commodity_news:model=openai/gpt2,category=price_or_not&quot;, priority: 1},
+  {description: &quot;sumosum:model=openai/gpt2&quot;, priority: 1},
+  {description: &quot;legal_contract_summarization:model=openai/gpt2&quot;, priority: 1},
+  {description: &quot;casehold:model=openai/gpt2&quot;, priority: 1},
+ ]
+</code></pre>
+<p>Then, the benchmark scenarios can be executed by the following command.</p>
+<pre><code class="language-sh">helm-run --conf-paths {path_to}/run_specs.conf -m 100 --suite a_benchmark_suite_v1
+helm-summarize --suite a_benchmark_suite_v1
+</code></pre>
+<h2 id="usage-of-the-scenarios">Usage of the scenarios</h2>
+<p>Please refer to the docstring of the source code of each scenario, or the page shown by <code>helm-server</code> for the details (i.e., <code>src/helm/benchmark/static/schema_enterprise.yaml</code>). </p>
+<h3 id="finance">Finance</h3>
+<h4 id="conv_fin_qa_calc-convfinqacalc">conv_fin_qa_calc (ConvFinQACalc)</h4>
+<ul>
+<li>Description: A mathematical calculation benchmark based on ConvFinQA: Exploring the Chain of Numerical Reasoning in Conversational Finance Question Answering <a href="https://arxiv.org/pdf/2210.03849.pdf">(Chen ey al., 2022)</a>.</li>
+<li>Scenario name: <code>conv_fin_qa_calc</code></li>
+<li>Parameters:</li>
+<li>Metrics:<ul>
+<li><code>float_equiv</code> (from <code>helm.benchmark.metrics.conv_fin_qa_calc_metrics.ConvFinQACalcMetric</code>)</li>
+</ul>
+</li>
+<li>Source code: <code>src/helm/benchmark/scenarios/conv_fin_qa_calc_scenario.py</code></li>
+</ul>
+<h4 id="financial_phrasebank-financial-phrasebank">financial_phrasebank (Financial Phrasebank)</h4>
+<ul>
+<li>Description: A sentiment classification benchmark based on the dataset from Good Debt or Bad Debt - Detecting Semantic Orientations in Economic Texts <a href="https://arxiv.org/abs/1307.5336">(Malo et al., 2013)</a>.</li>
+<li>Scenario name: <code>financial_phrasebank</code></li>
+<li>Parameters:<ul>
+<li><code>agreement</code>: <code>int = 50</code>. Optional. Valid values are defined in <code>FinancialPhrasebankScenario.AGREEMENT_VALUES = [50, 66, 75, 100]</code>. This argument is used to specify the ratio of annotators who agreed on the ground truth label.</li>
+</ul>
+</li>
+<li>Metrics:<ul>
+<li><code>classification_weighted_f1</code></li>
+</ul>
+</li>
+<li>Source code: <code>src/helm/benchmark/scenarios/financial_phrasebank_scenario.py</code></li>
+</ul>
+<h4 id="gold_commodity_news-gold-commodity-news">gold_commodity_news (Gold Commodity News)</h4>
+<ul>
+<li>Description: A classification benchmark based on a dataset of human-annotated gold commodity news headlines (<a href="https://arxiv.org/abs/2009.04202">Sinha &amp; Khandait, 2019</a>).</li>
+<li>Scenario name: <code>gold_commodity_news</code></li>
+<li>Parameters:<ul>
+<li><code>category</code>: <code>str</code>  . This is a mandatory option. The task is to classify whether an input (a news headline) discusses about the category specified. One of the following values can be specified.<ul>
+<li><code>price_or_not</code>: "the gold price",</li>
+<li><code>direction_up</code>: "the gold price heading up",</li>
+<li><code>direction_constant</code>: "the price remaining constant or stable",</li>
+<li><code>direction_down</code>: "the gold price heading down",</li>
+<li><code>past_price</code>: "any past information about gold prices",</li>
+<li><code>future_price</code>: "any future information about gold prices",</li>
+<li><code>past_news</code>: "any past information other than the gold prices",</li>
+<li><code>future_news</code>: "any future information other than the gold prices",</li>
+<li><code>assert_comparison</code>: "a comparison purely in the context of the gold commodity with another asset",</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Metrics:<ul>
+<li><code>classification_weighted_f1</code></li>
+</ul>
+</li>
+<li>Source code: <code>src/helm/benchmark/scenarios/gold_commodity_news_scenario.py</code></li>
+</ul>
+<h4 id="kpi_edgar-kpi-edgar">kpi_edgar (KPI EDGAR)</h4>
+<ul>
+<li>Description: A named entity recognition beenchmark based on the paper KPI-EDGAR - A Novel Dataset and Accompanying Metric for Relation Extraction from Financial Documents <a href="https://arxiv.org/pdf/2210.09163.pdf">(Deußer et al., 2022)</a>.</li>
+<li>Scenario name: <code>kpi_edgar</code></li>
+<li>Parameters:</li>
+<li>Metrics:<ul>
+<li><code>word_macro_f1_score</code>  (from <code>helm.benchmark.metrics.kpi_edgar_metrics.KPIEdgarMetric</code>)</li>
+<li><code>adjusted_macro_f1_score</code>  (from <code>helm.benchmark.metrics.kpi_edgar_metrics.KPIEdgarMetric</code>)</li>
+</ul>
+</li>
+<li>Source code: <code>src/helm/benchmark/scenarios/kpi_edgar_scenario.py</code></li>
+</ul>
+<h3 id="legal">Legal</h3>
+<h4 id="casehold-casehold">casehold (CASEHold)</h4>
+<ul>
+<li>Description: CaseHOLD (Case Holdings On Legal Decisions) is a multiple choice question answering scenario where the task is to identify the relevant holding of a cited case <a href="https://arxiv.org/pdf/2104.08671.pdf">(Zheng et al, 2021)</a>.</li>
+<li>Scenario name: <code>casehold</code></li>
+<li>Parameters:</li>
+<li>Metrics:<ul>
+<li><code>f1</code> (instance-wide F1 in <code>basic_metrics.py</code>)</li>
+</ul>
+</li>
+<li>Source code: <code>src/helm/benchmark/scenarios/casehold_scenario.py</code></li>
+</ul>
+<h4 id="echr_judgment_classification-echr-judgement-classification">echr_judgment_classification (ECHR Judgement Classification)</h4>
+<ul>
+<li>Description: The "Binary Violation" Classification task from the paper Neural Legal Judgment Prediction in English <a href="https://arxiv.org/pdf/1906.02059.pdf">(Chalkidis et al., 2019)</a>. The task is to analyze the description of a legal case from the European Court of Human Rights (ECHR), and classify it as positive if any human rights article or protocol has been violated and negative otherwise.</li>
+<li>Scenario name: <code>echr_judgment_classification</code></li>
+<li>Parameters:</li>
+<li>Metrics:<ul>
+<li><code>classification_weighted_f1</code></li>
+</ul>
+</li>
+<li>Source code: <code>src/helm/benchmark/scenarios/echr_judgment_classification_scenario.py</code></li>
+</ul>
+<h4 id="legal_contract_summarization-legal-contract-summarization">legal_contract_summarization (Legal Contract Summarization)</h4>
+<ul>
+<li>Description: Plain English Summarization of Contracts <a href="https://aclanthology.org/W19-2201.pdf">(Manor et al., 2019)</a>.</li>
+<li>Scenario name: <code>legal_contract_summarization</code></li>
+<li>Parameters:</li>
+<li>Metrics:<ul>
+<li><code>rouge_1</code></li>
+<li><code>rouge_2</code></li>
+<li><code>rouge_l</code></li>
+</ul>
+</li>
+<li>Source code: <code>src/helm/benchmark/scenarios/legal_contract_summarization_scenario.py</code></li>
+</ul>
+<h4 id="legal_opinion_sentiment_classification-legal-opinion-sentiment-classification">legal_opinion_sentiment_classification (Legal Opinion Sentiment Classification)</h4>
+<ul>
+<li>Description: A legal opinion sentiment classification task based on the paper Effective Approach to Develop a Sentiment Annotator For Legal Domain in a Low Resource Setting <a href="https://arxiv.org/pdf/2011.00318.pdf">(Ratnayaka et al., 2020)</a>.</li>
+<li>Scenario name: <code>legal_opinion_sentiment_classification</code></li>
+<li>Parameters:</li>
+<li>Metrics:<ul>
+<li><code>classification_weighted_f1</code></li>
+</ul>
+</li>
+<li>Source code: <code>src/helm/benchmark/scenarios/legal_opinion_sentiment_classification_scenario.py</code></li>
+</ul>
+<h3 id="climate">Climate</h3>
+<h4 id="sumosum-sumo-web-claims-summarization">sumosum (SUMO Web Claims Summarization)</h4>
+<ul>
+<li>Description: A summarization benchmark based on the climate subset of the SUMO dataset (<a href="https://aclanthology.org/2020.wnut-1.12/">Mishra et al., 2020</a>).</li>
+<li>Scenario name: <code>sumosum</code></li>
+<li>Parameters:</li>
+<li>Metrics:<ul>
+<li><code>rouge_1</code> </li>
+<li><code>rouge_2</code> </li>
+<li><code>rouge_l</code></li>
+</ul>
+</li>
+<li>Source code: <code>src/helm/benchmark/scenarios/sumosum_scenario.py</code></li>
+</ul>
+<h3 id="cyber-security">Cyber security</h3>
+<h4 id="cti_to_mitre-cti-to-mitre">cti_to_mitre (CTI to MITRE)</h4>
+<ul>
+<li>Description: A classification benchmark based on Automatic Mapping of Unstructured Cyber Threat Intelligence - An Experimental Study <a href="https://arxiv.org/pdf/2208.12144.pdf">(Orbinato et al., 2022)</a>.</li>
+<li>Scenario name: <code>cti_to_mitre</code></li>
+<li>Parameters:<ul>
+<li><code>num_options</code>: <code>int = 10</code>  Optional. Number of choices in multiple-choice task.</li>
+<li><code>seed</code>: <code>int = 42</code>  Optional. Seed for random module. The seed is set to random if specified.</li>
+</ul>
+</li>
+<li>Metrics:<ul>
+<li><code>exact_match</code></li>
+</ul>
+</li>
+<li>Source code: <code>src/helm/benchmark/scenarios/cti_to_mitre_scenario.py</code></li>
+</ul>
+<h2 id="paper">Paper</h2>
+<p>This study is published in the following paper. Please cite this paper if you use this code in your research and you publish it.
+- B. Zhang, M. Takeuchi, R. Kawahara, S. Asthana, Md. M. Hossain, G. Ren, K. Soule and Y. Zhu, “Enterprise Benchmarks for Large Language Model Evaluation.” arXiv preprint arXiv:2410.12857 2024. <a href="https://arxiv.org/abs/2410.12857">https://arxiv.org/abs/2410.12857</a></p>
+<!-- ```
+@misc{zhang2024enterprisebenchmarkslargelanguage,
+      title={Enterprise Benchmarks for Large Language Model Evaluation}, 
+      author={Bing Zhang and Mikio Takeuchi and Ryo Kawahara and Shubhi Asthana and Md. Maruf Hossain and Guang-Jie Ren and Kate Soule and Yada Zhu},
+      year={2024},
+      eprint={2410.12857},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2410.12857}, 
+}
+``` -->
+
+<pre><code>@article{zhang2024enterprise,
+  title={Enterprise Benchmarks for Large Language Model Evaluation},
+  author={Zhang, Bing and Takeuchi, Mikio and Kawahara, Ryo and Asthana, Shubhi and Hossain, Md Maruf and Ren, Guang-Jie and Soule, Kate and Zhu, Yada},
+  journal={arXiv preprint arXiv:2410.12857},
+  url={https://arxiv.org/abs/2410.12857}, 
+  year={2024}
+}
+</code></pre>
+<p><img alt="Finance benchmark results" src="../helm-eb-finance-2024.png" title="Finance benchmark results" /></p>
+<p><img alt="Legal benchmark results" src="../helm-eb-legal-2024.png" title="Legal benchmark results" /></p>
+<p><img alt="Climate and sustainability benchmark results" src="../helm-eb-climate-2024.png" title="Climate and sustainability benchmark results" /></p>
+<p><img alt="Cyber security benchmark results" src="../helm-eb-cybersecurity-2024.png" title="Cyber security benchmark results" /></p>
+<h2 id="contributors">Contributors</h2>
+<p>Original contributors are as follows:</p>
+<ul>
+<li>Yada Zhu, Kate Soule (MIT-IBM Watson AI Lab)</li>
+<li>Mikio Takeuchi, Ryo Kawahara, Futoshi Iwama, Alisa Arno (IBM Research - Tokyo)</li>
+<li>Bing Zhang, Shubhi Asthana (IBM Almaden Research Lab)</li>
+<li>Md Maruf Hossain, Naoto Satoh, Guang-Jie Ren (former IBM members)</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

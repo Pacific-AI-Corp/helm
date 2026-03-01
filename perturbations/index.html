@@ -1,0 +1,5269 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://medhelm.org/perturbations/">
+      
+      
+        <link rel="prev" href="../metrics/">
+      
+      
+        <link rel="next" href="../scenarios/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>Perturbations - MedHELM</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../docstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#perturbations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MedHELM" class="md-header__button md-logo" aria-label="MedHELM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MedHELM
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Perturbations
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Pacific-AI-Corp/medhelm/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MedHELM" class="md-nav__button md-logo" aria-label="MedHELM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MedHELM
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Pacific-AI-Corp/medhelm/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Holistic Evaluation of Language Models (HELM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quick_start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../run_entries_configuration_files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run Entries Configuration Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../run_entries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run Entries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../credentials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credentials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../importing_custom_modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Importing Custom Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding_new_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding New Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding_new_scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding New Scenarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding_new_tokenizers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding New Tokenizers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downloading_raw_results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Downloading Raw Results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reproducing_leaderboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducing Leaderboards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../get_helm_rank/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Efficient-HELM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Benchmarking Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../huggingface_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hugging Face Model Hub Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Papers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Papers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../heim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HEIM (Text-to-image Model Evaluation)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vhelm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VHELM (Vision-Language Models)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enterprise_benchmark/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise benchmark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reeval/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliable and Efficient Amortized Model-based Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../medhelm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MedHELM: Holistic Evaluation of Large Language Models for Medical Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Perturbations
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Perturbations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cleva_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="cleva_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.CLEVAMildMixPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLEVAMildMixPerturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLEVAMildMixPerturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.CLEVAMildMixPerturbation.chinese_typos_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        chinese_typos_perturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.CLEVAMildMixPerturbation.synonym_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        synonym_perturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.ChineseGenderPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ChineseGenderPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.ChinesePersonNamePerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ChinesePersonNamePerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.ChineseSynonymPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ChineseSynonymPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.ChineseTyposPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ChineseTyposPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.MandarinToCantonesePerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MandarinToCantonesePerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.SimplifiedToTraditionalPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SimplifiedToTraditionalPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.contraction_expansion_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        contraction_expansion_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="contraction_expansion_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.contraction_expansion_perturbation.ContractionPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ContractionPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.contraction_expansion_perturbation.ExpansionPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExpansionPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.contrast_sets_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        contrast_sets_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="contrast_sets_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.contrast_sets_perturbation.ContrastSetsPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ContrastSetsPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.dialect_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dialect_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="dialect_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.dialect_perturbation.DialectPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DialectPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.extra_space_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        extra_space_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="extra_space_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.extra_space_perturbation.ExtraSpacePerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExtraSpacePerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.filler_words_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        filler_words_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="filler_words_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.filler_words_perturbation.FillerWordsPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FillerWordsPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.gender_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gender_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="gender_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.gender_perturbation.GenderPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GenderPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.lowercase_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lowercase_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="lowercase_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.lowercase_perturbation.LowerCasePerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LowerCasePerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.mild_mix_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mild_mix_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="mild_mix_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.mild_mix_perturbation.MildMixPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MildMixPerturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MildMixPerturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.mild_mix_perturbation.MildMixPerturbation.contraction_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        contraction_perturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.mild_mix_perturbation.MildMixPerturbation.lowercase_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lowercase_perturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.mild_mix_perturbation.MildMixPerturbation.misspelling_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        misspelling_perturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.mild_mix_perturbation.MildMixPerturbation.space_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        space_perturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.misspelling_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        misspelling_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="misspelling_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.misspelling_perturbation.MisspellingPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MisspellingPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.person_name_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        person_name_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="person_name_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.person_name_perturbation.PersonNamePerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PersonNamePerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.space_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        space_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="space_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.space_perturbation.SpacePerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SpacePerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.suffix_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        suffix_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="suffix_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.suffix_perturbation.SuffixPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SuffixPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.synonym_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        synonym_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="synonym_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.synonym_perturbation.SynonymPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SynonymPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.translate_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        translate_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="translate_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.translate_perturbation.TranslatePerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TranslatePerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.typos_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        typos_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="typos_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.typos_perturbation.TyposPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TyposPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_adding_new_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding New Clients
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proxy_server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proxy Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editing_documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editing Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cleva_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="cleva_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.CLEVAMildMixPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLEVAMildMixPerturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLEVAMildMixPerturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.CLEVAMildMixPerturbation.chinese_typos_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        chinese_typos_perturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.CLEVAMildMixPerturbation.synonym_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        synonym_perturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.ChineseGenderPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ChineseGenderPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.ChinesePersonNamePerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ChinesePersonNamePerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.ChineseSynonymPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ChineseSynonymPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.ChineseTyposPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ChineseTyposPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.MandarinToCantonesePerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MandarinToCantonesePerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.cleva_perturbation.SimplifiedToTraditionalPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SimplifiedToTraditionalPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.contraction_expansion_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        contraction_expansion_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="contraction_expansion_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.contraction_expansion_perturbation.ContractionPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ContractionPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.contraction_expansion_perturbation.ExpansionPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExpansionPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.contrast_sets_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        contrast_sets_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="contrast_sets_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.contrast_sets_perturbation.ContrastSetsPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ContrastSetsPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.dialect_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dialect_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="dialect_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.dialect_perturbation.DialectPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DialectPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.extra_space_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        extra_space_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="extra_space_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.extra_space_perturbation.ExtraSpacePerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExtraSpacePerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.filler_words_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        filler_words_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="filler_words_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.filler_words_perturbation.FillerWordsPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FillerWordsPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.gender_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gender_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="gender_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.gender_perturbation.GenderPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GenderPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.lowercase_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lowercase_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="lowercase_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.lowercase_perturbation.LowerCasePerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LowerCasePerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.mild_mix_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mild_mix_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="mild_mix_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.mild_mix_perturbation.MildMixPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MildMixPerturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MildMixPerturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.mild_mix_perturbation.MildMixPerturbation.contraction_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        contraction_perturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.mild_mix_perturbation.MildMixPerturbation.lowercase_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lowercase_perturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.mild_mix_perturbation.MildMixPerturbation.misspelling_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        misspelling_perturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.mild_mix_perturbation.MildMixPerturbation.space_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        space_perturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.misspelling_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        misspelling_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="misspelling_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.misspelling_perturbation.MisspellingPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MisspellingPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.person_name_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        person_name_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="person_name_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.person_name_perturbation.PersonNamePerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PersonNamePerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.space_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        space_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="space_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.space_perturbation.SpacePerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SpacePerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.suffix_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        suffix_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="suffix_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.suffix_perturbation.SuffixPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SuffixPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.synonym_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        synonym_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="synonym_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.synonym_perturbation.SynonymPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SynonymPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.translate_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        translate_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="translate_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.translate_perturbation.TranslatePerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TranslatePerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.typos_perturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        typos_perturbation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="typos_perturbation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm.benchmark.augmentations.typos_perturbation.TyposPerturbation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TyposPerturbation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="perturbations">Perturbations</h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helm.benchmark.augmentations.cleva_perturbation" class="doc doc-heading">
+            <code>cleva_perturbation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.cleva_perturbation.CLEVAMildMixPerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">CLEVAMildMixPerturbation</span><span class="p">()</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>CLEVA robustness perturbation that composes several perturbations.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helm.benchmark.augmentations.cleva_perturbation.CLEVAMildMixPerturbation.chinese_typos_perturbation" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">chinese_typos_perturbation</span> <span class="o">=</span> <span class="n">ChineseTyposPerturbation</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helm.benchmark.augmentations.cleva_perturbation.CLEVAMildMixPerturbation.synonym_perturbation" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">synonym_perturbation</span> <span class="o">=</span> <span class="n">ChineseSynonymPerturbation</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.cleva_perturbation.ChineseGenderPerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">ChineseGenderPerturbation</span><span class="p">(</span><span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prob</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">source_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Individual fairness perturbation for Chinese gender terms and pronouns.</p>
+
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>mode</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The mode of the gender perturbation, must be one of
+"terms" or "pronouns".</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>prob</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Probability of substituting a word in the source class with
+a word in the target class given that a substitution is
+available.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>source_class</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The source gender that will be substituted with
+the target gender. If mapping_file_path is provided, the source
+class must be one of the genders in it. If not, it must be
+exactly one of <code>male</code>, <code>female</code>, and <code>neutral</code>. Case-insensitive.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>target_class</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Same as the source class, but for the target gender.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.cleva_perturbation.ChinesePersonNamePerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">ChinesePersonNamePerturbation</span><span class="p">(</span><span class="n">prob</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">source_class</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">target_class</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">preserve_gender</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Individual fairness perturbation for Chinese person names.</p>
+
+        <p>Code adopted from
+<a href="https://github.com/stanford-crfm/helm/blob/main/src/helm/benchmark/augmentations/person_name_perturbation.py">https://github.com/stanford-crfm/helm/blob/main/src/helm/benchmark/augmentations/person_name_perturbation.py</a></p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>prob</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Probability of substituting a word in the source class with
+a word in the target class given that a substitution is
+available.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>source_class</code>
+            </td>
+            <td>
+                  <code><span title="typing.Dict">Dict</span>[<span title="str">str</span>, <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The properties of the source class. The keys of the
+dictionary should correspond to categories ("gender" only for
+now) and the values should be the corresponding values. If
+more than one category is provided. Case-insensitive.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>target_class</code>
+            </td>
+            <td>
+                  <code><span title="typing.Dict">Dict</span>[<span title="str">str</span>, <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Same as source_class, but specifies the target_class.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>preserve_gender</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If set to True, we preserve the gender when
+mapping names of one category to those of another. If we can't
+find the gender association for a source_word, we randomly
+pick from one of the target names.</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.cleva_perturbation.ChineseSynonymPerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">ChineseSynonymPerturbation</span><span class="p">(</span><span class="n">prob</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">trial_num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Chinese synonyms. For implementation details, see
+<a href="https://github.com/GEM-benchmark/NL-Augmenter/blob/main/nlaugmenter/transformations/chinese_antonym_synonym_substitution">https://github.com/GEM-benchmark/NL-Augmenter/blob/main/nlaugmenter/transformations/chinese_antonym_synonym_substitution</a></p>
+<p>This perturbation adds noise to a text source by randomly inserting synonyms of randomly selected
+words excluding punctuations and stopwords.</p>
+<p>Perturbation example:</p>
+<p><strong>Input:</strong>
+    裸婚，这里的“裸”，指物质财富匮乏的情况下结婚，例如：无房无车无存款，有时候用于强调现实的无奈，也有时候用于强调人对情感的关注。</p>
+<p><strong>Output:</strong>
+    裸婚，这里底“裸”，指物质财富匮乏的情况下结婚，譬如说：无房无车无储蓄，有时候用于强调现实的无奈，亦有时候用来强调人士对情感的关注。</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.cleva_perturbation.ChineseTyposPerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">ChineseTyposPerturbation</span><span class="p">(</span><span class="n">prob</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">rare_char_prob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">consider_tone</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">word_level_perturb</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Chinese typos. For implementation details, see
+<a href="https://github.com/GEM-benchmark/NL-Augmenter/tree/main/nlaugmenter/transformations/chinese_butter_fingers_perturbation">https://github.com/GEM-benchmark/NL-Augmenter/tree/main/nlaugmenter/transformations/chinese_butter_fingers_perturbation</a></p>
+<p>This perturbation adds noise to a text source by randomly replacing Chinese characters or words by
+other characters or words that share a similar Pinyin.</p>
+<p>Perturbation example:</p>
+<p><strong>Input:</strong>
+    我想买一部新手机。</p>
+<p><strong>Output:</strong>
+    我想买一部新收集。</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.cleva_perturbation.MandarinToCantonesePerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">MandarinToCantonesePerturbation</span><span class="p">()</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Individual fairness perturbation for Mandarin to Cantonese translation.
+The implementation is inspired by <a href="https://justyy.com/tools/chinese-converter/">https://justyy.com/tools/chinese-converter/</a></p>
+<p>Note that this is a rule-based translation system and there are limitations.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.cleva_perturbation.SimplifiedToTraditionalPerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">SimplifiedToTraditionalPerturbation</span><span class="p">()</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Individual fairness perturbation for Chinese simplified to Chinese traditional.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helm.benchmark.augmentations.contraction_expansion_perturbation" class="doc doc-heading">
+            <code>contraction_expansion_perturbation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.contraction_expansion_perturbation.ContractionPerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">ContractionPerturbation</span><span class="p">()</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Contractions.
+Replaces each expansion with its contracted version.</p>
+<p>Perturbation example:</p>
+<p><strong>Input:</strong>
+    She is a doctor, and I am a student</p>
+<p><strong>Output:</strong>
+    She's a doctor, and I'm a student</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.contraction_expansion_perturbation.ExpansionPerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">ExpansionPerturbation</span><span class="p">()</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Expansions.
+Replaces each contraction with its expanded version.</p>
+<p>Perturbation example:</p>
+<p><strong>Input:</strong>
+    She's a doctor, and I'm a student</p>
+<p><strong>Output:</strong>
+    She is a doctor, and I am a student</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helm.benchmark.augmentations.contrast_sets_perturbation" class="doc doc-heading">
+            <code>contrast_sets_perturbation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.contrast_sets_perturbation.ContrastSetsPerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">ContrastSetsPerturbation</span><span class="p">()</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Contrast Sets are from this paper (currently supported for the BoolQ and IMDB scenarios):
+<a href="https://arxiv.org/abs/2004.02709">https://arxiv.org/abs/2004.02709</a></p>
+<p>Original repository can be found at:
+<a href="https://github.com/allenai/contrast-sets">https://github.com/allenai/contrast-sets</a></p>
+<p>An example instance of a perturbation for the BoolQ dataset:</p>
+<pre><code>The Fate of the Furious premiered in Berlin on April 4, 2017, and was theatrically released in the United States on
+April 14, 2017, playing in 3D, IMAX 3D and 4DX internationally. . . A spinoff film starring Johnson and Statham’s
+characters is scheduled for release in August 2019, while the ninth and tenth films are scheduled for releases on
+the years 2020 and 2021.
+question: is “Fate and the Furious” the last movie?
+answer: no
+
+perturbed question: is “Fate and the Furious” the first of multiple movies?
+perturbed answer: yes
+perturbation strategy: adjective change.
+</code></pre>
+<p>An example instance of a perturbation for the IMDB dataset (from the original paper):</p>
+<pre><code>Original instance: Hardly one to be faulted for his ambition or his vision, it is genuinely unexpected, then, to see
+all Park’s effort add up to so very little. . . .  The premise is promising, gags are copious and offbeat humour
+abounds but it all fails miserably to create any meaningful connection with the audience.
+Sentiment: negative
+
+Perturbed instance: Hardly one to be faulted for his ambition or his vision, here we
+see all Park’s effort come to fruition. . . . The premise is perfect, gags are
+hilarious and offbeat humour abounds, and it creates a deep connection with the
+audience.
+Sentiment: positive
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helm.benchmark.augmentations.dialect_perturbation" class="doc doc-heading">
+            <code>dialect_perturbation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.dialect_perturbation.DialectPerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">DialectPerturbation</span><span class="p">(</span><span class="n">prob</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">source_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mapping_file_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Individual fairness perturbation for dialect.</p>
+
+        <p>If mapping_file_path is not provided, (source_class, target_class)
+should be ("SAE", "AAVE").</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>prob</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Probability of substituting a word in the original class with
+a word in the target class given that a substitution is
+available.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>source_class</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The source dialect that will be substituted with
+the target dialect. Case-insensitive.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>target_class</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The target dialect.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>mapping_file_path</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The absolute path to a file containing the
+word mappings from the source dialect to the target dialect in
+a json format. The json dictionary must be of type
+Dict[str, List[str]]. Otherwise, the default dictionary in
+self.MAPPING_DICTS for the provided source and target classes
+will be used, if available.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helm.benchmark.augmentations.extra_space_perturbation" class="doc doc-heading">
+            <code>extra_space_perturbation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.extra_space_perturbation.ExtraSpacePerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">ExtraSpacePerturbation</span><span class="p">(</span><span class="n">num_spaces</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>A toy perturbation that replaces existing spaces in the text with
+<code>num_spaces</code> number of spaces.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helm.benchmark.augmentations.filler_words_perturbation" class="doc doc-heading">
+            <code>filler_words_perturbation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.filler_words_perturbation.FillerWordsPerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">FillerWordsPerturbation</span><span class="p">(</span><span class="n">insert_prob</span><span class="o">=</span><span class="mf">0.333</span><span class="p">,</span> <span class="n">max_num_insert</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">speaker_ph</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">uncertain_ph</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fill_ph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Randomly inserts filler words and phrases in the sentence.
+Perturbation example:</p>
+<p><strong>Input:</strong>
+    The quick brown fox jumps over the lazy dog.</p>
+<p><strong>Output:</strong>
+    The quick brown fox jumps over probably the lazy dog.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helm.benchmark.augmentations.gender_perturbation" class="doc doc-heading">
+            <code>gender_perturbation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.gender_perturbation.GenderPerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">GenderPerturbation</span><span class="p">(</span><span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prob</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">source_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mapping_file_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mapping_file_genders</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">bidirectional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Individual fairness perturbation for gender terms and pronouns.</p>
+
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>mode</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The mode of the gender perturbation, must be one of
+"terms" or "pronouns".</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>prob</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Probability of substituting a word in the source class with
+a word in the target class given that a substitution is
+available.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>source_class</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The source gender that will be substituted with
+the target gender. If mapping_file_path is provided, the source
+class must be one of the genders in it. If not, it must be
+exactly one of <code>male</code>, <code>female</code>, and `neutral. Case-insensitive.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>target_class</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Same as the source class, but for the target gender.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>mapping_file_path</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The absolute path to a file containing the
+word mappings from the source gender to the target gender in
+a json format. The json dictionary must be of type
+List[List[str, ...]]. It is assumed that 0th index of the inner
+lists correspond to the 0th gender, 1st index to 1st gender
+and so on. All word cases are lowered.
+If mapping_file_path is None, the default dictionary in
+self.MODE_TO_MAPPINGS for the provided source and target classes
+will be used, if available.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>mapping_file_genders</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="typing.List">List</span>[<span title="str">str</span>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The genders in the mapping supplied in the
+mapping_file_path. The inner lists read from mapping_file_path
+should have the same length as the mapping_file_genders. The
+order of the genders is assumed to reflect the order in the
+mapping_file_path. Must not be None if mapping_file_path
+is set. All word cases are lowered.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>bidirectional</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether we should apply the perturbation in both
+directions. If we need to perturb a word, we first check if it
+is in list of source_class words, and replace it with the
+corresponding target_class word if so. If the word isn't in the
+source_class words, we check if it is in the target_class words,
+and replace it with the corresponding source_class word if so.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helm.benchmark.augmentations.lowercase_perturbation" class="doc doc-heading">
+            <code>lowercase_perturbation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.lowercase_perturbation.LowerCasePerturbation" class="doc doc-heading">
+            <code>LowerCasePerturbation</code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Simple perturbation turning input and references into lowercase.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helm.benchmark.augmentations.mild_mix_perturbation" class="doc doc-heading">
+            <code>mild_mix_perturbation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.mild_mix_perturbation.MildMixPerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">MildMixPerturbation</span><span class="p">()</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Canonical robustness perturbation that composes several perturbations.
+These perturbations are chosen to be reasonable.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helm.benchmark.augmentations.mild_mix_perturbation.MildMixPerturbation.contraction_perturbation" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">contraction_perturbation</span> <span class="o">=</span> <span class="n">ContractionPerturbation</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helm.benchmark.augmentations.mild_mix_perturbation.MildMixPerturbation.lowercase_perturbation" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">lowercase_perturbation</span> <span class="o">=</span> <span class="n">LowerCasePerturbation</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helm.benchmark.augmentations.mild_mix_perturbation.MildMixPerturbation.misspelling_perturbation" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">misspelling_perturbation</span> <span class="o">=</span> <span class="n">MisspellingPerturbation</span><span class="p">(</span><span class="n">prob</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helm.benchmark.augmentations.mild_mix_perturbation.MildMixPerturbation.space_perturbation" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">space_perturbation</span> <span class="o">=</span> <span class="n">SpacePerturbation</span><span class="p">(</span><span class="n">max_spaces</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helm.benchmark.augmentations.misspelling_perturbation" class="doc doc-heading">
+            <code>misspelling_perturbation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.misspelling_perturbation.MisspellingPerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">MisspellingPerturbation</span><span class="p">(</span><span class="n">prob</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Replaces words randomly with common misspellings, from a list of common misspellings.</p>
+<p>Perturbation example:</p>
+<p><strong>Input:</strong>
+    Already, the new product is not available.</p>
+<p><strong>Output:</strong>
+    Aready, the new product is not availible.</p>
+
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>prob</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>probability between [0,1] of perturbing a word to a
+common misspelling (if we have a common misspelling for the word)</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helm.benchmark.augmentations.person_name_perturbation" class="doc doc-heading">
+            <code>person_name_perturbation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.person_name_perturbation.PersonNamePerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">PersonNamePerturbation</span><span class="p">(</span><span class="n">prob</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">source_class</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">target_class</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">name_file_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">person_name_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">FIRST_NAME</span><span class="p">,</span> <span class="n">preserve_gender</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Individual fairness perturbation for person names.</p>
+
+        <p>If name_file_path isn't provided, we use our default name mapping
+file, which can be found at:</p>
+<pre><code>https://storage.googleapis.com/crfm-helm-public/source_datasets/augmentations/person_name_perturbation/person_names.txt
+</code></pre>
+<p>The <strong>available categories</strong> in our default file and their values are as follows:</p>
+<pre><code>If person_name_type == "last_name":
+
+    (1) "race"   =&gt; "asian", "chinese", "hispanic", "russian", "white"
+
+If person_name_type == "first_name":
+
+    (1) "race"   =&gt; "white_american", "black_american"
+    (2) "gender" =&gt; "female", "male"
+</code></pre>
+<p>The first names in our default file come from Caliskan et al. (2017),
+which derives its list from Greenwald (1998). The former removed some
+names from the latter because the corresponding tokens infrequently
+occurred in Common Crawl, which was used as the training corpus for
+GloVe. We include the full list from the latter in our default file.</p>
+<p>The last names in our default file and their associated categories come
+from Garg et. al. (2017), which derives its list from
+Chalabi and Flowers (2014).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>prob</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Probability of substituting a word in the source class with
+a word in the target class given that a substitution is
+available.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>source_class</code>
+            </td>
+            <td>
+                  <code><span title="typing.Dict">Dict</span>[<span title="str">str</span>, <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The properties of the source class. The keys of the
+dictionary should correspond to categories ("race", "gender",
+"religion, "age", etc.) and the values should be the
+corresponding values. If more than one category is provided,
+the source_names list will be constructed by finding the
+intersection of the names list for the provided categories.
+Assuming the 'first_name' mode is selected, an example
+dictionary can be: {'race': 'white_american'}. Case-insensitive.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>target_class</code>
+            </td>
+            <td>
+                  <code><span title="typing.Dict">Dict</span>[<span title="str">str</span>, <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Same as source_class, but specifies the target_class.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>name_file_path</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The absolute path to a file containing the
+category associations of names. Each row of the file must
+have the following format:</p>
+<pre><code>&lt;name&gt;,&lt;name_type&gt;[,&lt;category&gt;,&lt;value&gt;]*
+</code></pre>
+<p>Here is a breakdown of the fields:
+    <name>: The name (e.g. Alex).
+    <name_type>: Must be one of "first_name" or "last_name".
+    <category>: The name of the category (e.g. race, gender,
+        age, religion, etc.)
+    <value>: Value of the preceding category.</p>
+<p>[,<category>,<value>]* denotes that any number of category
+    and value pairs can be appended to a line.</p>
+<p>Here are some example lines:
+    li,last_name,race,chinese
+    aiesha,first_name,race,black_american,gender,female</p>
+<p>Notes:
+    (1) For each field, the leading and trailing spaces are
+        ignored, but those in between words in a field are
+        kept.
+    (2) All the fields are lowered.
+    (3) It is possible for a name to have multiple associations
+        (e.g. with more than one age, gender etc.)</p>
+<p>We use the default file if None is provided.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>person_name_type</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>One of "first_name" or "last_name". If
+"last_name", preserve_gender field must be False.
+Case-insensitive.</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="helm.benchmark.augmentations.person_name_perturbation.PersonNamePerturbation.FIRST_NAME">FIRST_NAME</span></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>preserve_gender</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If set to True, we preserve the gender when
+mapping names of one category to those of another. If we can't
+find the gender association for a source_word, we randomly
+pick from one of the target names.</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helm.benchmark.augmentations.space_perturbation" class="doc doc-heading">
+            <code>space_perturbation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.space_perturbation.SpacePerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">SpacePerturbation</span><span class="p">(</span><span class="n">max_spaces</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>A simple perturbation that replaces existing spaces with 0-max_spaces spaces (thus potentially merging words).</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helm.benchmark.augmentations.suffix_perturbation" class="doc doc-heading">
+            <code>suffix_perturbation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.suffix_perturbation.SuffixPerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">SuffixPerturbation</span><span class="p">(</span><span class="n">suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Appends a suffix to the end of the text. Example:</p>
+<p>A picture of a dog -&gt; A picture of a dog, picasso</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helm.benchmark.augmentations.synonym_perturbation" class="doc doc-heading">
+            <code>synonym_perturbation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.synonym_perturbation.SynonymPerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">SynonymPerturbation</span><span class="p">(</span><span class="n">prob</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Synonyms. For implementation details, see
+<a href="https://github.com/GEM-benchmark/NL-Augmenter/blob/main/nlaugmenter/transformations/synonym_substitution/transformation.py">https://github.com/GEM-benchmark/NL-Augmenter/blob/main/nlaugmenter/transformations/synonym_substitution/transformation.py</a></p>
+<p>This perturbation adds noise to a text source by randomly inserting synonyms of randomly selected
+words excluding punctuations and stopwords.
+The space of synonyms depends on WordNet and could be limited. The transformation might introduce
+non-grammatical segments.</p>
+<p>Perturbation example:</p>
+<p><strong>Input:</strong>
+    This was a good movie, would watch again.</p>
+<p><strong>Output:</strong>
+    This was a dependable movie, would determine again.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helm.benchmark.augmentations.translate_perturbation" class="doc doc-heading">
+            <code>translate_perturbation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.translate_perturbation.TranslatePerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">TranslatePerturbation</span><span class="p">(</span><span class="n">language_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Translates to different languages.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helm.benchmark.augmentations.typos_perturbation" class="doc doc-heading">
+            <code>typos_perturbation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helm.benchmark.augmentations.typos_perturbation.TyposPerturbation" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">TyposPerturbation</span><span class="p">(</span><span class="n">prob</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Typos. For implementation details, see
+<a href="https://github.com/GEM-benchmark/NL-Augmenter/tree/main/transformations/butter_fingers_perturbation">https://github.com/GEM-benchmark/NL-Augmenter/tree/main/transformations/butter_fingers_perturbation</a></p>
+<p>Replaces each random letters with nearby keys on a querty keyboard.
+We modified the keyboard mapping compared to the NL-augmenter augmentations so that: a) only distance-1 keys are
+used for replacement, b) the original letter is no longer an option, c) removed special characters (e.g., commas).</p>
+<p>Perturbation example:</p>
+<p><strong>Input:</strong>
+    After their marriage, she started a close collaboration with Karvelas.</p>
+<p><strong>Output:</strong>
+    Aftrr theif marriage, she started a close collaboration with Karcelas.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

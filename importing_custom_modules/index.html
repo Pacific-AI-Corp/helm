@@ -1,0 +1,2124 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://medhelm.org/importing_custom_modules/">
+      
+      
+        <link rel="prev" href="../credentials/">
+      
+      
+        <link rel="next" href="../adding_new_models/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>Importing Custom Modules - MedHELM</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../docstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#importing-custom-modules" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MedHELM" class="md-header__button md-logo" aria-label="MedHELM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MedHELM
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Importing Custom Modules
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Pacific-AI-Corp/medhelm/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MedHELM" class="md-nav__button md-logo" aria-label="MedHELM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MedHELM
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Pacific-AI-Corp/medhelm/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Holistic Evaluation of Language Models (HELM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quick_start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../run_entries_configuration_files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run Entries Configuration Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../run_entries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run Entries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../credentials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credentials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Importing Custom Modules
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Importing Custom Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#making-your-code-importable-python-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Making your code importable (Python basics)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Making your code importable (Python basics)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-the-current-working-directory-to-pythonpath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add the current working directory to PYTHONPATH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-your-custom-code-in-a-python-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Put your custom code in a Python package
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-a-python-wrapper-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write a Python wrapper script
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-helm-finds-your-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How HELM finds your code
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ways-to-load-plugin-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ways to load plugin modules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ways to load plugin modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-python-entry-points-recommended-for-reusable-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1) Python entry points (recommended for reusable plugins)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-explicit-imports-via-plugins-best-for-quick-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2) Explicit imports via --plugins (best for quick experiments)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-namespace-packages-under-helmbenchmarkrun_specs-legacy-name-based-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3) Namespace packages under helm.benchmark.run_specs (legacy name-based method)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-a-python-wrapper-script-when-you-dont-want-to-use-helm-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4) A Python wrapper script (when you don't want to use helm-run)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-plugin-entry-points-run-spec-objectspec-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example plugin (entry points + run spec + ObjectSpec classes)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example plugin (entry points + run spec + ObjectSpec classes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-initialize-a-packaged-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 - Initialize a packaged project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-your-plugin-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 - Create your plugin module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-register-the-plugin-via-entry-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 - Register the plugin via entry points
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-run-with-your-custom-run-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 - Run with your custom run spec
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding_new_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding New Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding_new_scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding New Scenarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding_new_tokenizers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding New Tokenizers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downloading_raw_results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Downloading Raw Results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reproducing_leaderboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducing Leaderboards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../get_helm_rank/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Efficient-HELM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Benchmarking Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../huggingface_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hugging Face Model Hub Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Papers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Papers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../heim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HEIM (Text-to-image Model Evaluation)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vhelm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VHELM (Vision-Language Models)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enterprise_benchmark/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise benchmark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reeval/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reliable and Efficient Amortized Model-based Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../medhelm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MedHELM: Holistic Evaluation of Large Language Models for Medical Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../perturbations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Perturbations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_adding_new_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding New Clients
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proxy_server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proxy Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editing_documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editing Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#making-your-code-importable-python-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Making your code importable (Python basics)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Making your code importable (Python basics)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-the-current-working-directory-to-pythonpath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add the current working directory to PYTHONPATH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-your-custom-code-in-a-python-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Put your custom code in a Python package
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-a-python-wrapper-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write a Python wrapper script
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-helm-finds-your-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How HELM finds your code
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ways-to-load-plugin-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ways to load plugin modules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ways to load plugin modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-python-entry-points-recommended-for-reusable-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1) Python entry points (recommended for reusable plugins)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-explicit-imports-via-plugins-best-for-quick-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2) Explicit imports via --plugins (best for quick experiments)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-namespace-packages-under-helmbenchmarkrun_specs-legacy-name-based-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3) Namespace packages under helm.benchmark.run_specs (legacy name-based method)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-a-python-wrapper-script-when-you-dont-want-to-use-helm-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4) A Python wrapper script (when you don't want to use helm-run)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-plugin-entry-points-run-spec-objectspec-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example plugin (entry points + run spec + ObjectSpec classes)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example plugin (entry points + run spec + ObjectSpec classes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-initialize-a-packaged-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 - Initialize a packaged project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-your-plugin-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 - Create your plugin module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-register-the-plugin-via-entry-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 - Register the plugin via entry points
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-run-with-your-custom-run-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 - Run with your custom run spec
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="importing-custom-modules">Importing Custom Modules</h1>
+<p>HELM is a modular framework with a plug-in architecture. You can write your own implementation for run specs, clients, tokenizers, scenarios, or metrics and use them in HELM with HELM installed as a library, without needing to modify HELM itself.</p>
+<p>In this document, a <strong>plugin</strong> means <strong>user-provided Python code that extends HELM</strong>. Practically, a plugin is a Python <em>module</em> that either:</p>
+<ul>
+<li>defines classes that HELM can load by fully-qualified name (e.g., <code>my_pkg.my_metric.CustomMetric</code>), and/or</li>
+<li>registers run specs when the module is imported (via a decorator).</li>
+</ul>
+<p>This guide explains:</p>
+<ul>
+<li>how Python importability affects HELM</li>
+<li>how HELM discovers custom code</li>
+<li>your options for loading plugin modules</li>
+<li>a complete end-to-end example using Python entry points (recommended)</li>
+</ul>
+<hr />
+<h2 id="making-your-code-importable-python-basics">Making your code importable (Python basics)</h2>
+<p>HELM will only be able to use custom code that can be imported by Python. In this guide, there are two main ways to make your code importable:</p>
+<ol>
+<li><strong>Install it as a Python package</strong> (optionally in editable mode).</li>
+<li><strong>Add a directory to <code>PYTHONPATH</code></strong> so Python searches it for modules.</li>
+</ol>
+<h3 id="add-the-current-working-directory-to-pythonpath">Add the current working directory to PYTHONPATH</h3>
+<p>If the custom code lives in a Python module under the current working directory, you may need to modify <code>PYTHONPATH</code> to make that module importable.</p>
+<p>This is required because Python does not add the current working directory to the Python module search path when using command line commands / Python entry points such as <code>helm-run</code>. See <a href="https://docs.python.org/3/library/sys_path_init.html">Python's documentation</a> for more details.</p>
+<p>For example, suppose you implemented a custom <code>Client</code> subclass named <code>MyClient</code> in the <code>my_client.py</code> file under your current working directory, and you have a <code>ClientSpec</code> specifying the <code>class_name</code> as <code>my_client.MyClient</code>.</p>
+<p>To make your file importable by Python, you have to add <code>.</code> to your <code>PYTHONPATH</code> so that Python will search in your current working directory for your custom Python modules.</p>
+<p>In Bash, you can do this by running <code>export PYTHONPATH=".:$PYTHONPATH"</code> before running <code>helm-run</code>, or by prefixing <code>helm-run</code> with <code>PYTHONPATH=".:$PYTHONPATH"</code>.</p>
+<h3 id="put-your-custom-code-in-a-python-package">Put your custom code in a Python package</h3>
+<p>If your custom code is located in a Python package, you can simply install your package (optionally in editable mode) and it will automatically be importable by Python. Be sure to install your Python package in the same Python environment as HELM.</p>
+<h3 id="write-a-python-wrapper-script">Write a Python wrapper script</h3>
+<p>If you are using a Python wrapper script that calls <code>helm.benchmark.run.run_benchmark()</code> instead of using <code>helm-run</code>, Python will automatically add the directory containing that script to the Python module search path. If your custom code lives in a Python module under that directory, it will automatically be importable by Python. See <a href="https://docs.python.org/3/library/sys_path_init.html">Python's documentation</a> for more details.</p>
+<hr />
+<h2 id="how-helm-finds-your-code">How HELM finds your code</h2>
+<p>Custom extensions generally work in one of two ways:</p>
+<ol>
+<li><strong>ObjectSpec-backed classes (loaded by class name).</strong>
+   Clients, tokenizers, scenarios, and metrics are defined as classes. HELM loads them by:</li>
+<li>importing the module portion of your fully qualified name, and then</li>
+<li>looking up the class name you specify in the relevant <code>ObjectSpec</code> (e.g., <code>ScenarioSpec</code>, <code>MetricSpec</code>, <code>ClientSpec</code>, <code>TokenizerSpec</code>).</li>
+</ol>
+<p><strong>Key idea:</strong> these modules only need to be <em>importable</em> by Python. They do not need to be imported ahead of time.</p>
+<ol>
+<li><strong>Run specs (registered by decorator).</strong>
+   Run specs are registered <em>at import time</em> via <code>@helm.benchmark.run_spec.run_spec_function(...)</code> and are discoverable by name when you invoke <code>helm-run</code>.</li>
+</ol>
+<p><strong>Key idea:</strong> the module containing the run spec function must be imported so registration code runs. Only modules that define run spec functions need to be imported for discovery.</p>
+<hr />
+<h2 id="ways-to-load-plugin-modules">Ways to load plugin modules</h2>
+<p>The approaches below are mostly about ensuring that modules containing run spec functions get imported (so run specs register). They may also be useful for importing other code early (for example, to fail fast on syntax errors), but only run specs <em>require</em> this.</p>
+<h3 id="1-python-entry-points-recommended-for-reusable-plugins">1) Python entry points (recommended for reusable plugins)</h3>
+<p>If your custom code is an installable Python package, declare a <code>helm</code> entry-point group in your <code>pyproject.toml</code>:</p>
+<pre><code class="language-toml">[project.entry-points.helm]
+my_plugin = &quot;my_package.helm_plugin&quot;
+</code></pre>
+<p>When your package is installed (e.g., as a wheel or with <code>pip install -e .</code>), <code>helm-run</code> can automatically import the entry point module.</p>
+<p>With this method, <code>project.entry-points.helm</code> only needs to include modules that contain run spec functions (and any other modules you explicitly want imported up front).</p>
+<h3 id="2-explicit-imports-via-plugins-best-for-quick-experiments">2) Explicit imports via <code>--plugins</code> (best for quick experiments)</h3>
+<p>You can explicitly tell <code>helm-run</code> what to import. Each <code>--plugins</code> argument can be either an importable module name or a filesystem path to a <code>.py</code> file.</p>
+<p>Importable module names (modules must already be importable, e.g., installed or on <code>PYTHONPATH</code>):</p>
+<pre><code class="language-bash">helm-run --plugins my_package.helm_plugin_a my_package.helm_plugin_b ...
+</code></pre>
+<p>Filesystem paths (loaded from the given <code>.py</code> files):</p>
+<pre><code class="language-bash">helm-run --plugins /path/to/local_plugin_a.py /path/to/local_plugin_b.py ...
+</code></pre>
+<p><strong>How file paths work:</strong> HELM loads plugin paths via <a href="https://ubelt.readthedocs.io/en/latest/auto/ubelt.util_import.html#ubelt.util_import.import_module_from_path"><code>ubelt.import_module_from_path</code></a>. Single-file plugins (a standalone <code>.py</code>) are the simplest and most reliable. If your plugin lives in a package, it's usually best to pass the <strong>module name</strong> and make sure it is installed or on <code>PYTHONPATH</code>. Path-based loading can also work for packaged plugins, as long as the package is an explicit package (i.e., package directories include <code>__init__.py</code>, including parent packages).</p>
+<h3 id="3-namespace-packages-under-helmbenchmarkrun_specs-legacy-name-based-method">3) Namespace packages under <code>helm.benchmark.run_specs</code> (legacy name-based method)</h3>
+<p>HELM automatically discovers run specs placed in the <code>helm.benchmark.run_specs</code> namespace (via <a href="https://docs.python.org/3/library/pkgutil.html#pkgutil.iter_modules"><code>pkgutil.iter_modules</code></a>).</p>
+<p>You can ship a separate package that contributes modules to this namespace (for example, <code>helm/benchmark/run_specs/my_run_spec.py</code>) and registers additional run spec functions when imported.</p>
+<p>This method requires that your package is importable (typically by installing it, or by ensuring it is on <code>PYTHONPATH</code>).</p>
+<h3 id="4-a-python-wrapper-script-when-you-dont-want-to-use-helm-run">4) A Python wrapper script (when you don't want to use <code>helm-run</code>)</h3>
+<p>There is no need to use the <code>helm-run</code> entry point. You can instead write a Python wrapper script that calls <code>helm.benchmark.run.run_benchmark()</code>.</p>
+<p>When you run <code>python your_script.py</code>, Python automatically adds the script's directory to the module search path. This implicitly changes import behavior in the same way as adding that directory to <code>PYTHONPATH</code>.</p>
+<hr />
+<h2 id="example-plugin-entry-points-run-spec-objectspec-classes">Example plugin (entry points + run spec + ObjectSpec classes)</h2>
+<p>This compact example shows both mechanisms:</p>
+<ul>
+<li>a run spec registered via <code>@helm.benchmark.run_spec.run_spec_function(...)</code></li>
+<li>a scenario and metric referenced via <code>class_name=...</code> in <code>ScenarioSpec</code>/<code>MetricSpec</code></li>
+</ul>
+<p>We use the entry point approach because it's the most robust for repeated runs.</p>
+<p>Note: For a small tutorial, we put the run spec and the classes in one file. In larger projects you may prefer to keep your run specs in a dedicated module (the only part that must be imported up front), and keep scenarios/metrics in separate modules.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>A compatible Python (this example uses 3.11)</li>
+<li><a href="https://docs.astral.sh/uv/"><code>uv</code></a> installed</li>
+</ul>
+<h3 id="step-1-initialize-a-packaged-project">Step 1 - Initialize a packaged project</h3>
+<p>From the directory where you want the plugin project:</p>
+<pre><code class="language-bash">uv init --package my_example_helm_module --python=3.11
+cd my_example_helm_module
+</code></pre>
+<h3 id="step-2-create-your-plugin-module">Step 2 - Create your plugin module</h3>
+<p>Create a module for your plugin code:</p>
+<pre><code class="language-bash">mkdir -p src/my_example_helm_module
+touch src/my_example_helm_module/my_submodule_plugin_code.py
+</code></pre>
+<p>Your directory should look like:</p>
+<pre><code class="language-text">my_example_helm_module
+├── pyproject.toml
+├── README.md
+└── src
+    └── my_example_helm_module
+        ├── __init__.py
+        └── my_submodule_plugin_code.py
+</code></pre>
+<p>Write the following into <code>src/my_example_helm_module/my_submodule_plugin_code.py</code>:</p>
+<pre><code class="language-python">from typing import List, Optional
+
+from helm.benchmark.run_spec import RunSpec, run_spec_function
+from helm.benchmark.adaptation.adapter_spec import AdapterSpec
+from helm.benchmark.metrics.metric import Metric, MetricSpec
+from helm.benchmark.metrics.statistic import Stat
+from helm.benchmark.metrics.metric_service import MetricService
+from helm.benchmark.adaptation.request_state import RequestState
+from helm.benchmark.scenarios.scenario import Scenario, ScenarioSpec, ScenarioMetadata, Instance
+from helm.benchmark.metrics.evaluate_reference_metrics import compute_reference_metrics
+from helm.benchmark.scenarios.scenario import TRAIN_SPLIT, TEST_SPLIT, CORRECT_TAG
+from helm.benchmark.scenarios.scenario import Input, Output, Reference
+
+
+class CustomScenario(Scenario):
+    name = &quot;custom_scenario&quot;
+    description = &quot;A tiny scenario used for testing.&quot;
+    tags = [&quot;custom&quot;]
+
+    def get_instances(self, output_path: str) -&gt; List[Instance]:
+        # We include 5 TRAIN_SPLIT instances because the generation adapter
+        # uses a few-shot train instances pool by default. If you return 0
+        # train instances, you'll see: &quot;only 0 training instances, wanted 5&quot;.
+        examples = [
+            # (question, answer, split)
+            (&quot;1+1=?&quot;, &quot;2&quot;, TRAIN_SPLIT),
+            (&quot;2+2=?&quot;, &quot;4&quot;, TRAIN_SPLIT),
+            (&quot;3+3=?&quot;, &quot;6&quot;, TRAIN_SPLIT),
+            (&quot;4+4=?&quot;, &quot;8&quot;, TRAIN_SPLIT),
+            (&quot;5+5=?&quot;, &quot;10&quot;, TRAIN_SPLIT),
+            (&quot;6+6=?&quot;, &quot;12&quot;, TEST_SPLIT),
+            (&quot;7+7=?&quot;, &quot;14&quot;, TEST_SPLIT),
+        ]
+
+        instances: List[Instance] = []
+        train_i = 0
+        test_i = 0
+
+        for q, a, split in examples:
+            if split == TRAIN_SPLIT:
+                train_i += 1
+                instance_id = f&quot;train-{train_i:03d}&quot;
+            else:
+                test_i += 1
+                instance_id = f&quot;test-{test_i:03d}&quot;
+
+            instances.append(
+                Instance(
+                    id=instance_id,
+                    input=Input(text=f&quot;Q: {q}\nA:&quot;),
+                    references=[Reference(output=Output(text=a), tags=[CORRECT_TAG])],
+                    split=split,
+                )
+            )
+
+        return instances
+
+    def get_metadata(self) -&gt; ScenarioMetadata:
+        return ScenarioMetadata(name=self.name, main_metric=&quot;custom_metric&quot;, main_split=&quot;test&quot;)
+
+
+class CustomMetric(Metric):
+    &quot;&quot;&quot;A simple, extensible metric.
+
+    To keep the example compact, we just call HELM's reference-metric helper.
+    &quot;&quot;&quot;
+
+    def __init__(self, names: Optional[List[str]] = None):
+        self.names = names or [&quot;exact_match&quot;]
+
+    def evaluate_generation(
+        self,
+        adapter_spec: AdapterSpec,
+        request_state: RequestState,
+        metric_service: MetricService,
+        eval_cache_path: str,
+    ) -&gt; List[Stat]:
+        return compute_reference_metrics(
+            names=self.names,
+            adapter_spec=adapter_spec,
+            request_state=request_state,
+            metric_service=metric_service,
+        )
+
+
+@run_spec_function(&quot;my_custom_run_spec&quot;)
+def build_custom_run_spec() -&gt; RunSpec:
+    return RunSpec(
+        name=&quot;my_custom_run_spec&quot;,
+        scenario_spec=ScenarioSpec(class_name=&quot;my_example_helm_module.my_submodule_plugin_code.CustomScenario&quot;),
+        adapter_spec=AdapterSpec(method=&quot;generation&quot;),
+        metric_specs=[MetricSpec(class_name=&quot;my_example_helm_module.my_submodule_plugin_code.CustomMetric&quot;)],
+    )
+</code></pre>
+<p>Two things to notice:</p>
+<ul>
+<li>The run spec is registered by the decorator when the module is imported.</li>
+<li>The scenario and metric are referenced via fully qualified <code>class_name</code> strings.</li>
+</ul>
+<h3 id="step-3-register-the-plugin-via-entry-points">Step 3 - Register the plugin via entry points</h3>
+<p>Edit <code>pyproject.toml</code> and add:</p>
+<pre><code class="language-toml">[project.entry-points.helm]
+my_helm_plugin = &quot;my_example_helm_module.my_submodule_plugin_code&quot;
+</code></pre>
+<p>Then install your package in editable mode:</p>
+<pre><code class="language-bash">uv pip install -e .
+</code></pre>
+<h3 id="step-4-run-with-your-custom-run-spec">Step 4 - Run with your custom run spec</h3>
+<p>Now <code>helm-run</code> should discover your plugin through the entry point:</p>
+<p>```bash
+helm-run --run-entries my_custom_run_spec:model=openai/gpt2 --suite tutorial --max-eval-instances 10</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
