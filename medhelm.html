@@ -137,13 +137,13 @@
 <p>Run the following commands to create and activate a new python virtual environment:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Create and activate a clean environment
-conda create -n crfm-helm python=3.10 pip wget
-conda activate crfm-helm
+conda create -n medhelm python=3.10 pip wget
+conda activate medhelm
 pip install -U setuptools
 </code></pre></div></div>
 
 <p>Run the following command to install HELM and the necessary MedHELM extensions:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install -U "crfm-helm[summarization,medhelm]"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install -U "medhelm[summarization]"
 </code></pre></div></div>
 
 <h4 id="2-download-leaderboard-results">2. Download Leaderboard Results</h4>
@@ -285,14 +285,14 @@ helm-server <span class="se">\</span>
 <p>Run the following commands to create and activate a new python virtual environment:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create and activate a clean environment</span>
-conda create <span class="nt">-n</span> crfm-helm <span class="nv">python</span><span class="o">=</span>3.10 pip wget
-conda activate crfm-helm
+conda create <span class="nt">-n</span> medhelm <span class="nv">python</span><span class="o">=</span>3.10 pip wget
+conda activate medhelm
 pip <span class="nb">install</span> <span class="nt">-U</span> setuptools
 </code></pre></div></div>
 
 <h4 id="2-install-helm-and-medhelm-specific-dependencies">2. Install HELM and MedHELM-specific Dependencies:</h4>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install</span> <span class="nt">-U</span> <span class="s2">"crfm-helm[summarization,medhelm]"</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install</span> <span class="nt">-U</span> <span class="s2">"medhelm[summarization]"</span>
 </code></pre></div></div>
 
 <hr />
@@ -454,9 +454,9 @@ helm-server <span class="nt">--release</span> v2.0.0 <span class="nt">--output-p
 </ol>
 
 <blockquote>
-  <p><strong>Note:</strong> This feature requires <strong>crfm-helm &gt;= 0.5.8</strong>.<br />
+  <p><strong>Note:</strong> This feature requires <strong>medhelm &gt;= 0.5.8</strong>.<br />
 Make sure you upgrade before continuing:</p>
-  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install</span> <span class="nt">-U</span> crfm-helm
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install</span> <span class="nt">-U</span> medhelm
 </code></pre></div>  </div>
 </blockquote>
 

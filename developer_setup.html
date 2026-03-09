@@ -121,22 +121,22 @@ python3 <span class="nt">-m</span> virtualenv <span class="nt">-p</span> python3
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create a virtual environment.</span>
 <span class="c"># Only run this the first time.</span>
-conda create <span class="nt">-n</span> crfm-helm <span class="nv">python</span><span class="o">=</span>3.10 pip
+conda create <span class="nt">-n</span> medhelm <span class="nv">python</span><span class="o">=</span>3.10 pip
 
 <span class="c"># Activate the virtual environment.</span>
 <span class="c"># Run this every time you open your shell.</span>
-conda activate crfm-helm
+conda activate medhelm
 </code></pre></div></div>
 
 <p>Using <a href="https://github.com/pyenv/pyenv"><strong>pyenv</strong></a> and <a href="https://github.com/pyenv/pyenv-virtualenv"><strong>pyenv-virtualenv</strong></a>:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create a virtual environment.</span>
 <span class="c"># Only run this the first time.</span>
-pyenv virtualenv 3.10 crfm-helm
+pyenv virtualenv 3.10 medhelm
 
 <span class="c"># Activate the virtual environment.</span>
 <span class="c"># Run this every time you open your shell.</span>
-pyenv activate crfm-helm
+pyenv activate medhelm
 </code></pre></div></div>
 
 <h2 id="install-python-dependencies">Install Python dependencies</h2>
@@ -194,7 +194,7 @@ mypy src scripts
 <ol>
   <li>Activate your virtual environment.</li>
   <li>Change directory to the repository root (contains pyproject.toml).</li>
-  <li>Make sure you don’t have an existing helm installation for that environment with <code class="language-plaintext highlighter-rouge">pip uninstall crfm-helm</code></li>
+  <li>Make sure you don’t have an existing helm installation for that environment with <code class="language-plaintext highlighter-rouge">pip uninstall medhelm</code></li>
   <li>Run <code class="language-plaintext highlighter-rouge">pip install -e .</code></li>
 </ol>
 
