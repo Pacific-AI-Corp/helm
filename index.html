@@ -55,24 +55,38 @@
 
 <h2 id="quick-start">Quick Start</h2>
 
-<p>Install the package from PyPI:</p>
+<p>MedHELM is a public library with fewer dependencies and straightforward installation. Install from PyPI:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>medhelm
+<p><strong>Standard</strong> (PubMedQA, MedCalc-Bench, MedicationQA, MedHallu):</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uv pip <span class="nb">install </span>medhelm
 </code></pre></div></div>
 
-<p>Run the following in your shell:</p>
+<p>Run a benchmark:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Run benchmark</span>
-helm-run <span class="nt">--run-entries</span> mmlu:subject<span class="o">=</span>philosophy,model<span class="o">=</span>openai/gpt2 <span class="nt">--suite</span> my-suite <span class="nt">--max-eval-instances</span> 10
-
-<span class="c"># Summarize benchmark results</span>
-helm-summarize <span class="nt">--suite</span> my-suite
-
-<span class="c"># Start a web server to display benchmark results</span>
-helm-server <span class="nt">--suite</span> my-suite
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uv run medhelm-run <span class="nt">--run-entries</span> <span class="s2">"pubmed_qa:model=huggingface/qwen2.5-7b"</span> <span class="nt">--suite</span> my_med_test <span class="nt">--max-eval-instances</span> 10
+uv run helm-summarize <span class="nt">--suite</span> my_med_test
+uv run helm-server <span class="nt">--suite</span> my_med_test
 </code></pre></div></div>
 
 <p>Then go to <a href="http://localhost:8000/">http://localhost:8000/</a> in your browser.</p>
+
+<ul>
+  <li><strong>Summarization tier</strong> (DischargeMe, ACI-Bench, Patient-Edu): <code class="language-plaintext highlighter-rouge">uv pip install "medhelm[summarization]"</code> — install may take 2–3 min.</li>
+  <li><strong>Gated tier</strong> (MedQA, MedMCQA, Drive): <code class="language-plaintext highlighter-rouge">uv pip install "medhelm[gated]"</code>.</li>
+</ul>
+
+<p>See <a href="quick_start.html">Quick Start</a> and <a href="installation.html">Installation</a> for full details.</p>
+
+<h2 id="goals--roadmap">Goals &amp; roadmap</h2>
+
+<p>MedHELM aims to be a <strong>new public repo</strong> with <strong>fewer dependencies</strong>, <strong>easier installation</strong>, and <strong>public documentation</strong>. We welcome feedback on:</p>
+
+<ul>
+  <li><strong>HealthBench:</strong> We are considering new subcategories to include HealthBench. Do you see value in adding HealthBench, and how would you use it?</li>
+  <li><strong>Non-gated alternatives:</strong> We provide <strong>7 non-gated datasets</strong> (e.g. PubMedQA, MedCalc-Bench, MedicationQA, MedHallu, and others in the Standard and Summarization tiers) as free alternatives for the same kinds of tasks as gated benchmarks.</li>
+  <li><strong>Hospital &amp; private data:</strong> We want to make it <strong>easier for hospital systems to contribute or add their own private datasets</strong>. If your institution is interested in running or contributing benchmarks, we’d like to hear from you.</li>
+</ul>
 
 <h2 id="leaderboards">Leaderboards</h2>
 

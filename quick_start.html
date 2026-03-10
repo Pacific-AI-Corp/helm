@@ -32,24 +32,95 @@
     <div class="main-inner">
       <h1 id="quick-start">Quick Start</h1>
 
-<p>Install the package from PyPI:</p>
+<p>MedHELM is a public Python library with fewer dependencies and straightforward installation. Install from PyPI and run benchmarks with the <strong>uv</strong> workflow (or use <code class="language-plaintext highlighter-rouge">pip</code> and <code class="language-plaintext highlighter-rouge">helm-run</code> if you prefer).</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>medhelm
+<h2 id="standard-recommended-to-start">Standard (recommended to start)</h2>
+
+<p>Scenarios: <strong>PubMedQA</strong>, <strong>MedCalc-Bench</strong>, <strong>MedicationQA</strong>, <strong>MedHallu</strong>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uv pip <span class="nb">install </span>medhelm
 </code></pre></div></div>
 
-<p>Run the following in your shell:</p>
+<p>Run a benchmark:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Run benchmark</span>
-helm-run <span class="nt">--run-entries</span> mmlu:subject<span class="o">=</span>philosophy,model<span class="o">=</span>openai/gpt2 <span class="nt">--suite</span> my-suite <span class="nt">--max-eval-instances</span> 10
-
-<span class="c"># Summarize benchmark results</span>
-helm-summarize <span class="nt">--suite</span> my-suite
-
-<span class="c"># Start a web server to display benchmark results</span>
-helm-server <span class="nt">--suite</span> my-suite
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uv run medhelm-run <span class="se">\</span>
+  <span class="nt">--run-entries</span> <span class="s2">"pubmed_qa:model=huggingface/qwen2.5-7b"</span> <span class="se">\</span>
+  <span class="nt">--suite</span> my_med_test <span class="se">\</span>
+  <span class="nt">--max-eval-instances</span> 10
+uv run helm-summarize <span class="nt">--suite</span> my_med_test
+uv run helm-server <span class="nt">--suite</span> my_med_test
 </code></pre></div></div>
 
-<p>Then go to <a href="http://localhost:8000/">http://localhost:8000/</a> in your browser.</p>
+<p>Then open <a href="http://localhost:8000/">http://localhost:8000/</a> in your browser.</p>
+
+<h2 id="clinical-nlp-tier-summarization">Clinical NLP tier (summarization)</h2>
+
+<p>Adds heavier libraries (bert-score, rouge-score, nltk). <strong>Install may take 2–3 minutes.</strong></p>
+
+<p>Scenarios: <strong>DischargeMe</strong> (hospital course summaries), <strong>ACI-Bench</strong> (clinical transcripts), <strong>Patient-Edu</strong> (simplifying medical jargon).</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uv pip <span class="nb">install</span> <span class="s2">"medhelm[summarization]"</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uv run medhelm-run <span class="se">\</span>
+  <span class="nt">--run-entries</span> <span class="s2">"discharge_summaries:model=huggingface/qwen2.5-7b"</span> <span class="se">\</span>
+  <span class="nt">--suite</span> med_summaries <span class="se">\</span>
+  <span class="nt">--max-eval-instances</span> 5
+uv run helm-summarize <span class="nt">--suite</span> med_summaries
+uv run helm-server <span class="nt">--suite</span> med_summaries
+</code></pre></div></div>
+
+<h2 id="gated--licensing-tier-drive-scenarios">Gated / licensing tier (Drive scenarios)</h2>
+
+<p>Adds <strong>gdown</strong> so the code can download data from Google Drive. Install can also take longer.</p>
+
+<p>Scenarios: <strong>MedQA</strong> (USMLE/Board exams), <strong>MedMCQA</strong> (AIIMS/NEET exams).</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uv pip <span class="nb">install</span> <span class="s2">"medhelm[gated]"</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uv run medhelm-run <span class="se">\</span>
+  <span class="nt">--run-entries</span> <span class="s2">"med_qa:model=huggingface/qwen2.5-7b"</span> <span class="se">\</span>
+  <span class="nt">--suite</span> board_exams <span class="se">\</span>
+  <span class="nt">--max-eval-instances</span> 10
+uv run helm-summarize <span class="nt">--suite</span> board_exams
+uv run helm-server <span class="nt">--suite</span> board_exams
+</code></pre></div></div>
+
+<h2 id="summary">Summary</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tier</th>
+      <th>Install</th>
+      <th>Scenarios</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Standard</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">uv pip install medhelm</code></td>
+      <td>PubMedQA, MedCalc-Bench, MedicationQA, MedHallu</td>
+    </tr>
+    <tr>
+      <td><strong>Summarization</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">uv pip install "medhelm[summarization]"</code></td>
+      <td>DischargeMe, ACI-Bench, Patient-Edu (2–3 min install)</td>
+    </tr>
+    <tr>
+      <td><strong>Gated</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">uv pip install "medhelm[gated]"</code></td>
+      <td>MedQA, MedMCQA (Drive)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>You can use <code class="language-plaintext highlighter-rouge">pip install medhelm</code> (and <code class="language-plaintext highlighter-rouge">pip install "medhelm[summarization]"</code> / <code class="language-plaintext highlighter-rouge">pip install "medhelm[gated]"</code>) instead of <code class="language-plaintext highlighter-rouge">uv pip install</code>; then run with <code class="language-plaintext highlighter-rouge">medhelm-run</code> (or <code class="language-plaintext highlighter-rouge">helm-run</code>), <code class="language-plaintext highlighter-rouge">helm-summarize</code>, and <code class="language-plaintext highlighter-rouge">helm-server</code>.</p>
 
     </div>
   </main>
