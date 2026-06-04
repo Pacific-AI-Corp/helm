@@ -26,7 +26,7 @@ export NUM_TRAIN_TRIALS=1
 export MAX_EVAL_INSTANCES=1000
 export PRIORITY=2
 
-helm-run --conf-paths $RUN_ENTRIES_CONF_PATH --num-train-trials $NUM_TRAIN_TRIALS --max-eval-instances $MAX_EVAL_INSTANCES --priority $PRIORITY --suite $SUITE_NAME --models-to-run $MODELS_TO_RUN
+medhelm-run --conf-paths $RUN_ENTRIES_CONF_PATH --num-train-trials $NUM_TRAIN_TRIALS --max-eval-instances $MAX_EVAL_INSTANCES --priority $PRIORITY --suite $SUITE_NAME --models-to-run $MODELS_TO_RUN
 
 helm-summarize --schema $SCHEMA_PATH --suite $SUITE_NAME
 

@@ -117,7 +117,7 @@ Then open http://localhost:8000 in your browser.
 ## Core Concepts
 
 * **Scenario:** Dataset + prompt/response formatting logic.
-* **Run entry:** A `(model, scenario)` pair given to `helm-run`.
+* **Run entry:** A `(model, scenario)` pair given to `medhelm-run`.
 * **Suite:** Named collection of runs; appears as a tab/section in the leaderboard.
 * **Annotator:** Optional post‑processing (e.g., LLM‑as‑a‑judge).
 * **Schema:** Task taxonomy + metrics configuration powering `helm-summarize` and the UI.
@@ -178,16 +178,6 @@ source .venv/bin/activate
 2. Install MedHELM:
 ```bash
 # For all scenarios (standard, summarization, gated)
-pip install "medhelm[summarization,gated]"
-```
-
-
-### Alternative: Using conda
-
-If you prefer conda:
-```bash
-conda create -n medhelm python=3.12 pip
-conda activate medhelm
 pip install "medhelm[summarization,gated]"
 ```
 
@@ -291,7 +281,7 @@ gcloud storage rsync -r $GCS_BENCHMARK_OUTPUT_PATH $OUTPUT_PATH
 
 #### 3. Launch the Local Leaderboard
    
-Run the following command to launch the MedHELM leaderboard locally. Use the numbered `release` version you want to display. Check out all release versions on the upper right corner of the official [leaderboard website](https://crfm.stanford.edu/helm/medhelm/latest).
+Run the following command to launch the MedHELM leaderboard locally. Use the numbered `release` version you want to display. Check out all release versions on the upper right corner of the official [leaderboard website](https://leaderboard.medhelm.org/).
 
 ```bash
 # Sample command to launch the MedHELM leaderboard version 2.0.0.
@@ -772,5 +762,5 @@ helm-server \
 ## References
 
 * [Stanford HAI Article](https://hai.stanford.edu/news/holistic-evaluation-of-large-language-models-for-medical-applications)
-* [MedHELM Website (latest leaderboard)](https://crfm.stanford.edu/helm/medhelm/latest/)
+* [MedHELM Website (latest leaderboard)](https://leaderboard.medhelm.org/)
 * [ArXiv Preprint](https://arxiv.org/abs/2505.23802)

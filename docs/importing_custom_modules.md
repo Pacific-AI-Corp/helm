@@ -30,13 +30,13 @@ HELM will only be able to use custom code that can be imported by Python. In thi
 
 If the custom code lives in a Python module under the current working directory, you may need to modify `PYTHONPATH` to make that module importable.
 
-This is required because Python does not add the current working directory to the Python module search path when using command line commands / Python entry points such as `helm-run`. See [Python's documentation](https://docs.python.org/3/library/sys_path_init.html) for more details.
+This is required because Python does not add the current working directory to the Python module search path when using command line commands / Python entry points such as `medhelm-run`. See [Python's documentation](https://docs.python.org/3/library/sys_path_init.html) for more details.
 
 For example, suppose you implemented a custom `Client` subclass named `MyClient` in the `my_client.py` file under your current working directory, and you have a `ClientSpec` specifying the `class_name` as `my_client.MyClient`.
 
 To make your file importable by Python, you have to add `.` to your `PYTHONPATH` so that Python will search in your current working directory for your custom Python modules.
 
-In Bash, you can do this by running `export PYTHONPATH=".:$PYTHONPATH"` before running `helm-run`, or by prefixing `helm-run` with `PYTHONPATH=".:$PYTHONPATH"`.
+In Bash, you can do this by running `export PYTHONPATH=".:$PYTHONPATH"` before running `medhelm-run`, or by prefixing `medhelm-run` with `PYTHONPATH=".:$PYTHONPATH"`.
 
 ### Put your custom code in a Python package
 
@@ -44,7 +44,7 @@ If your custom code is located in a Python package, you can simply install your 
 
 ### Write a Python wrapper script
 
-If you are using a Python wrapper script that calls `helm.benchmark.run.run_benchmark()` instead of using `helm-run`, Python will automatically add the directory containing that script to the Python module search path. If your custom code lives in a Python module under that directory, it will automatically be importable by Python. See [Python's documentation](https://docs.python.org/3/library/sys_path_init.html) for more details.
+If you are using a Python wrapper script that calls `helm.benchmark.run.run_benchmark()` instead of using `medhelm-run`, Python will automatically add the directory containing that script to the Python module search path. If your custom code lives in a Python module under that directory, it will automatically be importable by Python. See [Python's documentation](https://docs.python.org/3/library/sys_path_init.html) for more details.
 
 ---
 
@@ -60,7 +60,7 @@ Custom extensions generally work in one of two ways:
    **Key idea:** these modules only need to be *importable* by Python. They do not need to be imported ahead of time.
 
 2. **Run specs (registered by decorator).**
-   Run specs are registered *at import time* via `@helm.benchmark.run_spec.run_spec_function(...)` and are discoverable by name when you invoke `helm-run`.
+   Run specs are registered *at import time* via `@helm.benchmark.run_spec.run_spec_function(...)` and are discoverable by name when you invoke `medhelm-run`.
 
    **Key idea:** the module containing the run spec function must be imported so registration code runs. Only modules that define run spec functions need to be imported for discovery.
 
@@ -79,24 +79,24 @@ If your custom code is an installable Python package, declare a `helm` entry-poi
 my_plugin = "my_package.helm_plugin"
 ```
 
-When your package is installed (e.g., as a wheel or with `pip install -e .`), `helm-run` can automatically import the entry point module.
+When your package is installed (e.g., as a wheel or with `pip install -e .`), `medhelm-run` can automatically import the entry point module.
 
 With this method, `project.entry-points.helm` only needs to include modules that contain run spec functions (and any other modules you explicitly want imported up front).
 
 ### 2) Explicit imports via `--plugins` (best for quick experiments)
 
-You can explicitly tell `helm-run` what to import. Each `--plugins` argument can be either an importable module name or a filesystem path to a `.py` file.
+You can explicitly tell `medhelm-run` what to import. Each `--plugins` argument can be either an importable module name or a filesystem path to a `.py` file.
 
 Importable module names (modules must already be importable, e.g., installed or on `PYTHONPATH`):
 
 ```bash
-helm-run --plugins my_package.helm_plugin_a my_package.helm_plugin_b ...
+medhelm-run --plugins my_package.helm_plugin_a my_package.helm_plugin_b ...
 ```
 
 Filesystem paths (loaded from the given `.py` files):
 
 ```bash
-helm-run --plugins /path/to/local_plugin_a.py /path/to/local_plugin_b.py ...
+medhelm-run --plugins /path/to/local_plugin_a.py /path/to/local_plugin_b.py ...
 ```
 
 **How file paths work:** HELM loads plugin paths via [`ubelt.import_module_from_path`](https://ubelt.readthedocs.io/en/latest/auto/ubelt.util_import.html#ubelt.util_import.import_module_from_path). Single-file plugins (a standalone `.py`) are the simplest and most reliable. If your plugin lives in a package, it's usually best to pass the **module name** and make sure it is installed or on `PYTHONPATH`. Path-based loading can also work for packaged plugins, as long as the package is an explicit package (i.e., package directories include `__init__.py`, including parent packages).
@@ -110,9 +110,9 @@ You can ship a separate package that contributes modules to this namespace (for 
 
 This method requires that your package is importable (typically by installing it, or by ensuring it is on `PYTHONPATH`).
 
-### 4) A Python wrapper script (when you don't want to use `helm-run`)
+### 4) A Python wrapper script (when you don't want to use `medhelm-run`)
 
-There is no need to use the `helm-run` entry point. You can instead write a Python wrapper script that calls `helm.benchmark.run.run_benchmark()`.
+There is no need to use the `medhelm-run` entry point. You can instead write a Python wrapper script that calls `helm.benchmark.run.run_benchmark()`.
 
 When you run `python your_script.py`, Python automatically adds the script's directory to the module search path. This implicitly changes import behavior in the same way as adding that directory to `PYTHONPATH`.
 
@@ -287,4 +287,4 @@ uv pip install -e .
 Now `helm-run` should discover your plugin through the entry point:
 
 ```bash
-helm-run --run-entries my_custom_run_spec:model=openai/gpt2 --suite tutorial --max-eval-instances 10
+medhelm-run --run-entries my_custom_run_spec:model=openai/gpt2 --suite tutorial --max-eval-instances 10

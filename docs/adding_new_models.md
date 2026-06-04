@@ -73,9 +73,9 @@ Notes:
 
 - This uses local inference with Hugging Face. It will attempt to use GPU inference if available, and use CPU inference otherwise.
 - Multi-GPU inference can be enabled by setting `device_map: auto` in the `args`.
-- GPU models loaded by `helm-run` will remain loaded on the GPU for the lifespan of `helm-run`.
-- If evaluating multiple models, it is prudent to evaluate each model with a separate `helm-run` invocation.
-- If you are attempting to access models that are private, restricted, or require signing an agreement (e.g. Llama 3), you need to be authenticated to Hugging Face through the CLI. As the user that will be running `helm-run`, run `huggingface-cli login` in your shell. Refer to [Hugging Face's documentation](https://huggingface.co/docs/huggingface_hub/en/quick-start#login-command) for more information.
+- GPU models loaded by `medhelm-run` will remain loaded on the GPU for the lifespan of `medhelm-run`.
+- If evaluating multiple models, it is prudent to evaluate each model with a separate `medhelm-run` invocation.
+- If you are attempting to access models that are private, restricted, or require signing an agreement (e.g. Llama 3), you need to be authenticated to Hugging Face through the CLI. As the user that will be running `medhelm-run`, run `huggingface-cli login` in your shell. Refer to [Hugging Face's documentation](https://huggingface.co/docs/huggingface_hub/en/quick-start#login-command) for more information.
 
 ### vLLM
 
@@ -121,10 +121,10 @@ Notes:
 
 ## Testing New Models
 
-After you've added your model, you can run your model with `helm-run` using a run entry such as `mmlu:subject=anatomy,model=your-org/your-model`. It is also recommended to use the `--disable-cache` flag so that in the event that you made a mistake, the incorrect requests are not written to the request cache. Example:
+After you've added your model, you can run your model with `medhelm-run` using a run entry such as `mmlu:subject=anatomy,model=your-org/your-model`. It is also recommended to use the `--disable-cache` flag so that in the event that you made a mistake, the incorrect requests are not written to the request cache. Example:
 
 ```sh
-helm-run --run-entry mmlu:subject=anatomy,model=your-org/your-model --suite my-suite --max-eval-instances 10 --disable-cache
+medhelm-run --run-entry mmlu:subject=anatomy,model=your-org/your-model --suite my-suite --max-eval-instances 10 --disable-cache
 
 helm-summarize --suite my-suite
 

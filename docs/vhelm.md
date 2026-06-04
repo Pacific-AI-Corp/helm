@@ -9,7 +9,7 @@ VHELM aggregates various datasets to cover one or more of the 9 aspects: visual 
 
 ## References
 
-- [Leaderboard](https://crfm.stanford.edu/helm/vhelm/v2.0.1/)
+- [Leaderboard](https://leaderboard.medhelm.org/)
 - Paper (TBD)
 
 ## Installation
@@ -36,7 +36,7 @@ export OPENAI_API_KEY=your_api_key
 wget https://raw.githubusercontent.com/PacificAI/medhelm/refs/heads/main/src/helm/benchmark/static/schema_vhelm.yaml
 
 # Run benchmark
-helm-run --run-entries mmmu:subject=Accounting,question_type=multiple-choice,model=openai/gpt-4o-mini-2024-07-18 --suite my-vhelm-suite --max-eval-instances 10
+medhelm-run --run-entries mmmu:subject=Accounting,question_type=multiple-choice,model=openai/gpt-4o-mini-2024-07-18 --suite my-vhelm-suite --max-eval-instances 10
 
 # Summarize benchmark results
 helm-summarize --suite my-vhelm-suite --schema-path schema_vhelm.yaml
@@ -49,4 +49,4 @@ Then go to http://localhost:8000/ in your browser.
 
 ## Reproducing the Leaderboard
 
-To reproduce the [entire VHELM leaderboard](https://crfm.stanford.edu/helm/vhelm/latest/), refer to the instructions for VHELM on the [Reproducing Leaderboards](/reproducing_leaderboards) documentation.
+To reproduce the [entire VHELM leaderboard](https://leaderboard.medhelm.org/), refer to the instructions for VHELM on the [Reproducing Leaderboards](/reproducing_leaderboards) documentation.

@@ -9,7 +9,7 @@ This tutorial will show you how to locally add your model into the HELM Classic 
 
 ## Download HELM leaderboard results
 
-First, in order to compare your model to the latest and greatest models found in the [HELM Classic leaderboard](https://crfm.stanford.edu/helm/classic/latest/?group=core_scenarios), use the following command to obtain a zip file of all previous HELM Classic results
+First, in order to compare your model to the latest and greatest models found in the [HELM Classic leaderboard](https://leaderboard.medhelm.org/), use the following command to obtain a zip file of all previous HELM Classic results
 
 ```bash
 export LEADERBOARD_VERSION=v0.3.0
@@ -55,7 +55,7 @@ wget https://raw.githubusercontent.com/PacificAI/medhelm/main/src/helm/benchmark
 and this one to run the benchmark (will take some time in the first time since all the data has to be prepared):
 
 ```bash
-helm-run \
+medhelm-run \
 --conf-paths run_entries_$EXAMPLES_PER_SCENARIO.conf \
 --suite $LEADERBOARD_VERSION \
 --max-eval-instances $EXAMPLES_PER_SCENARIO \
