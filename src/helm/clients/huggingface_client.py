@@ -9,6 +9,7 @@ from typing import Any, Dict, List, Optional, TypedDict
 
 from helm.common.cache import CacheConfig
 from helm.common.hierarchical_logger import hexception, htrack_block, hlog
+from helm.common.gpu_utils import get_torch_device_name
 from helm.common.optional_dependencies import handle_module_not_found_error
 from helm.common.request import (
     wrap_request_time,
@@ -77,12 +78,9 @@ class HuggingFaceServer:
                 raise ValueError("At most one of one of `device` and `device_map` may be specified.")
             hlog(f'Hugging Face device set to "{kwargs["device"]}" from kwargs.')
             self.device = kwargs.pop("device")
-        elif torch.cuda.is_available():
-            hlog('Hugging Face device set to "cuda:0" because CUDA is available.')
-            self.device = "cuda:0"
         else:
-            hlog('Hugging Face device set to "cpu" because CUDA is unavailable.')
-            self.device = "cpu"
+            self.device = get_torch_device_name()
+            hlog(f'Hugging Face device set to "{self.device}".')
 
         with htrack_block(f"Loading Hugging Face model {pretrained_model_name_or_path}"):
             # WARNING this may fail if your GPU does not have enough memory

@@ -30,30 +30,87 @@ Documentation: **[medhelm.org](https://medhelm.org)**
 
 MedHELM uses the HELM core engine and adds medical benchmarks.
 
-### Using uv (recommended)
+### Getting started from a git clone (development)
 
-1. Create a virtual environment with Python 3.12:
+Follow these steps **in order**. Skipping a step is a common cause of `command not found: uv`, `ModuleNotFoundError: helm.benchmark.static_build`, or `bus error` on Apple Silicon.
+
+#### 0. Install tools (once per machine)
+
+**uv** (manages Python and the virtual environment):
+
 ```sh
-uv venv --python 3.12 .venv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.local/bin/env   # add uv to PATH; restart the terminal or add this to ~/.zshrc
+uv --version
 ```
 
-2. Activate the environment:
+**Node.js 18+** (only needed to build the web UI for `helm-server`):
+
 ```sh
+# macOS (Homebrew): brew install node
+# Or use fnm/nvm — see https://nodejs.org/
+node --version
+npm --version
+```
+
+You do **not** need to install Python separately: `uv venv --python 3.12` downloads Python 3.12 for you.
+
+#### 1. Clone and enter the repository
+
+```sh
+git clone https://github.com/PacificAI/medhelm.git
+cd medhelm
+```
+
+#### 2. Create and activate a virtual environment
+
+```sh
+uv venv --python 3.12 .venv
 source .venv/bin/activate
 ```
 
-3. Install MedHELM:
+#### 3. Install MedHELM (editable / development mode)
 
-- If you cloned this repository (recommended for development / contributing):
 ```sh
 uv pip install -e .
 ```
 
-- If you want the released package from PyPI:
+#### 4. Build the web UI (required before `helm-server`)
+
+The React UI is not shipped inside the git clone; build it once:
 
 ```sh
+cd helm-frontend
+npm install
+npm run build -- --outDir '../src/helm/benchmark/static_build' --emptyOutDir
+cd ..
+```
+
+#### 5. Run a quick benchmark and open the results
+
+```sh
+medhelm-run --run-entries "pubmed_qa:model=openai/gpt2,model_deployment=huggingface/gpt2" --suite my_med_test --max-eval-instances 2
+helm-summarize --suite my_med_test -o ./benchmark_output
+helm-server --suite my_med_test -o ./benchmark_output --port 8000
+```
+
+Open **http://localhost:8000** in your browser (not `0.0.0.0`). Press `Ctrl-C` in the terminal to stop the server.
+
+Local Hugging Face models (e.g. `gpt2`) automatically use the best available PyTorch device: **CUDA → Apple MPS → CPU**.
+
+---
+
+### Getting started from PyPI (no git clone)
+
+If you only want to run benchmarks and view results — no local code changes:
+
+```sh
+uv venv --python 3.12 .venv
+source .venv/bin/activate
 uv pip install medhelm
 ```
+
+The PyPI package includes a pre-built web UI (no Node.js required). Then run the commands in step 5 above.
 
 ### Standard tier (recommended to start)
 
@@ -67,7 +124,7 @@ helm-summarize --suite my_med_test -o ./benchmark_output
 helm-server --suite my_med_test -o ./benchmark_output --port 8000
 ```
 
-**Full example** (better quality, 10 instances):
+**Full example** (better quality, 10 instances; needs more RAM/VRAM):
 
 ```sh
 medhelm-run --run-entries "pubmed_qa:model=qwen/qwen2.5-7b-instruct,model_deployment=huggingface/qwen2.5-7b-instruct" --suite my_med_test --max-eval-instances 10
