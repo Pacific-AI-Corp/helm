@@ -287,7 +287,7 @@ MedHELM aims to be a **new public repo** with **fewer dependencies**, **easier i
 
 We maintain a **medical** leaderboard for comparing models on MedHELM benchmarks:
 
-- **[MedHELM Leaderboard](https://crfm.stanford.edu/helm/medhelm/latest/#/leaderboard)** — PubMedQA, MedQA, MedMCQA, and other medical benchmarks.
+- **[MedHELM Leaderboard](https://leaderboard.medhelm.org/#/leaderboard)** — PubMedQA, MedQA, MedMCQA, and other medical benchmarks.
 
 To reproduce or extend results locally, see [medhelm.org](https://medhelm.org) (Reproducing Leaderboards, MedHELM docs).
 
