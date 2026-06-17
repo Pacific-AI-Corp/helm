@@ -59,8 +59,6 @@ nav:
     - benchmark.md
     - huggingface_models.md
   - Papers:
-    - enterprise_benchmark.md
-    - reeval.md
     - medhelm.md
   - Reference:
     - models.md
