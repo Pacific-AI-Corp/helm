@@ -66,7 +66,7 @@ Finally, the `helm-server` command launches a web server to visualize the output
 helm-server --suite my-suite
 ```
 
-Open a browser and go to http://localhost:8000/ to view the visualization. You should see a similar view as [live website for the paper](https://crfm.stanford.edu/helm/classic/latest/), but for the data from your benchmark runs. The website has the following sections accessible from the top menu bar:
+Open a browser and go to http://localhost:8000/ to view the visualization. You should see a similar view as the [MedHELM leaderboard](https://leaderboard.medhelm.org/#/leaderboard), but for the data from your benchmark runs. The website has the following sections accessible from the top menu bar:
 
 - **Leaderboards** contains the leaderboards with aggregate metrics.
 - **Models** contains a list of models and their descriptions

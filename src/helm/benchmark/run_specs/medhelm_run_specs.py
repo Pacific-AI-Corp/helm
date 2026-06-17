@@ -1,6 +1,6 @@
 """Run spec functions for the MedHELM leaderboard.
 
-Website: https://crfm.stanford.edu/helm/medhelm/
+Website: https://leaderboard.medhelm.org/
 """
 
 import importlib.resources as pkg_resources
