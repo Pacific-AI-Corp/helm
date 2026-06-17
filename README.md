@@ -30,44 +30,117 @@ Documentation: **[medhelm.org](https://medhelm.org)**
 
 MedHELM uses the HELM core engine and adds medical benchmarks.
 
-### Using uv (recommended)
+### Getting started from a git clone (development)
 
-1. Create a virtual environment with Python 3.12:
+Follow these steps **in order**. Skipping a step is a common cause of `command not found: uv`, `ModuleNotFoundError: helm.benchmark.static_build`, or `bus error` on Apple Silicon.
+
+#### 0. Install tools (once per machine)
+
+**uv** (manages Python and the virtual environment):
+
 ```sh
-uv venv --python 3.12 .venv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.local/bin/env   # add uv to PATH; restart the terminal or add this to ~/.zshrc
+uv --version
 ```
 
-2. Activate the environment:
+**Node.js 18+** (only needed to build the web UI for `helm-server`):
+
 ```sh
+# macOS (Homebrew): brew install node
+# Or use fnm/nvm — see https://nodejs.org/
+node --version
+npm --version
+```
+
+You do **not** need to install Python separately: `uv venv --python 3.12` downloads Python 3.12 for you.
+
+#### 1. Clone and enter the repository
+
+```sh
+git clone https://github.com/PacificAI/medhelm.git
+cd medhelm
+```
+
+#### 2. Create and activate a virtual environment
+
+```sh
+uv venv --python 3.12 .venv
 source .venv/bin/activate
 ```
 
-3. Install MedHELM:
+#### 3. Install MedHELM (editable / development mode)
 
-- If you cloned this repository (recommended for development / contributing):
 ```sh
 uv pip install -e .
 ```
 
-- If you want the released package from PyPI:
+#### 4. Build the web UI (required before `helm-server`)
+
+The React UI is not shipped inside the git clone; build it once:
 
 ```sh
+cd helm-frontend
+npm install
+npm run build -- --outDir '../src/helm/benchmark/static_build' --emptyOutDir
+cd ..
+```
+
+#### 5. Run a quick benchmark and open the results
+
+```sh
+medhelm-run --run-entries "pubmed_qa:model=openai/gpt2,model_deployment=huggingface/gpt2" --suite my_med_test --max-eval-instances 2 --num-threads 1
+helm-summarize --suite my_med_test -o ./benchmark_output
+helm-server --suite my_med_test -o ./benchmark_output --port 8000
+```
+
+Open **http://localhost:8000** in your browser (not `0.0.0.0`). Press `Ctrl-C` in the terminal to stop the server.
+
+Local Hugging Face models (e.g. `gpt2`) automatically use the best available PyTorch device: **CUDA → Apple MPS → CPU**.
+
+---
+
+### Getting started from PyPI (no git clone)
+
+If you only want to run benchmarks and view results — no local code changes:
+
+```sh
+uv venv --python 3.12 .venv
+source .venv/bin/activate
 uv pip install medhelm
 ```
+
+The PyPI package includes a pre-built web UI (no Node.js required). Then run the commands in step 5 below.
+
+### Optional tiers (summarization & gated)
+
+The standard install (`uv pip install -e .` or `uv pip install medhelm`) covers PubMedQA, MedCalc-Bench, MedicationQA, and MedHallu. For clinical summarization or gated (Google Drive) scenarios, install the extra dependencies **once**:
+
+```sh
+# From a git clone (editable install):
+uv pip install -e ".[summarization,gated]"
+
+# From PyPI:
+uv pip install "medhelm[summarization,gated]"
+```
+
+The summarization extra adds bert-score, rouge-score, and nltk (**2–3 minute** install). The gated extra adds **gdown** for MedQA / MedMCQA dataset downloads.
 
 ### Standard tier (recommended to start)
 
 Scenarios: **PubMedQA**, **MedCalc-Bench**, **MedicationQA**, **MedHallu**.
 
-**Quick test** (small model, 2 instances — runs in seconds):
+Included in the base install — no extra `[summarization]` or `[gated]` needed.
+
+**Quick test** (small local model, 2 instances — runs in seconds):
 
 ```sh
-medhelm-run --run-entries "pubmed_qa:model=openai/gpt2,model_deployment=huggingface/gpt2" --suite my_med_test --max-eval-instances 2
+medhelm-run --run-entries "pubmed_qa:model=openai/gpt2,model_deployment=huggingface/gpt2" --suite my_med_test --max-eval-instances 2 --num-threads 1
 helm-summarize --suite my_med_test -o ./benchmark_output
 helm-server --suite my_med_test -o ./benchmark_output --port 8000
 ```
 
-**Full example** (better quality, 10 instances):
+**Full example** (better quality, 10 instances; needs more RAM/VRAM):
 
 ```sh
 medhelm-run --run-entries "pubmed_qa:model=qwen/qwen2.5-7b-instruct,model_deployment=huggingface/qwen2.5-7b-instruct" --suite my_med_test --max-eval-instances 10
@@ -77,32 +150,29 @@ helm-server --suite my_med_test -o ./benchmark_output --port 8000
 
 Then open http://localhost:8000/ in your browser.
 
-### Alternative: Using pip
-
-If you prefer `pip` instead of `uv`:
-```sh
-python3 -m venv .venv
-source .venv/bin/activate
-pip install medhelm
-```
-
 ### Clinical NLP tier (`[summarization]`)
 
-Adds heavy libraries (bert-score, rouge-score, nltk). **Install can take 2–3 minutes.**
+Scenarios: **ACI-Bench** (clinical transcripts; no extra data required), **Patient-Edu** (simplifying medical jargon), **DischargeMe** (hospital course summaries; requires PhysioNet credentials and a `data_path`).
 
-Scenarios: **DischargeMe** (hospital course summaries; requires PhysioNet `data_path`), **ACI-Bench** (clinical transcripts), **Patient-Edu** (simplifying medical jargon).
+Install (in addition to the base install):
 
-Install:
 ```sh
-pip install "medhelm[summarization]"
-```
+# Git clone:
+uv pip install -e ".[summarization]"
 
-Or with `uv`:
-```sh
+# PyPI:
 uv pip install "medhelm[summarization]"
 ```
 
-Example (ACI-Bench; runs without extra data):
+**Quick test** — ACI-Bench with `gpt2`, 2 instances (first run may take several minutes while metrics download):
+
+```sh
+medhelm-run --run-entries "aci_bench:model=openai/gpt2,model_deployment=huggingface/gpt2" --suite med_summaries --max-eval-instances 2 --num-threads 1
+helm-summarize --suite med_summaries -o ./benchmark_output
+helm-server --suite med_summaries -o ./benchmark_output --port 8000
+```
+
+**Full example** — ACI-Bench with a larger model:
 
 ```sh
 medhelm-run --run-entries "aci_bench:model=qwen/qwen2.5-7b-instruct,model_deployment=huggingface/qwen2.5-7b-instruct" --suite med_summaries --max-eval-instances 5
@@ -110,23 +180,72 @@ helm-summarize --suite med_summaries -o ./benchmark_output
 helm-server --suite med_summaries -o ./benchmark_output --port 8000
 ```
 
+**Notes:**
+- Prefer **ACI-Bench** for a first summarization test — it does not require external data files.
+- **DischargeMe** is not a quick test; it needs a PhysioNet `data_path` argument in the run entry.
+- The first ACI-Bench run downloads evaluation assets (e.g. QAFactEval) and runs heavyweight metrics — expect minutes, not seconds.
+- ACI-Bench uses an LLM jury for some scores; the default jury config targets hosted APIs. Local runs complete, but jury scores may be empty without API credentials.
+
 ### Gated / licensing tier (`[gated]`)
 
-Adds **gdown** for scenarios that use Google Drive. Install can also take longer.
+Adds **gdown** for scenarios that download datasets from Google Drive.
 
 Scenarios: **MedQA** (USMLE/Board exams), **MedMCQA** (AIIMS/NEET exams).
 
-Install:
+Install (in addition to the base install):
+
 ```sh
+# Git clone:
+uv pip install -e ".[gated]"
+
+# PyPI:
 uv pip install "medhelm[gated]"
 ```
 
-Example:
+**Quick test** — MedQA with `gpt2`, 2 instances (downloads the dataset from Google Drive on first run):
+
+```sh
+medhelm-run --run-entries "med_qa:model=openai/gpt2,model_deployment=huggingface/gpt2" --suite board_exams --max-eval-instances 2 --num-threads 1
+helm-summarize --suite board_exams -o ./benchmark_output
+helm-server --suite board_exams -o ./benchmark_output --port 8000
+```
+
+**Full example** — MedQA with a larger model:
 
 ```sh
 medhelm-run --run-entries "med_qa:model=qwen/qwen2.5-7b-instruct,model_deployment=huggingface/qwen2.5-7b-instruct" --suite board_exams --max-eval-instances 10
 helm-summarize --suite board_exams -o ./benchmark_output
 helm-server --suite board_exams -o ./benchmark_output --port 8000
+```
+
+### Troubleshooting
+
+| Symptom | Likely cause | Fix |
+|--------|----------------|-----|
+| `command not found: uv` | uv not installed or not on `PATH` | [Install uv](#0-install-tools-once-per-machine), then `source $HOME/.local/bin/env` |
+| `ModuleNotFoundError: helm.benchmark.static_build` | Web UI not built (git clone only) | [Build the web UI](#4-build-the-web-ui-required-before-helm-server) |
+| `command not found: npm` | Node.js not installed | Install Node.js 18+ (only needed for `helm-server` after a git clone) |
+| `zsh: bus error` on Mac when running a local Hugging Face model | PyTorch CPU crash on Apple Silicon | Use a build with MPS device support (CUDA → MPS → CPU); add `--num-threads 1` |
+| Blank browser page at `helm-server` | Wrong URL or UI not built | Open **http://localhost:8000** (not `0.0.0.0`); rebuild the UI if needed |
+| Missing `gdown` / Drive download errors | Gated extra not installed | `uv pip install -e ".[gated]"` or `uv pip install "medhelm[gated]"` |
+| Summarization import / metric errors | Summarization extra not installed | `uv pip install -e ".[summarization]"` or `uv pip install "medhelm[summarization]"` |
+| Run runs out of memory | Model too large (e.g. Qwen 7B) | Use the **quick test** commands with `gpt2` first |
+
+**Tips:**
+- Always run `helm-summarize` after `medhelm-run`, then `helm-server`.
+- On macOS, add `--num-threads 1` to `medhelm-run` if you see instability with local models.
+- Local Hugging Face models use the best available device: **CUDA → Apple MPS → CPU**.
+
+### Alternative: Using pip
+
+If you prefer `pip` instead of `uv`:
+
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .                              # git clone
+# pip install medhelm                         # PyPI
+# pip install -e ".[summarization,gated]"     # optional tiers (git clone)
 ```
 
 ### Classic HELM commands
@@ -147,11 +266,12 @@ helm-server --suite my-suite -o ./benchmark_output --port 8000
 
 | Tier | Install | Scenarios |
 |------|--------|-----------|
-| **Standard** | `pip install medhelm` or `uv pip install medhelm` | PubMedQA, MedCalc-Bench, MedicationQA, MedHallu |
-| **Summarization** (Clinical NLP tier) | `pip install "medhelm[summarization]"` | DischargeMe, ACI-Bench, Patient-Edu (2–3 min install; bert-score, rouge-score, nltk) |
-| **Gated** (licensing tier) | `pip install "medhelm[gated]"` | MedQA, MedMCQA (Drive; gdown) |
+| **Standard** | `uv pip install -e .` (repo) or `uv pip install medhelm` (PyPI) | PubMedQA, MedCalc-Bench, MedicationQA, MedHallu |
+| **Summarization** | `uv pip install -e ".[summarization]"` or `uv pip install "medhelm[summarization]"` | ACI-Bench, Patient-Edu, DischargeMe (2–3 min install) |
+| **Gated** | `uv pip install -e ".[gated]"` or `uv pip install "medhelm[gated]"` | MedQA, MedMCQA (Google Drive) |
+| **All optional tiers** | `uv pip install -e ".[summarization,gated]"` or `uv pip install "medhelm[summarization,gated]"` | All of the above |
 
-**Fast test:** `pubmed_qa` with `model=openai/gpt2,model_deployment=huggingface/gpt2` and `--max-eval-instances 2`. **Full run:** use `qwen/qwen2.5-7b-instruct` and more instances. Run `helm-summarize` and `helm-server` after. See [medhelm.org](https://medhelm.org) for full docs.
+**Quick tests** (local `gpt2`, 2 instances): `pubmed_qa` (standard), `aci_bench` (summarization), `med_qa` (gated). Always run `helm-summarize` then `helm-server` after `medhelm-run`. See [Install & run](#install--run-medhelm-library) for full commands and [Troubleshooting](#troubleshooting).
 
 <!--quick-start-end-->
 
