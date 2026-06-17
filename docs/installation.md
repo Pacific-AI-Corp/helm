@@ -89,10 +89,3 @@ pip install "medhelm[summarization,gated]"
 | **All tiers** | `pip install "medhelm[summarization,gated]"` | All of the above (install once, run any scenario) |
 
 See [Quick Start](/quick_start) for running benchmarks with `medhelm-run` (after activating your environment).
-
-## Install Multimodal Support
-
-Additional steps are required for multimodal evaluations:
-
-- **HEIM (Text-to-image Model Evaluation)** - to install the additional dependencies to run HEIM (text-to-image evaluation), refer to the [HEIM documentation](/heim).
-- **VHELM (Vision-Language Models)** - To install the additional dependencies to run VHELM (Vision-Language Models), refer to the [VHELM documentation](/vhelm).
