@@ -33,7 +33,7 @@ Now, modify `MyScenario` to include the actual logic to load the instances from 
 
 ### Downloading data to local disk
 
-Frequently, your `Scenario` will want to download and cache data onto the local disk, rather than downloading it from the internet every time. The `output_path` argument passed into the `get_instances()` method will contain a file path to a scenario-specific download folder that you should download these files to. The folder will be under the `scenarios` subdirectory under the `benchmark_output/` folder (or the path specified by the `--output-path` flag for `helm-run`). You can use the `ensure_directory_exists()` and `ensure_file_downloaded()` helper functions to download files, which has the advantage of skipping the download if the file already exists. You can also use set `unpack=True` in `ensure_file_downloaded()` to automatically unpack most archive files (e.g. `.tar.gz` and `.zip` files).
+Frequently, your `Scenario` will want to download and cache data onto the local disk, rather than downloading it from the internet every time. The `output_path` argument passed into the `get_instances()` method will contain a file path to a scenario-specific download folder that you should download these files to. The folder will be under the `scenarios` subdirectory under the `benchmark_output/` folder (or the path specified by the `--output-path` flag for `medhelm-run`). You can use the `ensure_directory_exists()` and `ensure_file_downloaded()` helper functions to download files, which has the advantage of skipping the download if the file already exists. You can also use set `unpack=True` in `ensure_file_downloaded()` to automatically unpack most archive files (e.g. `.tar.gz` and `.zip` files).
 
 For examples, refer to:
 
@@ -52,7 +52,7 @@ For an example, refer to:
 
 ## Custom run spec function
 
-A run spec function is the entry point to the scenario. A run spec function produces a `RunSpec` (a configuration for an evaluation run). `helm-run` will run the run spec function to get the `RunSpec`, and then it will run the evaluation defined by that `RunSpec`.
+A run spec function is the entry point to the scenario. A run spec function produces a `RunSpec` (a configuration for an evaluation run). `medhelm-run` will run the run spec function to get the `RunSpec`, and then it will run the evaluation defined by that `RunSpec`.
 
 HELM will search for modules with names matching these patterns for run spec functions:
 
@@ -64,7 +64,7 @@ For this tutorial, we will create a `get_my_run_spec()` function in the `helm_my
 Now run:
 
 ```
-helm-run --run-entries custom:model=openai/gpt2 --suite custom --max-eval-instances 5
+medhelm-run --run-entries custom:model=openai/gpt2 --suite custom --max-eval-instances 5
 ```
 
 If you get a `ValueError: Unknown run spec name` error, you should set up your `PYTHONPATH` as explained above, and then try again.
@@ -73,10 +73,10 @@ If you get a `ValueError: Unknown run spec name` error, you should set up your `
 
 The above run entry uses the `openai/gpt2` model, which is a lightweight model that is reasonably fast, even when using only CPU inference without a GPU.
 
-However, you might want to avoid waiting for model inference when implementing a scenario in order to speed up your iteration times. To do so, you can use the `simple/model1`, which simply echoes the last word in the prompt. Example `helm-run` command:
+However, you might want to avoid waiting for model inference when implementing a scenario in order to speed up your iteration times. To do so, you can use the `simple/model1`, which simply echoes the last word in the prompt. Example `medhelm-run` command:
 
 ```
-helm-run --run-entries custom:model=simple/model1 --suite custom --max-eval-instances 5
+medhelm-run --run-entries custom:model=simple/model1 --suite custom --max-eval-instances 5
 ```
 
 Note: Both the custom `Scenario` subclass and the custom run spec function will be added to custom Python modules that have to be importable by Python. The easiest way to do this is to place your custom Python modules under the current working directory and then run `export PYTHONPATH=".:$PYTHONPATH"` in your shell. Refer to the Importing Custom Modules documentation for other ways to do this.

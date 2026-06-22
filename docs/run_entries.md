@@ -5,22 +5,22 @@ title: Run Entries
 
 ## Using run entries
 
-Run entries are the main way of specifying to `helm-run` which evaluation runs to execute. For instance, in order to evaluate GPT-2 on MedQA, we would pass the following run entry to `helm-run`:
+Run entries are the main way of specifying to `medhelm-run` which evaluation runs to execute. For instance, in order to evaluate GPT-2 on MedQA, we would pass the following run entry to `medhelm-run`:
 
 ```
 med_qa:model=openai/gpt2
 ```
 
-There are two ways of passing the run entry to `helm-run`. We can use the `--run-entries` flag. For example:
+There are two ways of passing the run entry to `medhelm-run`. We can use the `--run-entries` flag. For example:
 
 ```
-helm-run --run-entries med_qa:model=openai/gpt2 --suite my-suite --max-eval-instances 10
+medhelm-run --run-entries med_qa:model=openai/gpt2 --suite my-suite --max-eval-instances 10
 ```
 
-Alternatively, we can put the run entry into a `run_entries.conf` file, and the pass that file to `helm-run` using the `--conf-file` flag. The `run_entries.conf` file is a **run entry configuration file** that conforms to the format documented [here](/run_entries_configuration_files). For example:
+Alternatively, we can put the run entry into a `run_entries.conf` file, and the pass that file to `medhelm-run` using the `--conf-file` flag. The `run_entries.conf` file is a **run entry configuration file** that conforms to the format documented [here](/run_entries_configuration_files). For example:
 
 ```
-helm-run --conf-file run_entries.conf --suite my-suite --max-eval-instances 10
+medhelm-run --conf-file run_entries.conf --suite my-suite --max-eval-instances 10
 ```
 
 ## Constructing run entires
@@ -71,6 +71,6 @@ This is because run expanders are functions that take in a `RunSpec` and can pro
 
 The `model` run expander is the most commonly used run expander. As discussed earlier, it can be used to set the model for each run entry.
 
-The `model` run expander also supports **wildcard values**. For instance, the `med_qa:model=text` run entry will run the `med_qa` scenario on _every_ text model that `helm-run` can find in its configuration files. The wildcard is intended to be used in conjuction with the `--models-to-run`, which controls which models will actually be evaluated. For example, `helm-run --run-entries med_qa:model=text --models-to-run openai/gpt2 openai/gpt-3.5-turbo-613` will run `med_qa` on _only_ `openai/gpt2` and `openai/gpt-3.5-turbo-613`.
+The `model` run expander also supports **wildcard values**. For instance, the `med_qa:model=text` run entry will run the `med_qa` scenario on _every_ text model that `medhelm-run` can find in its configuration files. The wildcard is intended to be used in conjuction with the `--models-to-run`, which controls which models will actually be evaluated. For example, `medhelm-run --run-entries med_qa:model=text --models-to-run openai/gpt2 openai/gpt-3.5-turbo-613` will run `med_qa` on _only_ `openai/gpt2` and `openai/gpt-3.5-turbo-613`.
 
 Wildcard values for the `model` run expander are common used in **run entries configuration files** which will are discussed [here](/run_entries_configuration_files).

@@ -1,34 +1,46 @@
 ---
-title: Efficient-HELM
+title: Efficient MedHELM
 ---
-# Efficient-HELM
+# Efficient MedHELM
 
-This tutorial will show you how to locally add your model into the HELM Classic leaderboard at a fraction of the cost of performing a full run, using a techinque from IBM Resarch described in [Efficient Benchmarking (of Language Models)](https://arxiv.org/pdf/2308.11696.pdf) a paper from IBM Research.
+This tutorial shows how to add your model to the [MedHELM leaderboard](https://leaderboard.medhelm.org/#/leaderboard) at a fraction of the cost of a full run, using the technique from IBM Research described in [Efficient Benchmarking (of Language Models)](https://arxiv.org/pdf/2308.11696.pdf) (Perlitz et al., 2023).
 
-**Warning** &mdash; The tutorial will currently only work for the HELM Classic leaderboard. Other leaderboards are not yet supported.
+The rank-location tradeoffs in the table below were measured on HELM Classic scenarios, but MedHELM uses the same `--max-eval-instances` flag to subsample evaluation items.
 
-## Download HELM leaderboard results
+## Prerequisites
 
-First, in order to compare your model to the latest and greatest models found in the [HELM Classic leaderboard](https://crfm.stanford.edu/helm/classic/latest/?group=core_scenarios), use the following command to obtain a zip file of all previous HELM Classic results
+- MedHELM installed ([installation guide](/installation))
+- [Google Cloud CLI](https://cloud.google.com/sdk/docs/install) (`gcloud`) for downloading public leaderboard results
+- API credentials or local deployments configured for your model ([adding new models](/adding_new_models))
+
+## Download MedHELM leaderboard results
+
+To compare your model against models on the official leaderboard, download the public MedHELM release tree from Google Cloud Storage:
 
 ```bash
-export LEADERBOARD_VERSION=v0.3.0
+export OUTPUT_PATH="./benchmark_output"
+export GCS_BENCHMARK_OUTPUT_PATH="gs://crfm-helm-public/medhelm/benchmark_output"
+export RELEASE=v2.0.0
+
+mkdir -p "$OUTPUT_PATH"
+
+# Optional: check download size first
+# gcloud storage du -sr "$GCS_BENCHMARK_OUTPUT_PATH"
+
+gcloud storage rsync -r "$GCS_BENCHMARK_OUTPUT_PATH" "$OUTPUT_PATH"
 ```
 
-Downloaded, expand the file into HELMs results dir:
+After the download, confirm that release metadata exists, for example `benchmark_output/releases/v2.0.0/summary.json`. Pick the `RELEASE` value from the version selector on [leaderboard.medhelm.org](https://leaderboard.medhelm.org/).
 
-```bash
-curl -O https://storage.googleapis.com/crfm-helm-public/benchmark_output/archives/$LEADERBOARD_VERSION/run_stats.zip &&\
-mkdir -p benchmark_output/runs/$LEADERBOARD_VERSION && unzip run_stats.zip -d benchmark_output/runs/$LEADERBOARD_VERSION
-```
+> **Note:** MedHELM does not publish a lightweight `run_stats.zip` archive. Leaderboard results are distributed via the GCS path above. See [Viewing and Reproducing Leaderboard Results](/medhelm#viewing-and-reproducing-leaderboard-results) for more detail.
 
-Now that the files are in your results directory, all HELM models will be shown in your UI along with your model.
+### Optional: smaller download
 
-## Run Efficient-HELM
+If you only need aggregated metrics (not per-instance request/response files), you can sync from an existing local copy while excluding large artifacts. See [LEADERBOARD_EXPORT.md](https://github.com/PacificAI/medhelm/blob/main/LEADERBOARD_EXPORT.md) in the repository.
 
-According to [Efficient Benchmarking (of Language Models)](https://arxiv.org/pdf/2308.11696.pdf) a paper from IBM Research, which systematically analysed benchmark design choices using the HELM benchmark as an example, one can run the HELM benchmark with a fraction of the examples and still get a reliable estimation of a full run (Perlitz et al., 2023).  
+## Run efficient MedHELM
 
-Specifically, the authors calculated the CI 95% of Rank Location from the real ranks as a function of the number of examples used per scenario and came up with the following tradeoffs[^1]:
+According to [Efficient Benchmarking (of Language Models)](https://arxiv.org/pdf/2308.11696.pdf), running with a fraction of evaluation instances per scenario can still yield a reliable estimate of a full run. The authors report the following tradeoffs[^1]:
 
 | Examples Per Scenario | CI 95% of Rank Location | Compute saved |
 | :-------------------: | :---------------------: | :-----------: |
@@ -39,51 +51,74 @@ Specifically, the authors calculated the CI 95% of Rank Location from the real r
 |         1000          |           ±1            |      X4       |
 |          All          |           ±1            |      X1       |
 
-
-Choose your point on your tradeoff, how accurate do you need your rank? how much time do you want to wait? Once you have chosen, download the config and define your model
-```bash
-export EXAMPLES_PER_SCENARIO=10 && \
-export MODEL_TO_RUN=openai/gpt2
-```
-
-That's it, run the following to get the config file:
+Choose your tradeoff, then set your model and evaluation depth:
 
 ```bash
-wget https://raw.githubusercontent.com/PacificAI/medhelm/main/src/helm/benchmark/presentation/run_entries_core_scenarios_$EXAMPLES_PER_SCENARIO.conf -O run_entries_$EXAMPLES_PER_SCENARIO.conf
+export EXAMPLES_PER_SCENARIO=10
+export MODEL=openai/gpt2
+export MODEL_DEPLOYMENT=huggingface/gpt2
+export SCHEMA_PATH=src/helm/benchmark/static/schema_medhelm.yaml
 ```
 
-and this one to run the benchmark (will take some time in the first time since all the data has to be prepared):
+`run_entries_medhelm_public.conf` lists the models and Stanford Healthcare deployments used on the public leaderboard. To evaluate **your** model on the same scenarios, copy the config and replace `model=` / `model_deployment=` in each entry:
 
 ```bash
-helm-run \
---conf-paths run_entries_$EXAMPLES_PER_SCENARIO.conf \
---suite $LEADERBOARD_VERSION \
---max-eval-instances $EXAMPLES_PER_SCENARIO \
---models-to-run $MODEL_TO_RUN \
---cache-instances \
---num-train-trials 1 \
---skip-completed-runs
+cp src/helm/benchmark/presentation/run_entries_medhelm_public.conf run_entries_my_model.conf
+# Edit run_entries_my_model.conf: set your MODEL and MODEL_DEPLOYMENT on every entry.
 ```
 
-This will take some time the first time running since all the data (regardless of the number of examples chosen) is downloaded and prepared.
+For a quick smoke test on a few public scenarios before running the full public config:
 
+```bash
+medhelm-run \
+  --run-entries "pubmed_qa:model=$MODEL,model_deployment=$MODEL_DEPLOYMENT" \
+                "medcalc_bench:model=$MODEL,model_deployment=$MODEL_DEPLOYMENT" \
+  --suite "$RELEASE" \
+  --output-path "$OUTPUT_PATH" \
+  --max-eval-instances "$EXAMPLES_PER_SCENARIO" \
+  --num-train-trials 1 \
+  --cache-instances \
+  --skip-completed-runs
+```
+
+To run the full public benchmark suite with subsampled instances:
+
+```bash
+medhelm-run \
+  --conf-paths run_entries_my_model.conf \
+  --suite "$RELEASE" \
+  --output-path "$OUTPUT_PATH" \
+  --max-eval-instances "$EXAMPLES_PER_SCENARIO" \
+  --num-train-trials 1 \
+  --cache-instances \
+  --skip-completed-runs \
+  --priority 2
+```
+
+Use the same `--suite` value as the release you downloaded (for example `v2.0.0`) so your runs appear alongside existing leaderboard results. `--skip-completed-runs` avoids re-running models that are already present under `benchmark_output/runs/$RELEASE/`.
+
+The first run may take a while because datasets are downloaded and cached regardless of how many instances you evaluate.
 
 ## Summarize and serve your results
 
-To view how your model fits in with the latest leaderboard, process and aggregate your results with:
+Aggregate results with the MedHELM schema:
 
 ```bash
-helm-summarize --suite $LEADERBOARD_VERSION
+helm-summarize --schema "$SCHEMA_PATH" --suite "$RELEASE" -o "$OUTPUT_PATH"
 ```
 
-And serve with:
+Launch the local leaderboard UI with the official release:
 
 ```bash
-helm-server
+helm-server --release "$RELEASE" --output-path "$OUTPUT_PATH"
 ```
 
-## References List:
+Open `http://localhost:8000` to see your model next to the downloaded leaderboard models.
 
-```Perlitz, Y., Bandel, E., Gera, A., Arviv, O., Ein-Dor, L., Shnarch, E., Slonim, N., Shmueli-Scheuer, M. and Choshen, L., 2023. Efficient Benchmarking (of Language Models). arXiv preprint arXiv:2308.11696.```
+For a full reproduction (all instances, gated/private benchmarks), see [Reproducing Leaderboards](/reproducing_leaderboards#medhelm).
 
-[^1]: Note that the quantities below are the CI 95% of the rank location and are thus very conservative estimates. In our experiments, we did not experience deviations above ±2 for any of the options above.]:
+## References
+
+Perlitz, Y., Bandel, E., Gera, A., Arviv, O., Ein-Dor, L., Shnarch, E., Slonim, N., Shmueli-Scheuer, M. and Choshen, L., 2023. Efficient Benchmarking (of Language Models). arXiv preprint arXiv:2308.11696.
+
+[^1]: The quantities above are the CI 95% of rank location and are conservative estimates. In our experiments on HELM Classic, deviations were typically within ±2 ranks for the subsampling levels above.

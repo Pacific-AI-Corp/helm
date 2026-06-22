@@ -99,14 +99,14 @@ mypy src scripts
 
 ## Executing helm commands with local modifications
 
-The recommended way to execute `helm-run`, `helm-summarize`, `helm-server`, etc, with your local version of the repository is to do an editable install, using the following steps:
+The recommended way to execute `medhelm-run`, `helm-summarize`, `helm-server`, etc, with your local version of the repository is to do an editable install, using the following steps:
 
 1. Activate your virtual environment.
 1. Change directory to the repository root (contains pyproject.toml).
 1. Make sure you don't have an existing helm installation for that environment with `pip uninstall medhelm`
 1. Run `pip install -e .`
 
-Now calling `helm-run` while the environment is activated will read from your local source.
+Now calling `medhelm-run` while the environment is activated will read from your local source.
 
 ### Without installing
 

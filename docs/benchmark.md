@@ -11,27 +11,25 @@ directory exists.
 
 ## Dry Runs
 
-The `helm-run` provides several flags that can be used to test that the configuration and scenario are working correctly without actually sending requests to the model
+The `medhelm-run` provides several flags that can be used to test that the configuration and scenario are working correctly without actually sending requests to the model
 
     # Just load the config file
-    helm-run --conf src/helm/benchmark/presentation/run_entries_small.conf --max-eval-instances 10 --suite v1 --skip-instances
+    medhelm-run --conf src/helm/benchmark/presentation/run_entries_small.conf --max-eval-instances 10 --suite v1 --skip-instances
 
     # Create the instances and the requests, but don't send requests to the model
-    helm-run --conf src/helm/benchmark/presentation/run_entries_small.conf --max-eval-instances 10  --suite v1 --dry-run
+    medhelm-run --conf src/helm/benchmark/presentation/run_entries_small.conf --max-eval-instances 10  --suite v1 --dry-run
 
 ## Estimating Token Usage
 
 To estimate token usage without making any requests, append the `--dry-run` option:
 
-    helm-run -r <RunSpec to estimate token usage> --suite $SUITE --max-eval-instances <Number of eval instances> --dry-run
+    medhelm-run -r <RunSpec to estimate token usage> --suite $SUITE --max-eval-instances <Number of eval instances> --dry-run
 
 and check the output in `benchmark_output/runs/$SUITE`.
 
 `sum` indicates the estimated total number of tokens used for the specific `RunSpec`.
 
-For the OpenAI models, we use a
-[GPT-2 Tokenizer](https://github.com/PacificAI/medhelm/blob/master/src/helm/proxy/tokenizer/openai_token_counter.py#L12)
-to estimate the token usage. The tokenizer will be downloaded and cached when running a dry run.
+For the OpenAI models, we use a GPT-2 Tokenizer to estimate the token usage. The tokenizer will be downloaded and cached when running a dry run.
 
 ## Perspective API
 
