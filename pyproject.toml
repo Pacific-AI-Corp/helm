@@ -484,6 +484,9 @@ conflicts = [
 [tool.uv.extra-build-dependencies]
 openai-whisper = ["setuptools<82", "wheel"]
 
+[tool.setuptools.package-data]
+"helm.benchmark.static_build" = ["**/*"]
+
 [tool.setuptools]
 package-dir = { "" = "src" }
 zip-safe = false

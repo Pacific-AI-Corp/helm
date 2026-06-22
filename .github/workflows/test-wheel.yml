@@ -1,0 +1,53 @@
+# Verify the PyPI wheel includes the helm-server web UI (static_build).
+name: Test package wheel
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/publish.yml"
+      - ".github/workflows/test-wheel.yml"
+      - "helm-frontend/**"
+      - "MANIFEST.in"
+      - "pyproject.toml"
+      - "src/helm/benchmark/static_build/**"
+      - "src/helm/benchmark/server.py"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/publish.yml"
+      - ".github/workflows/test-wheel.yml"
+      - "helm-frontend/**"
+      - "MANIFEST.in"
+      - "pyproject.toml"
+      - "src/helm/benchmark/static_build/**"
+      - "src/helm/benchmark/server.py"
+
+jobs:
+  test-wheel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.9.4"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+      - name: Build web UI
+        run: |
+          npm install --global yarn
+          cd helm-frontend
+          yarn install
+          yarn build --outDir '../src/helm/benchmark/static_build' --emptyOutDir
+      - name: Build wheel
+        run: uv build
+      - name: Verify static_build is in the wheel
+        run: |
+          unzip -l dist/*.whl | grep 'helm/benchmark/static_build/index.html'
+          uv run --isolated --no-project --with dist/*.whl python -c "import importlib.resources as r; r.files('helm.benchmark.static_build').joinpath('index.html')"
