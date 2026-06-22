@@ -75,7 +75,7 @@
           <li><a href="/adding_new_tokenizers" class="">Adding New Tokenizers</a></li>
           <li><a href="/downloading_raw_results" class="">Downloading Raw Results</a></li>
           <li><a href="/reproducing_leaderboards" class="is-active">Reproducing Leaderboards</a></li>
-          <li><a href="/get_helm_rank" class="">Efficient-HELM</a></li>
+          <li><a href="/get_helm_rank" class="">Efficient MedHELM</a></li>
           <li><a href="/benchmark" class="">Advanced Benchmarking Guide</a></li>
           <li><a href="/huggingface_models" class="">Hugging Face Model Hub</a></li>
         </ul>
@@ -83,10 +83,6 @@
       <li class="docs-nav-section">
         <span class="docs-nav-section-title">Papers</span>
         <ul>
-          <li><a href="/heim" class="">HEIM (Text-to-image)</a></li>
-          <li><a href="/vhelm" class="">VHELM (Vision-Language)</a></li>
-          <li><a href="/enterprise_benchmark" class="">Enterprise Benchmark</a></li>
-          <li><a href="/reeval" class="">Reliable and Efficient Amortized Evaluation</a></li>
           <li><a href="/medhelm" class="">MedHELM</a></li>
         </ul>
       </li>
@@ -142,7 +138,7 @@
 <span class="nb">export </span><span class="nv">MAX_EVAL_INSTANCES</span><span class="o">=</span>1000
 <span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
 
-helm-run <span class="nt">--conf-paths</span> <span class="nv">$RUN_ENTRIES_CONF_PATH</span> <span class="nt">--num-train-trials</span> <span class="nv">$NUM_TRAIN_TRIALS</span> <span class="nt">--max-eval-instances</span> <span class="nv">$MAX_EVAL_INSTANCES</span> <span class="nt">--priority</span> <span class="nv">$PRIORITY</span> <span class="nt">--suite</span> <span class="nv">$SUITE_NAME</span> <span class="nt">--models-to-run</span> <span class="nv">$MODELS_TO_RUN</span>
+medhelm-run <span class="nt">--conf-paths</span> <span class="nv">$RUN_ENTRIES_CONF_PATH</span> <span class="nt">--num-train-trials</span> <span class="nv">$NUM_TRAIN_TRIALS</span> <span class="nt">--max-eval-instances</span> <span class="nv">$MAX_EVAL_INSTANCES</span> <span class="nt">--priority</span> <span class="nv">$PRIORITY</span> <span class="nt">--suite</span> <span class="nv">$SUITE_NAME</span> <span class="nt">--models-to-run</span> <span class="nv">$MODELS_TO_RUN</span>
 
 helm-summarize <span class="nt">--schema</span> <span class="nv">$SCHEMA_PATH</span> <span class="nt">--suite</span> <span class="nv">$SUITE_NAME</span>
 

@@ -75,7 +75,7 @@
           <li><a href="/adding_new_tokenizers" class="">Adding New Tokenizers</a></li>
           <li><a href="/downloading_raw_results" class="">Downloading Raw Results</a></li>
           <li><a href="/reproducing_leaderboards" class="">Reproducing Leaderboards</a></li>
-          <li><a href="/get_helm_rank" class="">Efficient-HELM</a></li>
+          <li><a href="/get_helm_rank" class="">Efficient MedHELM</a></li>
           <li><a href="/benchmark" class="">Advanced Benchmarking Guide</a></li>
           <li><a href="/huggingface_models" class="is-active">Hugging Face Model Hub</a></li>
         </ul>
@@ -83,10 +83,6 @@
       <li class="docs-nav-section">
         <span class="docs-nav-section-title">Papers</span>
         <ul>
-          <li><a href="/heim" class="">HEIM (Text-to-image)</a></li>
-          <li><a href="/vhelm" class="">VHELM (Vision-Language)</a></li>
-          <li><a href="/enterprise_benchmark" class="">Enterprise Benchmark</a></li>
-          <li><a href="/reeval" class="">Reliable and Efficient Amortized Evaluation</a></li>
           <li><a href="/medhelm" class="">MedHELM</a></li>
         </ul>
       </li>
@@ -126,9 +122,9 @@
 
 <h2 id="using-command-line-flags">Using command-line flags</h2>
 
-<p>In some cases, you can use command-line flags with <code class="language-plaintext highlighter-rouge">helm-run</code> to evaluating Hugging Face models. This provides a more convenient way to use Hugging Face models that does not require configuration files.</p>
+<p>In some cases, you can use command-line flags with <code class="language-plaintext highlighter-rouge">medhelm-run</code> to evaluating Hugging Face models. This provides a more convenient way to use Hugging Face models that does not require configuration files.</p>
 
-<p>To use <code class="language-plaintext highlighter-rouge">AutoModelForCausalLM</code> models from Hugging Face Model Hub, add the Hugging Face model IDs to the <code class="language-plaintext highlighter-rouge">--enable-huggingface-models</code> flags to <code class="language-plaintext highlighter-rouge">helm-run</code>. This will make the corresponding Hugging Face models available to use in your run spec descriptions. In the run spec description, use the Hugging Face model ID as the model name.</p>
+<p>To use <code class="language-plaintext highlighter-rouge">AutoModelForCausalLM</code> models from Hugging Face Model Hub, add the Hugging Face model IDs to the <code class="language-plaintext highlighter-rouge">--enable-huggingface-models</code> flags to <code class="language-plaintext highlighter-rouge">medhelm-run</code>. This will make the corresponding Hugging Face models available to use in your run spec descriptions. In the run spec description, use the Hugging Face model ID as the model name.</p>
 
 <p>To use a revision of a model other than the default main revision, append a <code class="language-plaintext highlighter-rouge">@</code> followed by the revision name to the model ID passed to the <code class="language-plaintext highlighter-rouge">--enable-huggingface-models</code> flag.</p>
 
@@ -142,14 +138,14 @@
 <p>Example model on Hugging Face Hub:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Run boolq on stanford-crfm/BioMedLM at the default main revision</span>
-helm-run <span class="se">\</span>
+medhelm-run<span class="se">\</span>
     <span class="nt">--run-entries</span> boolq:model<span class="o">=</span>stanford-crfm/BioMedLM <span class="se">\</span>
     <span class="nt">--enable-huggingface-models</span> stanford-crfm/BioMedLM <span class="se">\</span>
     <span class="nt">--suite</span> v1 <span class="se">\</span>
     <span class="nt">--max-eval-instances</span> 10
 
 <span class="c"># Run boolq on stanford-crfm/BioMedLM at revision main</span>
-helm-run <span class="se">\</span>
+medhelm-run <span class="se">\</span>
     <span class="nt">--run-entries</span> boolq:model<span class="o">=</span>stanford-crfm/BioMedLM@main <span class="se">\</span>
     <span class="nt">--enable-huggingface-models</span> stanford-crfm/BioMedLM@main <span class="se">\</span>
     <span class="nt">--suite</span> v1 <span class="se">\</span>
@@ -159,7 +155,7 @@ helm-run <span class="se">\</span>
 <p>Example model on local disk:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Run boolq on stanford-crfm/BioMedLM at the default main revision</span>
-helm-run <span class="se">\</span>
+medhelm-run <span class="se">\</span>
     <span class="nt">--run-entries</span> boolq:model<span class="o">=</span>your-org/your-model <span class="se">\</span>
     <span class="nt">--enable-local-huggingface-models</span> path/to/your-org/your-model <span class="se">\</span>
     <span class="nt">--suite</span> v1 <span class="se">\</span>

@@ -75,7 +75,7 @@
           <li><a href="/adding_new_tokenizers" class="">Adding New Tokenizers</a></li>
           <li><a href="/downloading_raw_results" class="">Downloading Raw Results</a></li>
           <li><a href="/reproducing_leaderboards" class="">Reproducing Leaderboards</a></li>
-          <li><a href="/get_helm_rank" class="">Efficient-HELM</a></li>
+          <li><a href="/get_helm_rank" class="">Efficient MedHELM</a></li>
           <li><a href="/benchmark" class="">Advanced Benchmarking Guide</a></li>
           <li><a href="/huggingface_models" class="">Hugging Face Model Hub</a></li>
         </ul>
@@ -83,10 +83,6 @@
       <li class="docs-nav-section">
         <span class="docs-nav-section-title">Papers</span>
         <ul>
-          <li><a href="/heim" class="">HEIM (Text-to-image)</a></li>
-          <li><a href="/vhelm" class="">VHELM (Vision-Language)</a></li>
-          <li><a href="/enterprise_benchmark" class="">Enterprise Benchmark</a></li>
-          <li><a href="/reeval" class="">Reliable and Efficient Amortized Evaluation</a></li>
           <li><a href="/medhelm" class="">MedHELM</a></li>
         </ul>
       </li>
@@ -122,15 +118,15 @@
 
 <p>We will run two runs using the <code class="language-plaintext highlighter-rouge">mmlu</code> scenario on the <code class="language-plaintext highlighter-rouge">openai/gpt2</code> model. The <code class="language-plaintext highlighter-rouge">mmlu</code> scenario implements the <strong>Massive Multitask Language (MMLU)</strong> benchmark from <a href="https://arxiv.org/pdf/2009.03300.pdf">this paper</a>, and consists of a Question Answering (QA) task using a dataset with questions from 57 subjects such as elementary mathematics, US history, computer science, law, and more. Note that GPT-2 performs poorly on MMLU, so this is just a proof of concept. We will run two runs: the first using questions about anatomy, and the second using questions about philosophy.</p>
 
-<h2 id="using-helm-run">Using <code class="language-plaintext highlighter-rouge">helm-run</code></h2>
+<h2 id="using-medhelm-run">Using <code class="language-plaintext highlighter-rouge">medhelm-run</code></h2>
 
-<p><code class="language-plaintext highlighter-rouge">helm-run</code> is a command line tool for running benchmarks.</p>
+<p><code class="language-plaintext highlighter-rouge">medhelm-run</code> is a command line tool for running benchmarks.</p>
 
 <p>To run this benchmark using the HELM command-line tools, we need to specify <strong>run entries</strong> that describes the desired runs. For this example, the run entries are <code class="language-plaintext highlighter-rouge">mmlu:subject=anatomy,model=openai/gpt2</code> (for anatomy) and <code class="language-plaintext highlighter-rouge">mmlu:subject=philosophy,model=openai/gpt2</code> (for philosophy).</p>
 
-<p>We will now use <code class="language-plaintext highlighter-rouge">helm-run</code> to execute the runs. Run this command:</p>
+<p>We will now use <code class="language-plaintext highlighter-rouge">medhelm-run</code> to execute the runs. Run this command:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-run <span class="nt">--run-entries</span> mmlu:subject<span class="o">=</span>anatomy,model<span class="o">=</span>openai/gpt2 mmlu:subject<span class="o">=</span>philosophy,model<span class="o">=</span>openai/gpt2 <span class="nt">--suite</span> my-suite <span class="nt">--max-eval-instances</span> 10
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>medhelm-run <span class="nt">--run-entries</span> mmlu:subject<span class="o">=</span>anatomy,model<span class="o">=</span>openai/gpt2 mmlu:subject<span class="o">=</span>philosophy,model<span class="o">=</span>openai/gpt2 <span class="nt">--suite</span> my-suite <span class="nt">--max-eval-instances</span> 10
 </code></pre></div></div>
 
 <p>The meaning of the arguments are as follows:</p>
@@ -141,7 +137,7 @@
   <li><code class="language-plaintext highlighter-rouge">--max-eval-instances</code> limits evaluation to only <em>N</em> instances (i.e. items) from the benchmark, using a randomly shuffled order of instances.</li>
 </ul>
 
-<p><code class="language-plaintext highlighter-rouge">helm-run</code> creates an environment directory environment and an output directory by default.</p>
+<p><code class="language-plaintext highlighter-rouge">medhelm-run</code> creates an environment directory environment and an output directory by default.</p>
 
 <ul>
   <li>The environment directory is <code class="language-plaintext highlighter-rouge">prod_env/</code> by default and can be set using <code class="language-plaintext highlighter-rouge">--local-path</code>. Credentials for making API calls should be added to a <code class="language-plaintext highlighter-rouge">credentials.conf</code> file in this directory.</li>
@@ -162,12 +158,12 @@
 
 <h2 id="using-helm-summarize">Using <code class="language-plaintext highlighter-rouge">helm-summarize</code></h2>
 
-<p>The <code class="language-plaintext highlighter-rouge">helm-summarize</code> reads the output files of <code class="language-plaintext highlighter-rouge">helm-run</code> and computes aggregate statistics across runs. Run the following:</p>
+<p>The <code class="language-plaintext highlighter-rouge">helm-summarize</code> reads the output files of <code class="language-plaintext highlighter-rouge">medhelm-run</code> and computes aggregate statistics across runs. Run the following:</p>
 
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-summarize <span class="nt">--suite</span> my-suite
 </code></pre></div></div>
 
-<p>This reads the pre-existing files in <code class="language-plaintext highlighter-rouge">benchmark_output/runs/my-suite/</code> that were written by <code class="language-plaintext highlighter-rouge">helm-run</code> previously, and writes the following new files back to <code class="language-plaintext highlighter-rouge">benchmark_output/runs/my-suite/</code>:</p>
+<p>This reads the pre-existing files in <code class="language-plaintext highlighter-rouge">benchmark_output/runs/my-suite/</code> that were written by <code class="language-plaintext highlighter-rouge">medhelm-run</code> previously, and writes the following new files back to <code class="language-plaintext highlighter-rouge">benchmark_output/runs/my-suite/</code>:</p>
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">summary.json</code> contains a serialized <code class="language-plaintext highlighter-rouge">ExecutiveSummary</code> with a date and suite name.</li>
@@ -181,12 +177,12 @@
 
 <h2 id="using-helm-server">Using <code class="language-plaintext highlighter-rouge">helm-server</code></h2>
 
-<p>Finally, the <code class="language-plaintext highlighter-rouge">helm-server</code> command launches a web server to visualize the output files of <code class="language-plaintext highlighter-rouge">helm-run</code> and <code class="language-plaintext highlighter-rouge">helm-benchmark</code>. Run:</p>
+<p>Finally, the <code class="language-plaintext highlighter-rouge">helm-server</code> command launches a web server to visualize the output files of <code class="language-plaintext highlighter-rouge">medhelm-run</code> and <code class="language-plaintext highlighter-rouge">helm-benchmark</code>. Run:</p>
 
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-server <span class="nt">--suite</span> my-suite
 </code></pre></div></div>
 
-<p>Open a browser and go to http://localhost:8000/ to view the visualization. You should see a similar view as <a href="https://crfm.stanford.edu/helm/classic/latest/">live website for the paper</a>, but for the data from your benchmark runs. The website has the following sections accessible from the top menu bar:</p>
+<p>Open a browser and go to http://localhost:8000/ to view the visualization. You should see a similar view as the <a href="https://leaderboard.medhelm.org/#/leaderboard">MedHELM leaderboard</a>, but for the data from your benchmark runs. The website has the following sections accessible from the top menu bar:</p>
 
 <ul>
   <li><strong>Leaderboards</strong> contains the leaderboards with aggregate metrics.</li>

@@ -75,7 +75,7 @@
           <li><a href="/adding_new_tokenizers" class="">Adding New Tokenizers</a></li>
           <li><a href="/downloading_raw_results" class="">Downloading Raw Results</a></li>
           <li><a href="/reproducing_leaderboards" class="">Reproducing Leaderboards</a></li>
-          <li><a href="/get_helm_rank" class="">Efficient-HELM</a></li>
+          <li><a href="/get_helm_rank" class="">Efficient MedHELM</a></li>
           <li><a href="/benchmark" class="is-active">Advanced Benchmarking Guide</a></li>
           <li><a href="/huggingface_models" class="">Hugging Face Model Hub</a></li>
         </ul>
@@ -83,10 +83,6 @@
       <li class="docs-nav-section">
         <span class="docs-nav-section-title">Papers</span>
         <ul>
-          <li><a href="/heim" class="">HEIM (Text-to-image)</a></li>
-          <li><a href="/vhelm" class="">VHELM (Vision-Language)</a></li>
-          <li><a href="/enterprise_benchmark" class="">Enterprise Benchmark</a></li>
-          <li><a href="/reeval" class="">Reliable and Efficient Amortized Evaluation</a></li>
           <li><a href="/medhelm" class="">MedHELM</a></li>
         </ul>
       </li>
@@ -126,29 +122,27 @@ directory exists.</p>
 
 <h2 id="dry-runs">Dry Runs</h2>
 
-<p>The <code class="language-plaintext highlighter-rouge">helm-run</code> provides several flags that can be used to test that the configuration and scenario are working correctly without actually sending requests to the model</p>
+<p>The <code class="language-plaintext highlighter-rouge">medhelm-run</code> provides several flags that can be used to test that the configuration and scenario are working correctly without actually sending requests to the model</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Just load the config file
-helm-run --conf src/helm/benchmark/presentation/run_entries_small.conf --max-eval-instances 10 --suite v1 --skip-instances
+medhelm-run --conf src/helm/benchmark/presentation/run_entries_small.conf --max-eval-instances 10 --suite v1 --skip-instances
 
 # Create the instances and the requests, but don't send requests to the model
-helm-run --conf src/helm/benchmark/presentation/run_entries_small.conf --max-eval-instances 10  --suite v1 --dry-run
+medhelm-run --conf src/helm/benchmark/presentation/run_entries_small.conf --max-eval-instances 10  --suite v1 --dry-run
 </code></pre></div></div>
 
 <h2 id="estimating-token-usage">Estimating Token Usage</h2>
 
 <p>To estimate token usage without making any requests, append the <code class="language-plaintext highlighter-rouge">--dry-run</code> option:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-run -r &lt;RunSpec to estimate token usage&gt; --suite $SUITE --max-eval-instances &lt;Number of eval instances&gt; --dry-run
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>medhelm-run -r &lt;RunSpec to estimate token usage&gt; --suite $SUITE --max-eval-instances &lt;Number of eval instances&gt; --dry-run
 </code></pre></div></div>
 
 <p>and check the output in <code class="language-plaintext highlighter-rouge">benchmark_output/runs/$SUITE</code>.</p>
 
 <p><code class="language-plaintext highlighter-rouge">sum</code> indicates the estimated total number of tokens used for the specific <code class="language-plaintext highlighter-rouge">RunSpec</code>.</p>
 
-<p>For the OpenAI models, we use a
-<a href="https://github.com/PacificAI/medhelm/blob/master/src/helm/proxy/tokenizer/openai_token_counter.py#L12">GPT-2 Tokenizer</a>
-to estimate the token usage. The tokenizer will be downloaded and cached when running a dry run.</p>
+<p>For the OpenAI models, we use a GPT-2 Tokenizer to estimate the token usage. The tokenizer will be downloaded and cached when running a dry run.</p>
 
 <h2 id="perspective-api">Perspective API</h2>
 

@@ -75,7 +75,7 @@
           <li><a href="/adding_new_tokenizers" class="">Adding New Tokenizers</a></li>
           <li><a href="/downloading_raw_results" class="">Downloading Raw Results</a></li>
           <li><a href="/reproducing_leaderboards" class="">Reproducing Leaderboards</a></li>
-          <li><a href="/get_helm_rank" class="">Efficient-HELM</a></li>
+          <li><a href="/get_helm_rank" class="">Efficient MedHELM</a></li>
           <li><a href="/benchmark" class="">Advanced Benchmarking Guide</a></li>
           <li><a href="/huggingface_models" class="">Hugging Face Model Hub</a></li>
         </ul>
@@ -83,10 +83,6 @@
       <li class="docs-nav-section">
         <span class="docs-nav-section-title">Papers</span>
         <ul>
-          <li><a href="/heim" class="">HEIM (Text-to-image)</a></li>
-          <li><a href="/vhelm" class="">VHELM (Vision-Language)</a></li>
-          <li><a href="/enterprise_benchmark" class="">Enterprise Benchmark</a></li>
-          <li><a href="/reeval" class="">Reliable and Efficient Amortized Evaluation</a></li>
           <li><a href="/medhelm" class="is-active">MedHELM</a></li>
         </ul>
       </li>
@@ -236,7 +232,7 @@ helm-server <span class="nt">--suite</span> my-medhelm-suite <span class="nt">-o
 
 <ul>
   <li><strong>Scenario:</strong> Dataset + prompt/response formatting logic.</li>
-  <li><strong>Run entry:</strong> A <code class="language-plaintext highlighter-rouge">(model, scenario)</code> pair given to <code class="language-plaintext highlighter-rouge">helm-run</code>.</li>
+  <li><strong>Run entry:</strong> A <code class="language-plaintext highlighter-rouge">(model, scenario)</code> pair given to <code class="language-plaintext highlighter-rouge">medhelm-run</code>.</li>
   <li><strong>Suite:</strong> Named collection of runs; appears as a tab/section in the leaderboard.</li>
   <li><strong>Annotator:</strong> Optional post‑processing (e.g., LLM‑as‑a‑judge).</li>
   <li><strong>Schema:</strong> Task taxonomy + metrics configuration powering <code class="language-plaintext highlighter-rouge">helm-summarize</code> and the UI.</li>
@@ -314,14 +310,6 @@ pip <span class="nb">install</span> <span class="s2">"medhelm[summarization,gate
 </code></pre></div>    </div>
   </li>
 </ol>
-
-<h3 id="alternative-using-conda">Alternative: Using conda</h3>
-
-<p>If you prefer conda:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create <span class="nt">-n</span> medhelm <span class="nv">python</span><span class="o">=</span>3.12 pip
-conda activate medhelm
-pip <span class="nb">install</span> <span class="s2">"medhelm[summarization,gated]"</span>
-</code></pre></div></div>
 
 <hr />
 
@@ -440,7 +428,7 @@ gcloud storage rsync <span class="nt">-r</span> <span class="nv">$GCS_BENCHMARK_
 
 <h4 id="3-launch-the-local-leaderboard">3. Launch the Local Leaderboard</h4>
 
-<p>Run the following command to launch the MedHELM leaderboard locally. Use the numbered <code class="language-plaintext highlighter-rouge">release</code> version you want to display. Check out all release versions on the upper right corner of the official <a href="https://crfm.stanford.edu/helm/medhelm/latest">leaderboard website</a>.</p>
+<p>Run the following command to launch the MedHELM leaderboard locally. Use the numbered <code class="language-plaintext highlighter-rouge">release</code> version you want to display. Check out all release versions on the upper right corner of the official <a href="https://leaderboard.medhelm.org/">leaderboard website</a>.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Sample command to launch the MedHELM leaderboard version 2.0.0.</span>
 helm-server <span class="nt">--release</span> v2.0.0 <span class="nt">--output-path</span> <span class="nv">$OUTPUT_PATH</span>
@@ -961,7 +949,7 @@ Ensure the output is valid JSON:
 
 <ul>
   <li><a href="https://hai.stanford.edu/news/holistic-evaluation-of-large-language-models-for-medical-applications">Stanford HAI Article</a></li>
-  <li><a href="https://crfm.stanford.edu/helm/medhelm/latest/">MedHELM Website (latest leaderboard)</a></li>
+  <li><a href="https://leaderboard.medhelm.org/">MedHELM Website (latest leaderboard)</a></li>
   <li><a href="https://arxiv.org/abs/2505.23802">ArXiv Preprint</a></li>
 </ul>
 

@@ -75,7 +75,7 @@
           <li><a href="/adding_new_tokenizers" class="">Adding New Tokenizers</a></li>
           <li><a href="/downloading_raw_results" class="">Downloading Raw Results</a></li>
           <li><a href="/reproducing_leaderboards" class="">Reproducing Leaderboards</a></li>
-          <li><a href="/get_helm_rank" class="">Efficient-HELM</a></li>
+          <li><a href="/get_helm_rank" class="">Efficient MedHELM</a></li>
           <li><a href="/benchmark" class="">Advanced Benchmarking Guide</a></li>
           <li><a href="/huggingface_models" class="">Hugging Face Model Hub</a></li>
         </ul>
@@ -83,10 +83,6 @@
       <li class="docs-nav-section">
         <span class="docs-nav-section-title">Papers</span>
         <ul>
-          <li><a href="/heim" class="">HEIM (Text-to-image)</a></li>
-          <li><a href="/vhelm" class="">VHELM (Vision-Language)</a></li>
-          <li><a href="/enterprise_benchmark" class="">Enterprise Benchmark</a></li>
-          <li><a href="/reeval" class="">Reliable and Efficient Amortized Evaluation</a></li>
           <li><a href="/medhelm" class="">MedHELM</a></li>
         </ul>
       </li>
@@ -151,13 +147,13 @@
 
 <p>If the custom code lives in a Python module under the current working directory, you may need to modify <code class="language-plaintext highlighter-rouge">PYTHONPATH</code> to make that module importable.</p>
 
-<p>This is required because Python does not add the current working directory to the Python module search path when using command line commands / Python entry points such as <code class="language-plaintext highlighter-rouge">helm-run</code>. See <a href="https://docs.python.org/3/library/sys_path_init.html">Python’s documentation</a> for more details.</p>
+<p>This is required because Python does not add the current working directory to the Python module search path when using command line commands / Python entry points such as <code class="language-plaintext highlighter-rouge">medhelm-run</code>. See <a href="https://docs.python.org/3/library/sys_path_init.html">Python’s documentation</a> for more details.</p>
 
 <p>For example, suppose you implemented a custom <code class="language-plaintext highlighter-rouge">Client</code> subclass named <code class="language-plaintext highlighter-rouge">MyClient</code> in the <code class="language-plaintext highlighter-rouge">my_client.py</code> file under your current working directory, and you have a <code class="language-plaintext highlighter-rouge">ClientSpec</code> specifying the <code class="language-plaintext highlighter-rouge">class_name</code> as <code class="language-plaintext highlighter-rouge">my_client.MyClient</code>.</p>
 
 <p>To make your file importable by Python, you have to add <code class="language-plaintext highlighter-rouge">.</code> to your <code class="language-plaintext highlighter-rouge">PYTHONPATH</code> so that Python will search in your current working directory for your custom Python modules.</p>
 
-<p>In Bash, you can do this by running <code class="language-plaintext highlighter-rouge">export PYTHONPATH=".:$PYTHONPATH"</code> before running <code class="language-plaintext highlighter-rouge">helm-run</code>, or by prefixing <code class="language-plaintext highlighter-rouge">helm-run</code> with <code class="language-plaintext highlighter-rouge">PYTHONPATH=".:$PYTHONPATH"</code>.</p>
+<p>In Bash, you can do this by running <code class="language-plaintext highlighter-rouge">export PYTHONPATH=".:$PYTHONPATH"</code> before running <code class="language-plaintext highlighter-rouge">medhelm-run</code>, or by prefixing <code class="language-plaintext highlighter-rouge">medhelm-run</code> with <code class="language-plaintext highlighter-rouge">PYTHONPATH=".:$PYTHONPATH"</code>.</p>
 
 <h3 id="put-your-custom-code-in-a-python-package">Put your custom code in a Python package</h3>
 
@@ -165,7 +161,7 @@
 
 <h3 id="write-a-python-wrapper-script">Write a Python wrapper script</h3>
 
-<p>If you are using a Python wrapper script that calls <code class="language-plaintext highlighter-rouge">helm.benchmark.run.run_benchmark()</code> instead of using <code class="language-plaintext highlighter-rouge">helm-run</code>, Python will automatically add the directory containing that script to the Python module search path. If your custom code lives in a Python module under that directory, it will automatically be importable by Python. See <a href="https://docs.python.org/3/library/sys_path_init.html">Python’s documentation</a> for more details.</p>
+<p>If you are using a Python wrapper script that calls <code class="language-plaintext highlighter-rouge">helm.benchmark.run.run_benchmark()</code> instead of using <code class="language-plaintext highlighter-rouge">medhelm-run</code>, Python will automatically add the directory containing that script to the Python module search path. If your custom code lives in a Python module under that directory, it will automatically be importable by Python. See <a href="https://docs.python.org/3/library/sys_path_init.html">Python’s documentation</a> for more details.</p>
 
 <hr />
 
@@ -185,7 +181,7 @@ Clients, tokenizers, scenarios, and metrics are defined as classes. HELM loads t
   </li>
   <li>
     <p><strong>Run specs (registered by decorator).</strong>
-Run specs are registered <em>at import time</em> via <code class="language-plaintext highlighter-rouge">@helm.benchmark.run_spec.run_spec_function(...)</code> and are discoverable by name when you invoke <code class="language-plaintext highlighter-rouge">helm-run</code>.</p>
+Run specs are registered <em>at import time</em> via <code class="language-plaintext highlighter-rouge">@helm.benchmark.run_spec.run_spec_function(...)</code> and are discoverable by name when you invoke <code class="language-plaintext highlighter-rouge">medhelm-run</code>.</p>
 
     <p><strong>Key idea:</strong> the module containing the run spec function must be imported so registration code runs. Only modules that define run spec functions need to be imported for discovery.</p>
   </li>
@@ -205,22 +201,22 @@ Run specs are registered <em>at import time</em> via <code class="language-plain
 <span class="n">my_plugin</span> <span class="o">=</span><span class="w"> </span><span class="s">"my_package.helm_plugin"</span>
 </code></pre></div></div>
 
-<p>When your package is installed (e.g., as a wheel or with <code class="language-plaintext highlighter-rouge">pip install -e .</code>), <code class="language-plaintext highlighter-rouge">helm-run</code> can automatically import the entry point module.</p>
+<p>When your package is installed (e.g., as a wheel or with <code class="language-plaintext highlighter-rouge">pip install -e .</code>), <code class="language-plaintext highlighter-rouge">medhelm-run</code> can automatically import the entry point module.</p>
 
 <p>With this method, <code class="language-plaintext highlighter-rouge">project.entry-points.helm</code> only needs to include modules that contain run spec functions (and any other modules you explicitly want imported up front).</p>
 
 <h3 id="2-explicit-imports-via---plugins-best-for-quick-experiments">2) Explicit imports via <code class="language-plaintext highlighter-rouge">--plugins</code> (best for quick experiments)</h3>
 
-<p>You can explicitly tell <code class="language-plaintext highlighter-rouge">helm-run</code> what to import. Each <code class="language-plaintext highlighter-rouge">--plugins</code> argument can be either an importable module name or a filesystem path to a <code class="language-plaintext highlighter-rouge">.py</code> file.</p>
+<p>You can explicitly tell <code class="language-plaintext highlighter-rouge">medhelm-run</code> what to import. Each <code class="language-plaintext highlighter-rouge">--plugins</code> argument can be either an importable module name or a filesystem path to a <code class="language-plaintext highlighter-rouge">.py</code> file.</p>
 
 <p>Importable module names (modules must already be importable, e.g., installed or on <code class="language-plaintext highlighter-rouge">PYTHONPATH</code>):</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-run <span class="nt">--plugins</span> my_package.helm_plugin_a my_package.helm_plugin_b ...
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>medhelm-run <span class="nt">--plugins</span> my_package.helm_plugin_a my_package.helm_plugin_b ...
 </code></pre></div></div>
 
 <p>Filesystem paths (loaded from the given <code class="language-plaintext highlighter-rouge">.py</code> files):</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-run <span class="nt">--plugins</span> /path/to/local_plugin_a.py /path/to/local_plugin_b.py ...
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>medhelm-run <span class="nt">--plugins</span> /path/to/local_plugin_a.py /path/to/local_plugin_b.py ...
 </code></pre></div></div>
 
 <p><strong>How file paths work:</strong> HELM loads plugin paths via <a href="https://ubelt.readthedocs.io/en/latest/auto/ubelt.util_import.html#ubelt.util_import.import_module_from_path"><code class="language-plaintext highlighter-rouge">ubelt.import_module_from_path</code></a>. Single-file plugins (a standalone <code class="language-plaintext highlighter-rouge">.py</code>) are the simplest and most reliable. If your plugin lives in a package, it’s usually best to pass the <strong>module name</strong> and make sure it is installed or on <code class="language-plaintext highlighter-rouge">PYTHONPATH</code>. Path-based loading can also work for packaged plugins, as long as the package is an explicit package (i.e., package directories include <code class="language-plaintext highlighter-rouge">__init__.py</code>, including parent packages).</p>
@@ -233,9 +229,9 @@ Run specs are registered <em>at import time</em> via <code class="language-plain
 
 <p>This method requires that your package is importable (typically by installing it, or by ensuring it is on <code class="language-plaintext highlighter-rouge">PYTHONPATH</code>).</p>
 
-<h3 id="4-a-python-wrapper-script-when-you-dont-want-to-use-helm-run">4) A Python wrapper script (when you don’t want to use <code class="language-plaintext highlighter-rouge">helm-run</code>)</h3>
+<h3 id="4-a-python-wrapper-script-when-you-dont-want-to-use-medhelm-run">4) A Python wrapper script (when you don’t want to use <code class="language-plaintext highlighter-rouge">medhelm-run</code>)</h3>
 
-<p>There is no need to use the <code class="language-plaintext highlighter-rouge">helm-run</code> entry point. You can instead write a Python wrapper script that calls <code class="language-plaintext highlighter-rouge">helm.benchmark.run.run_benchmark()</code>.</p>
+<p>There is no need to use the <code class="language-plaintext highlighter-rouge">medhelm-run</code> entry point. You can instead write a Python wrapper script that calls <code class="language-plaintext highlighter-rouge">helm.benchmark.run.run_benchmark()</code>.</p>
 
 <p>When you run <code class="language-plaintext highlighter-rouge">python your_script.py</code>, Python automatically adds the script’s directory to the module search path. This implicitly changes import behavior in the same way as adding that directory to <code class="language-plaintext highlighter-rouge">PYTHONPATH</code>.</p>
 
@@ -410,7 +406,7 @@ Run specs are registered <em>at import time</em> via <code class="language-plain
 <p>Now <code class="language-plaintext highlighter-rouge">helm-run</code> should discover your plugin through the entry point:</p>
 
 <p>```bash
-helm-run –run-entries my_custom_run_spec:model=openai/gpt2 –suite tutorial –max-eval-instances 10</p>
+medhelm-run –run-entries my_custom_run_spec:model=openai/gpt2 –suite tutorial –max-eval-instances 10</p>
 
       </div>
     </main>

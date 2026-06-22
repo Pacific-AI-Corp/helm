@@ -75,7 +75,7 @@
           <li><a href="/adding_new_tokenizers" class="">Adding New Tokenizers</a></li>
           <li><a href="/downloading_raw_results" class="">Downloading Raw Results</a></li>
           <li><a href="/reproducing_leaderboards" class="">Reproducing Leaderboards</a></li>
-          <li><a href="/get_helm_rank" class="">Efficient-HELM</a></li>
+          <li><a href="/get_helm_rank" class="">Efficient MedHELM</a></li>
           <li><a href="/benchmark" class="">Advanced Benchmarking Guide</a></li>
           <li><a href="/huggingface_models" class="">Hugging Face Model Hub</a></li>
         </ul>
@@ -83,10 +83,6 @@
       <li class="docs-nav-section">
         <span class="docs-nav-section-title">Papers</span>
         <ul>
-          <li><a href="/heim" class="">HEIM (Text-to-image)</a></li>
-          <li><a href="/vhelm" class="">VHELM (Vision-Language)</a></li>
-          <li><a href="/enterprise_benchmark" class="">Enterprise Benchmark</a></li>
-          <li><a href="/reeval" class="">Reliable and Efficient Amortized Evaluation</a></li>
           <li><a href="/medhelm" class="">MedHELM</a></li>
         </ul>
       </li>
@@ -150,7 +146,7 @@
 
 <h3 id="downloading-data-to-local-disk">Downloading data to local disk</h3>
 
-<p>Frequently, your <code class="language-plaintext highlighter-rouge">Scenario</code> will want to download and cache data onto the local disk, rather than downloading it from the internet every time. The <code class="language-plaintext highlighter-rouge">output_path</code> argument passed into the <code class="language-plaintext highlighter-rouge">get_instances()</code> method will contain a file path to a scenario-specific download folder that you should download these files to. The folder will be under the <code class="language-plaintext highlighter-rouge">scenarios</code> subdirectory under the <code class="language-plaintext highlighter-rouge">benchmark_output/</code> folder (or the path specified by the <code class="language-plaintext highlighter-rouge">--output-path</code> flag for <code class="language-plaintext highlighter-rouge">helm-run</code>). You can use the <code class="language-plaintext highlighter-rouge">ensure_directory_exists()</code> and <code class="language-plaintext highlighter-rouge">ensure_file_downloaded()</code> helper functions to download files, which has the advantage of skipping the download if the file already exists. You can also use set <code class="language-plaintext highlighter-rouge">unpack=True</code> in <code class="language-plaintext highlighter-rouge">ensure_file_downloaded()</code> to automatically unpack most archive files (e.g. <code class="language-plaintext highlighter-rouge">.tar.gz</code> and <code class="language-plaintext highlighter-rouge">.zip</code> files).</p>
+<p>Frequently, your <code class="language-plaintext highlighter-rouge">Scenario</code> will want to download and cache data onto the local disk, rather than downloading it from the internet every time. The <code class="language-plaintext highlighter-rouge">output_path</code> argument passed into the <code class="language-plaintext highlighter-rouge">get_instances()</code> method will contain a file path to a scenario-specific download folder that you should download these files to. The folder will be under the <code class="language-plaintext highlighter-rouge">scenarios</code> subdirectory under the <code class="language-plaintext highlighter-rouge">benchmark_output/</code> folder (or the path specified by the <code class="language-plaintext highlighter-rouge">--output-path</code> flag for <code class="language-plaintext highlighter-rouge">medhelm-run</code>). You can use the <code class="language-plaintext highlighter-rouge">ensure_directory_exists()</code> and <code class="language-plaintext highlighter-rouge">ensure_file_downloaded()</code> helper functions to download files, which has the advantage of skipping the download if the file already exists. You can also use set <code class="language-plaintext highlighter-rouge">unpack=True</code> in <code class="language-plaintext highlighter-rouge">ensure_file_downloaded()</code> to automatically unpack most archive files (e.g. <code class="language-plaintext highlighter-rouge">.tar.gz</code> and <code class="language-plaintext highlighter-rouge">.zip</code> files).</p>
 
 <p>For examples, refer to:</p>
 
@@ -173,7 +169,7 @@
 
 <h2 id="custom-run-spec-function">Custom run spec function</h2>
 
-<p>A run spec function is the entry point to the scenario. A run spec function produces a <code class="language-plaintext highlighter-rouge">RunSpec</code> (a configuration for an evaluation run). <code class="language-plaintext highlighter-rouge">helm-run</code> will run the run spec function to get the <code class="language-plaintext highlighter-rouge">RunSpec</code>, and then it will run the evaluation defined by that <code class="language-plaintext highlighter-rouge">RunSpec</code>.</p>
+<p>A run spec function is the entry point to the scenario. A run spec function produces a <code class="language-plaintext highlighter-rouge">RunSpec</code> (a configuration for an evaluation run). <code class="language-plaintext highlighter-rouge">medhelm-run</code> will run the run spec function to get the <code class="language-plaintext highlighter-rouge">RunSpec</code>, and then it will run the evaluation defined by that <code class="language-plaintext highlighter-rouge">RunSpec</code>.</p>
 
 <p>HELM will search for modules with names matching these patterns for run spec functions:</p>
 
@@ -186,7 +182,7 @@
 
 <p>Now run:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-run --run-entries custom:model=openai/gpt2 --suite custom --max-eval-instances 5
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>medhelm-run --run-entries custom:model=openai/gpt2 --suite custom --max-eval-instances 5
 </code></pre></div></div>
 
 <p>If you get a <code class="language-plaintext highlighter-rouge">ValueError: Unknown run spec name</code> error, you should set up your <code class="language-plaintext highlighter-rouge">PYTHONPATH</code> as explained above, and then try again.</p>
@@ -195,9 +191,9 @@
 
 <p>The above run entry uses the <code class="language-plaintext highlighter-rouge">openai/gpt2</code> model, which is a lightweight model that is reasonably fast, even when using only CPU inference without a GPU.</p>
 
-<p>However, you might want to avoid waiting for model inference when implementing a scenario in order to speed up your iteration times. To do so, you can use the <code class="language-plaintext highlighter-rouge">simple/model1</code>, which simply echoes the last word in the prompt. Example <code class="language-plaintext highlighter-rouge">helm-run</code> command:</p>
+<p>However, you might want to avoid waiting for model inference when implementing a scenario in order to speed up your iteration times. To do so, you can use the <code class="language-plaintext highlighter-rouge">simple/model1</code>, which simply echoes the last word in the prompt. Example <code class="language-plaintext highlighter-rouge">medhelm-run</code> command:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-run --run-entries custom:model=simple/model1 --suite custom --max-eval-instances 5
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>medhelm-run --run-entries custom:model=simple/model1 --suite custom --max-eval-instances 5
 </code></pre></div></div>
 
 <p>Note: Both the custom <code class="language-plaintext highlighter-rouge">Scenario</code> subclass and the custom run spec function will be added to custom Python modules that have to be importable by Python. The easiest way to do this is to place your custom Python modules under the current working directory and then run <code class="language-plaintext highlighter-rouge">export PYTHONPATH=".:$PYTHONPATH"</code> in your shell. Refer to the Importing Custom Modules documentation for other ways to do this.</p>

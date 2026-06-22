@@ -75,7 +75,7 @@
           <li><a href="/adding_new_tokenizers" class="">Adding New Tokenizers</a></li>
           <li><a href="/downloading_raw_results" class="">Downloading Raw Results</a></li>
           <li><a href="/reproducing_leaderboards" class="">Reproducing Leaderboards</a></li>
-          <li><a href="/get_helm_rank" class="">Efficient-HELM</a></li>
+          <li><a href="/get_helm_rank" class="">Efficient MedHELM</a></li>
           <li><a href="/benchmark" class="">Advanced Benchmarking Guide</a></li>
           <li><a href="/huggingface_models" class="">Hugging Face Model Hub</a></li>
         </ul>
@@ -83,10 +83,6 @@
       <li class="docs-nav-section">
         <span class="docs-nav-section-title">Papers</span>
         <ul>
-          <li><a href="/heim" class="">HEIM (Text-to-image)</a></li>
-          <li><a href="/vhelm" class="">VHELM (Vision-Language)</a></li>
-          <li><a href="/enterprise_benchmark" class="">Enterprise Benchmark</a></li>
-          <li><a href="/reeval" class="">Reliable and Efficient Amortized Evaluation</a></li>
           <li><a href="/medhelm" class="">MedHELM</a></li>
         </ul>
       </li>
@@ -118,18 +114,18 @@
       <div class="main-inner">
         <h1 id="run-entries-configuration-files">Run Entries Configuration Files</h1>
 
-<p>In the tutorial, we have been using <code class="language-plaintext highlighter-rouge">--run-entries</code> to specify run entries for <code class="language-plaintext highlighter-rouge">helm-run</code>. However, we can also put the run entries into a <strong>run entries configuration file</strong>, and then pass the file to <code class="language-plaintext highlighter-rouge">helm-run</code> using the <code class="language-plaintext highlighter-rouge">--conf-file</code> flag.</p>
+<p>In the tutorial, we have been using <code class="language-plaintext highlighter-rouge">--run-entries</code> to specify run entries for <code class="language-plaintext highlighter-rouge">medhelm-run</code>. However, we can also put the run entries into a <strong>run entries configuration file</strong>, and then pass the file to <code class="language-plaintext highlighter-rouge">medhelm-run</code> using the <code class="language-plaintext highlighter-rouge">--conf-file</code> flag.</p>
 
 <p>This has a number of advantages:</p>
 
 <ul>
-  <li>This prevents the command line invocation of <code class="language-plaintext highlighter-rouge">helm-run</code> from getting too long when a large number of run entries are run.</li>
+  <li>This prevents the command line invocation of <code class="language-plaintext highlighter-rouge">medhelm-run</code> from getting too long when a large number of run entries are run.</li>
   <li>The run entries configuration file can be shared with other users and commited to Git.</li>
 </ul>
 
 <p>For example, instead of running:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-run <span class="nt">--run-specs</span> mmlu:subject<span class="o">=</span>anatomy,model<span class="o">=</span>openai/gpt2 mmlu:subject<span class="o">=</span>philosophy,model<span class="o">=</span>openai/gpt2 <span class="nt">--suite</span> tutorial <span class="nt">--max-eval-instances</span> 10
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>medhelm-run <span class="nt">--run-specs</span> mmlu:subject<span class="o">=</span>anatomy,model<span class="o">=</span>openai/gpt2 mmlu:subject<span class="o">=</span>philosophy,model<span class="o">=</span>openai/gpt2 <span class="nt">--suite</span> tutorial <span class="nt">--max-eval-instances</span> 10
 </code></pre></div></div>
 
 <p>You can instead create a <code class="language-plaintext highlighter-rouge">tutorial_run_entries.conf</code> file in your current working directory:</p>
@@ -140,9 +136,9 @@
 ]
 </code></pre></div></div>
 
-<p>You would then use this file with <code class="language-plaintext highlighter-rouge">helm-run</code> with this command:</p>
+<p>You would then use this file with <code class="language-plaintext highlighter-rouge">medhelm-run</code> with this command:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-run <span class="nt">--conf-file</span> tutorial_run_entries.conf <span class="nt">--suite</span> tutorial <span class="nt">--max-eval-instances</span> 10
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>medhelm-run <span class="nt">--conf-file</span> tutorial_run_entries.conf <span class="nt">--suite</span> tutorial <span class="nt">--max-eval-instances</span> 10
 </code></pre></div></div>
 
 <h2 id="model-run-expander-wildcards">Model Run Expander Wildcards</h2>
@@ -155,9 +151,9 @@
 ]
 </code></pre></div></div>
 
-<p>You would then use this file with <code class="language-plaintext highlighter-rouge">helm-run</code> with this command:</p>
+<p>You would then use this file with <code class="language-plaintext highlighter-rouge">medhelm-run</code> with this command:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-run <span class="nt">--conf-file</span> tutorial_run_entries.conf <span class="nt">--suite</span> tutorial <span class="nt">--max-eval-instances</span> 10 <span class="nt">--models-to-run</span> openai/gpt2
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>medhelm-run <span class="nt">--conf-file</span> tutorial_run_entries.conf <span class="nt">--suite</span> tutorial <span class="nt">--max-eval-instances</span> 10 <span class="nt">--models-to-run</span> openai/gpt2
 </code></pre></div></div>
 
 <p>This has exactly the same behavior has the previous example. For more information on model run expander wildcards, refer to the run entry format documentation.</p>

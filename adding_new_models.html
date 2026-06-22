@@ -75,7 +75,7 @@
           <li><a href="/adding_new_tokenizers" class="">Adding New Tokenizers</a></li>
           <li><a href="/downloading_raw_results" class="">Downloading Raw Results</a></li>
           <li><a href="/reproducing_leaderboards" class="">Reproducing Leaderboards</a></li>
-          <li><a href="/get_helm_rank" class="">Efficient-HELM</a></li>
+          <li><a href="/get_helm_rank" class="">Efficient MedHELM</a></li>
           <li><a href="/benchmark" class="">Advanced Benchmarking Guide</a></li>
           <li><a href="/huggingface_models" class="">Hugging Face Model Hub</a></li>
         </ul>
@@ -83,10 +83,6 @@
       <li class="docs-nav-section">
         <span class="docs-nav-section-title">Papers</span>
         <ul>
-          <li><a href="/heim" class="">HEIM (Text-to-image)</a></li>
-          <li><a href="/vhelm" class="">VHELM (Vision-Language)</a></li>
-          <li><a href="/enterprise_benchmark" class="">Enterprise Benchmark</a></li>
-          <li><a href="/reeval" class="">Reliable and Efficient Amortized Evaluation</a></li>
           <li><a href="/medhelm" class="">MedHELM</a></li>
         </ul>
       </li>
@@ -187,9 +183,9 @@
 <ul>
   <li>This uses local inference with Hugging Face. It will attempt to use GPU inference if available, and use CPU inference otherwise.</li>
   <li>Multi-GPU inference can be enabled by setting <code class="language-plaintext highlighter-rouge">device_map: auto</code> in the <code class="language-plaintext highlighter-rouge">args</code>.</li>
-  <li>GPU models loaded by <code class="language-plaintext highlighter-rouge">helm-run</code> will remain loaded on the GPU for the lifespan of <code class="language-plaintext highlighter-rouge">helm-run</code>.</li>
-  <li>If evaluating multiple models, it is prudent to evaluate each model with a separate <code class="language-plaintext highlighter-rouge">helm-run</code> invocation.</li>
-  <li>If you are attempting to access models that are private, restricted, or require signing an agreement (e.g. Llama 3), you need to be authenticated to Hugging Face through the CLI. As the user that will be running <code class="language-plaintext highlighter-rouge">helm-run</code>, run <code class="language-plaintext highlighter-rouge">huggingface-cli login</code> in your shell. Refer to <a href="https://huggingface.co/docs/huggingface_hub/en/quick-start#login-command">Hugging Face’s documentation</a> for more information.</li>
+  <li>GPU models loaded by <code class="language-plaintext highlighter-rouge">medhelm-run</code> will remain loaded on the GPU for the lifespan of <code class="language-plaintext highlighter-rouge">medhelm-run</code>.</li>
+  <li>If evaluating multiple models, it is prudent to evaluate each model with a separate <code class="language-plaintext highlighter-rouge">medhelm-run</code> invocation.</li>
+  <li>If you are attempting to access models that are private, restricted, or require signing an agreement (e.g. Llama 3), you need to be authenticated to Hugging Face through the CLI. As the user that will be running <code class="language-plaintext highlighter-rouge">medhelm-run</code>, run <code class="language-plaintext highlighter-rouge">huggingface-cli login</code> in your shell. Refer to <a href="https://huggingface.co/docs/huggingface_hub/en/quick-start#login-command">Hugging Face’s documentation</a> for more information.</li>
 </ul>
 
 <h3 id="vllm">vLLM</h3>
@@ -235,9 +231,9 @@
 
 <h2 id="testing-new-models">Testing New Models</h2>
 
-<p>After you’ve added your model, you can run your model with <code class="language-plaintext highlighter-rouge">helm-run</code> using a run entry such as <code class="language-plaintext highlighter-rouge">mmlu:subject=anatomy,model=your-org/your-model</code>. It is also recommended to use the <code class="language-plaintext highlighter-rouge">--disable-cache</code> flag so that in the event that you made a mistake, the incorrect requests are not written to the request cache. Example:</p>
+<p>After you’ve added your model, you can run your model with <code class="language-plaintext highlighter-rouge">medhelm-run</code> using a run entry such as <code class="language-plaintext highlighter-rouge">mmlu:subject=anatomy,model=your-org/your-model</code>. It is also recommended to use the <code class="language-plaintext highlighter-rouge">--disable-cache</code> flag so that in the event that you made a mistake, the incorrect requests are not written to the request cache. Example:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-run <span class="nt">--run-entry</span> mmlu:subject<span class="o">=</span>anatomy,model<span class="o">=</span>your-org/your-model <span class="nt">--suite</span> my-suite <span class="nt">--max-eval-instances</span> 10 <span class="nt">--disable-cache</span>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>medhelm-run <span class="nt">--run-entry</span> mmlu:subject<span class="o">=</span>anatomy,model<span class="o">=</span>your-org/your-model <span class="nt">--suite</span> my-suite <span class="nt">--max-eval-instances</span> 10 <span class="nt">--disable-cache</span>
 
 helm-summarize <span class="nt">--suite</span> my-suite
 

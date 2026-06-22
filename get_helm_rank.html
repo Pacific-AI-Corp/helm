@@ -22,7 +22,7 @@
 })();
 </script>
 
-  <title>Efficient-HELM | MedHELM</title>
+  <title>Efficient MedHELM | MedHELM</title>
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 
@@ -75,7 +75,7 @@
           <li><a href="/adding_new_tokenizers" class="">Adding New Tokenizers</a></li>
           <li><a href="/downloading_raw_results" class="">Downloading Raw Results</a></li>
           <li><a href="/reproducing_leaderboards" class="">Reproducing Leaderboards</a></li>
-          <li><a href="/get_helm_rank" class="is-active">Efficient-HELM</a></li>
+          <li><a href="/get_helm_rank" class="is-active">Efficient MedHELM</a></li>
           <li><a href="/benchmark" class="">Advanced Benchmarking Guide</a></li>
           <li><a href="/huggingface_models" class="">Hugging Face Model Hub</a></li>
         </ul>
@@ -83,10 +83,6 @@
       <li class="docs-nav-section">
         <span class="docs-nav-section-title">Papers</span>
         <ul>
-          <li><a href="/heim" class="">HEIM (Text-to-image)</a></li>
-          <li><a href="/vhelm" class="">VHELM (Vision-Language)</a></li>
-          <li><a href="/enterprise_benchmark" class="">Enterprise Benchmark</a></li>
-          <li><a href="/reeval" class="">Reliable and Efficient Amortized Evaluation</a></li>
           <li><a href="/medhelm" class="">MedHELM</a></li>
         </ul>
       </li>
@@ -116,32 +112,49 @@
 
     <main class="site-main docs-main">
       <div class="main-inner">
-        <h1 id="efficient-helm">Efficient-HELM</h1>
+        <h1 id="efficient-medhelm">Efficient MedHELM</h1>
 
-<p>This tutorial will show you how to locally add your model into the HELM Classic leaderboard at a fraction of the cost of performing a full run, using a techinque from IBM Resarch described in <a href="https://arxiv.org/pdf/2308.11696.pdf">Efficient Benchmarking (of Language Models)</a> a paper from IBM Research.</p>
+<p>This tutorial shows how to add your model to the <a href="https://leaderboard.medhelm.org/#/leaderboard">MedHELM leaderboard</a> at a fraction of the cost of a full run, using the technique from IBM Research described in <a href="https://arxiv.org/pdf/2308.11696.pdf">Efficient Benchmarking (of Language Models)</a> (Perlitz et al., 2023).</p>
 
-<p><strong>Warning</strong> — The tutorial will currently only work for the HELM Classic leaderboard. Other leaderboards are not yet supported.</p>
+<p>The rank-location tradeoffs in the table below were measured on HELM Classic scenarios, but MedHELM uses the same <code class="language-plaintext highlighter-rouge">--max-eval-instances</code> flag to subsample evaluation items.</p>
 
-<h2 id="download-helm-leaderboard-results">Download HELM leaderboard results</h2>
+<h2 id="prerequisites">Prerequisites</h2>
 
-<p>First, in order to compare your model to the latest and greatest models found in the <a href="https://crfm.stanford.edu/helm/classic/latest/?group=core_scenarios">HELM Classic leaderboard</a>, use the following command to obtain a zip file of all previous HELM Classic results</p>
+<ul>
+  <li>MedHELM installed (<a href="/installation">installation guide</a>)</li>
+  <li><a href="https://cloud.google.com/sdk/docs/install">Google Cloud CLI</a> (<code class="language-plaintext highlighter-rouge">gcloud</code>) for downloading public leaderboard results</li>
+  <li>API credentials or local deployments configured for your model (<a href="/adding_new_models">adding new models</a>)</li>
+</ul>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">LEADERBOARD_VERSION</span><span class="o">=</span>v0.3.0
+<h2 id="download-medhelm-leaderboard-results">Download MedHELM leaderboard results</h2>
+
+<p>To compare your model against models on the official leaderboard, download the public MedHELM release tree from Google Cloud Storage:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">OUTPUT_PATH</span><span class="o">=</span><span class="s2">"./benchmark_output"</span>
+<span class="nb">export </span><span class="nv">GCS_BENCHMARK_OUTPUT_PATH</span><span class="o">=</span><span class="s2">"gs://crfm-helm-public/medhelm/benchmark_output"</span>
+<span class="nb">export </span><span class="nv">RELEASE</span><span class="o">=</span>v2.0.0
+
+<span class="nb">mkdir</span> <span class="nt">-p</span> <span class="s2">"</span><span class="nv">$OUTPUT_PATH</span><span class="s2">"</span>
+
+<span class="c"># Optional: check download size first</span>
+<span class="c"># gcloud storage du -sr "$GCS_BENCHMARK_OUTPUT_PATH"</span>
+
+gcloud storage rsync <span class="nt">-r</span> <span class="s2">"</span><span class="nv">$GCS_BENCHMARK_OUTPUT_PATH</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$OUTPUT_PATH</span><span class="s2">"</span>
 </code></pre></div></div>
 
-<p>Downloaded, expand the file into HELMs results dir:</p>
+<p>After the download, confirm that release metadata exists, for example <code class="language-plaintext highlighter-rouge">benchmark_output/releases/v2.0.0/summary.json</code>. Pick the <code class="language-plaintext highlighter-rouge">RELEASE</code> value from the version selector on <a href="https://leaderboard.medhelm.org/">leaderboard.medhelm.org</a>.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-O</span> https://storage.googleapis.com/crfm-helm-public/benchmark_output/archives/<span class="nv">$LEADERBOARD_VERSION</span>/run_stats.zip <span class="o">&amp;&amp;</span><span class="se">\</span>
-<span class="nb">mkdir</span> <span class="nt">-p</span> benchmark_output/runs/<span class="nv">$LEADERBOARD_VERSION</span> <span class="o">&amp;&amp;</span> unzip run_stats.zip <span class="nt">-d</span> benchmark_output/runs/<span class="nv">$LEADERBOARD_VERSION</span>
-</code></pre></div></div>
+<blockquote>
+  <p><strong>Note:</strong> MedHELM does not publish a lightweight <code class="language-plaintext highlighter-rouge">run_stats.zip</code> archive. Leaderboard results are distributed via the GCS path above. See <a href="/medhelm#viewing-and-reproducing-leaderboard-results">Viewing and Reproducing Leaderboard Results</a> for more detail.</p>
+</blockquote>
 
-<p>Now that the files are in your results directory, all HELM models will be shown in your UI along with your model.</p>
+<h3 id="optional-smaller-download">Optional: smaller download</h3>
 
-<h2 id="run-efficient-helm">Run Efficient-HELM</h2>
+<p>If you only need aggregated metrics (not per-instance request/response files), you can sync from an existing local copy while excluding large artifacts. See <a href="https://github.com/PacificAI/medhelm/blob/main/LEADERBOARD_EXPORT.md">LEADERBOARD_EXPORT.md</a> in the repository.</p>
 
-<p>According to <a href="https://arxiv.org/pdf/2308.11696.pdf">Efficient Benchmarking (of Language Models)</a> a paper from IBM Research, which systematically analysed benchmark design choices using the HELM benchmark as an example, one can run the HELM benchmark with a fraction of the examples and still get a reliable estimation of a full run (Perlitz et al., 2023).</p>
+<h2 id="run-efficient-medhelm">Run efficient MedHELM</h2>
 
-<p>Specifically, the authors calculated the CI 95% of Rank Location from the real ranks as a function of the number of examples used per scenario and came up with the following tradeoffs<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>:</p>
+<p>According to <a href="https://arxiv.org/pdf/2308.11696.pdf">Efficient Benchmarking (of Language Models)</a>, running with a fraction of evaluation instances per scenario can still yield a reliable estimate of a full run. The authors report the following tradeoffs<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>:</p>
 
 <table>
   <thead>
@@ -185,50 +198,74 @@
   </tbody>
 </table>
 
-<p>Choose your point on your tradeoff, how accurate do you need your rank? how much time do you want to wait? Once you have chosen, download the config and define your model</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">EXAMPLES_PER_SCENARIO</span><span class="o">=</span>10 <span class="o">&amp;&amp;</span> <span class="se">\</span>
-<span class="nb">export </span><span class="nv">MODEL_TO_RUN</span><span class="o">=</span>openai/gpt2
+<p>Choose your tradeoff, then set your model and evaluation depth:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">EXAMPLES_PER_SCENARIO</span><span class="o">=</span>10
+<span class="nb">export </span><span class="nv">MODEL</span><span class="o">=</span>openai/gpt2
+<span class="nb">export </span><span class="nv">MODEL_DEPLOYMENT</span><span class="o">=</span>huggingface/gpt2
+<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>src/helm/benchmark/static/schema_medhelm.yaml
 </code></pre></div></div>
 
-<p>That’s it, run the following to get the config file:</p>
+<p><code class="language-plaintext highlighter-rouge">run_entries_medhelm_public.conf</code> lists the models and Stanford Healthcare deployments used on the public leaderboard. To evaluate <strong>your</strong> model on the same scenarios, copy the config and replace <code class="language-plaintext highlighter-rouge">model=</code> / <code class="language-plaintext highlighter-rouge">model_deployment=</code> in each entry:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://raw.githubusercontent.com/PacificAI/medhelm/main/src/helm/benchmark/presentation/run_entries_core_scenarios_<span class="nv">$EXAMPLES_PER_SCENARIO</span>.conf <span class="nt">-O</span> run_entries_<span class="nv">$EXAMPLES_PER_SCENARIO</span>.conf
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cp </span>src/helm/benchmark/presentation/run_entries_medhelm_public.conf run_entries_my_model.conf
+<span class="c"># Edit run_entries_my_model.conf: set your MODEL and MODEL_DEPLOYMENT on every entry.</span>
 </code></pre></div></div>
 
-<p>and this one to run the benchmark (will take some time in the first time since all the data has to be prepared):</p>
+<p>For a quick smoke test on a few public scenarios before running the full public config:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-run <span class="se">\</span>
-<span class="nt">--conf-paths</span> run_entries_<span class="nv">$EXAMPLES_PER_SCENARIO</span>.conf <span class="se">\</span>
-<span class="nt">--suite</span> <span class="nv">$LEADERBOARD_VERSION</span> <span class="se">\</span>
-<span class="nt">--max-eval-instances</span> <span class="nv">$EXAMPLES_PER_SCENARIO</span> <span class="se">\</span>
-<span class="nt">--models-to-run</span> <span class="nv">$MODEL_TO_RUN</span> <span class="se">\</span>
-<span class="nt">--cache-instances</span> <span class="se">\</span>
-<span class="nt">--num-train-trials</span> 1 <span class="se">\</span>
-<span class="nt">--skip-completed-runs</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>medhelm-run <span class="se">\</span>
+  <span class="nt">--run-entries</span> <span class="s2">"pubmed_qa:model=</span><span class="nv">$MODEL</span><span class="s2">,model_deployment=</span><span class="nv">$MODEL_DEPLOYMENT</span><span class="s2">"</span> <span class="se">\</span>
+                <span class="s2">"medcalc_bench:model=</span><span class="nv">$MODEL</span><span class="s2">,model_deployment=</span><span class="nv">$MODEL_DEPLOYMENT</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">--suite</span> <span class="s2">"</span><span class="nv">$RELEASE</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">--output-path</span> <span class="s2">"</span><span class="nv">$OUTPUT_PATH</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">--max-eval-instances</span> <span class="s2">"</span><span class="nv">$EXAMPLES_PER_SCENARIO</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">--num-train-trials</span> 1 <span class="se">\</span>
+  <span class="nt">--cache-instances</span> <span class="se">\</span>
+  <span class="nt">--skip-completed-runs</span>
 </code></pre></div></div>
 
-<p>This will take some time the first time running since all the data (regardless of the number of examples chosen) is downloaded and prepared.</p>
+<p>To run the full public benchmark suite with subsampled instances:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>medhelm-run <span class="se">\</span>
+  <span class="nt">--conf-paths</span> run_entries_my_model.conf <span class="se">\</span>
+  <span class="nt">--suite</span> <span class="s2">"</span><span class="nv">$RELEASE</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">--output-path</span> <span class="s2">"</span><span class="nv">$OUTPUT_PATH</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">--max-eval-instances</span> <span class="s2">"</span><span class="nv">$EXAMPLES_PER_SCENARIO</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">--num-train-trials</span> 1 <span class="se">\</span>
+  <span class="nt">--cache-instances</span> <span class="se">\</span>
+  <span class="nt">--skip-completed-runs</span> <span class="se">\</span>
+  <span class="nt">--priority</span> 2
+</code></pre></div></div>
+
+<p>Use the same <code class="language-plaintext highlighter-rouge">--suite</code> value as the release you downloaded (for example <code class="language-plaintext highlighter-rouge">v2.0.0</code>) so your runs appear alongside existing leaderboard results. <code class="language-plaintext highlighter-rouge">--skip-completed-runs</code> avoids re-running models that are already present under <code class="language-plaintext highlighter-rouge">benchmark_output/runs/$RELEASE/</code>.</p>
+
+<p>The first run may take a while because datasets are downloaded and cached regardless of how many instances you evaluate.</p>
 
 <h2 id="summarize-and-serve-your-results">Summarize and serve your results</h2>
 
-<p>To view how your model fits in with the latest leaderboard, process and aggregate your results with:</p>
+<p>Aggregate results with the MedHELM schema:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-summarize <span class="nt">--suite</span> <span class="nv">$LEADERBOARD_VERSION</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-summarize <span class="nt">--schema</span> <span class="s2">"</span><span class="nv">$SCHEMA_PATH</span><span class="s2">"</span> <span class="nt">--suite</span> <span class="s2">"</span><span class="nv">$RELEASE</span><span class="s2">"</span> <span class="nt">-o</span> <span class="s2">"</span><span class="nv">$OUTPUT_PATH</span><span class="s2">"</span>
 </code></pre></div></div>
 
-<p>And serve with:</p>
+<p>Launch the local leaderboard UI with the official release:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-server
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-server <span class="nt">--release</span> <span class="s2">"</span><span class="nv">$RELEASE</span><span class="s2">"</span> <span class="nt">--output-path</span> <span class="s2">"</span><span class="nv">$OUTPUT_PATH</span><span class="s2">"</span>
 </code></pre></div></div>
 
-<h2 id="references-list">References List:</h2>
+<p>Open <code class="language-plaintext highlighter-rouge">http://localhost:8000</code> to see your model next to the downloaded leaderboard models.</p>
 
-<p><code class="language-plaintext highlighter-rouge">Perlitz, Y., Bandel, E., Gera, A., Arviv, O., Ein-Dor, L., Shnarch, E., Slonim, N., Shmueli-Scheuer, M. and Choshen, L., 2023. Efficient Benchmarking (of Language Models). arXiv preprint arXiv:2308.11696.</code></p>
+<p>For a full reproduction (all instances, gated/private benchmarks), see <a href="/reproducing_leaderboards#medhelm">Reproducing Leaderboards</a>.</p>
+
+<h2 id="references">References</h2>
+
+<p>Perlitz, Y., Bandel, E., Gera, A., Arviv, O., Ein-Dor, L., Shnarch, E., Slonim, N., Shmueli-Scheuer, M. and Choshen, L., 2023. Efficient Benchmarking (of Language Models). arXiv preprint arXiv:2308.11696.</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1">
-      <p>Note that the quantities below are the CI 95% of the rank location and are thus very conservative estimates. In our experiments, we did not experience deviations above ±2 for any of the options above.]: <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>The quantities above are the CI 95% of rank location and are conservative estimates. In our experiments on HELM Classic, deviations were typically within ±2 ranks for the subsampling levels above. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>

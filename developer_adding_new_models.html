@@ -75,7 +75,7 @@
           <li><a href="/adding_new_tokenizers" class="">Adding New Tokenizers</a></li>
           <li><a href="/downloading_raw_results" class="">Downloading Raw Results</a></li>
           <li><a href="/reproducing_leaderboards" class="">Reproducing Leaderboards</a></li>
-          <li><a href="/get_helm_rank" class="">Efficient-HELM</a></li>
+          <li><a href="/get_helm_rank" class="">Efficient MedHELM</a></li>
           <li><a href="/benchmark" class="">Advanced Benchmarking Guide</a></li>
           <li><a href="/huggingface_models" class="">Hugging Face Model Hub</a></li>
         </ul>
@@ -83,10 +83,6 @@
       <li class="docs-nav-section">
         <span class="docs-nav-section-title">Papers</span>
         <ul>
-          <li><a href="/heim" class="">HEIM (Text-to-image)</a></li>
-          <li><a href="/vhelm" class="">VHELM (Vision-Language)</a></li>
-          <li><a href="/enterprise_benchmark" class="">Enterprise Benchmark</a></li>
-          <li><a href="/reeval" class="">Reliable and Efficient Amortized Evaluation</a></li>
           <li><a href="/medhelm" class="">MedHELM</a></li>
         </ul>
       </li>
@@ -143,7 +139,7 @@
 <ul>
   <li>Include any link justifying the metadata used in <code class="language-plaintext highlighter-rouge">ModelMetadata</code> such as the release data, number of parameters, capabilities and so on (you should not infer anything).</li>
   <li>Check that you are respecting the format used in those files (<code class="language-plaintext highlighter-rouge">ModelMetadata</code> should be named as <code class="language-plaintext highlighter-rouge">&lt;CREATOR-ORGANIZATION&gt;/&lt;MODEL-NAME&gt;</code> and the <code class="language-plaintext highlighter-rouge">ModelDeployment</code> should be named as <code class="language-plaintext highlighter-rouge">&lt;HOST-ORGANIZATION&gt;/&lt;MODEL-NAME&gt;</code>, for example <code class="language-plaintext highlighter-rouge">ModelMetadata</code>: <code class="language-plaintext highlighter-rouge">openai/gpt2</code> and <code class="language-plaintext highlighter-rouge">ModelDeployment</code>: <code class="language-plaintext highlighter-rouge">huggingface/gpt2</code>). Add the appropriate comments and so on.</li>
-  <li>Run <code class="language-plaintext highlighter-rouge">helm-run --run-entries "mmlu:subject=anatomy,model_deployment=&lt;YOUR-DEPLOYMENT&gt;" --suite v1 --max-eval-instances 10</code> and make sure that everything works. Include the logs from the terminal in your PR.</li>
+  <li>Run <code class="language-plaintext highlighter-rouge">medhelm-run --run-entries "mmlu:subject=anatomy,model_deployment=&lt;YOUR-DEPLOYMENT&gt;" --suite v1 --max-eval-instances 10</code> and make sure that everything works. Include the logs from the terminal in your PR.</li>
   <li>Not create unnecessary objects (<code class="language-plaintext highlighter-rouge">Client</code> <code class="language-plaintext highlighter-rouge">TokenizerConfig</code>, <code class="language-plaintext highlighter-rouge">WindowService</code>) and if you have to create one of these objects, document in your PR why you had to. Make them general enough so that they could be re-used by other models (especially the <code class="language-plaintext highlighter-rouge">Client</code>).</li>
 </ul>
 
@@ -193,7 +189,7 @@
 
 <p>We won’t be adding any <code class="language-plaintext highlighter-rouge">TokenizerConfig</code> here as we are reusing <code class="language-plaintext highlighter-rouge">simple/model1</code>. This shows a good practice when adding a new model, always check if the correct tokenizer does not already exists.</p>
 
-<p>You should now be able to run <code class="language-plaintext highlighter-rouge">helm-run --run-entries "mmlu:subject=anatomy,model_deployment=simple/tutorial" --suite v1 --max-eval-instances 10</code> without any error.</p>
+<p>You should now be able to run <code class="language-plaintext highlighter-rouge">medhelm-run --run-entries "mmlu:subject=anatomy,model_deployment=simple/tutorial" --suite v1 --max-eval-instances 10</code> without any error.</p>
 
 
       </div>

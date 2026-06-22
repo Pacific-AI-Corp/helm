@@ -75,7 +75,7 @@
           <li><a href="/adding_new_tokenizers" class="">Adding New Tokenizers</a></li>
           <li><a href="/downloading_raw_results" class="">Downloading Raw Results</a></li>
           <li><a href="/reproducing_leaderboards" class="">Reproducing Leaderboards</a></li>
-          <li><a href="/get_helm_rank" class="">Efficient-HELM</a></li>
+          <li><a href="/get_helm_rank" class="">Efficient MedHELM</a></li>
           <li><a href="/benchmark" class="">Advanced Benchmarking Guide</a></li>
           <li><a href="/huggingface_models" class="">Hugging Face Model Hub</a></li>
         </ul>
@@ -83,10 +83,6 @@
       <li class="docs-nav-section">
         <span class="docs-nav-section-title">Papers</span>
         <ul>
-          <li><a href="/heim" class="">HEIM (Text-to-image)</a></li>
-          <li><a href="/vhelm" class="">VHELM (Vision-Language)</a></li>
-          <li><a href="/enterprise_benchmark" class="">Enterprise Benchmark</a></li>
-          <li><a href="/reeval" class="">Reliable and Efficient Amortized Evaluation</a></li>
           <li><a href="/medhelm" class="">MedHELM</a></li>
         </ul>
       </li>
@@ -204,7 +200,7 @@ mypy src scripts
 
 <h2 id="executing-helm-commands-with-local-modifications">Executing helm commands with local modifications</h2>
 
-<p>The recommended way to execute <code class="language-plaintext highlighter-rouge">helm-run</code>, <code class="language-plaintext highlighter-rouge">helm-summarize</code>, <code class="language-plaintext highlighter-rouge">helm-server</code>, etc, with your local version of the repository is to do an editable install, using the following steps:</p>
+<p>The recommended way to execute <code class="language-plaintext highlighter-rouge">medhelm-run</code>, <code class="language-plaintext highlighter-rouge">helm-summarize</code>, <code class="language-plaintext highlighter-rouge">helm-server</code>, etc, with your local version of the repository is to do an editable install, using the following steps:</p>
 
 <ol>
   <li>Activate your virtual environment.</li>
@@ -213,7 +209,7 @@ mypy src scripts
   <li>Run <code class="language-plaintext highlighter-rouge">pip install -e .</code></li>
 </ol>
 
-<p>Now calling <code class="language-plaintext highlighter-rouge">helm-run</code> while the environment is activated will read from your local source.</p>
+<p>Now calling <code class="language-plaintext highlighter-rouge">medhelm-run</code> while the environment is activated will read from your local source.</p>
 
 <h3 id="without-installing">Without installing</h3>
 
