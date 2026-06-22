@@ -28,7 +28,12 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0   # full history + tags so setuptools-scm can get version from tag
+        fetch-depth: 0
+        ref: ${{ github.ref }} # full history + tags so setuptools-scm can get version from tag
+
+    - name: Verify commit is on a git tag  
+      run: git describe --exact-match --tags
+      
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
