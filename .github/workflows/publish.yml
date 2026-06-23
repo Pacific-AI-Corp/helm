@@ -53,6 +53,8 @@ jobs:
         yarn install
         yarn build --outDir '../src/helm/benchmark/static_build' --emptyOutDir
     - name: Build
+      env:
+        SETUPTOOLS_SCM_PRETEND_VERSION: ${{ github.ref_name }}
       run: uv build
     - name: Test medhelm-run (wheel)
       run: uv run --isolated --no-project --with dist/*.whl medhelm-run --run-entries simple1:model=simple/model1 --max-eval-instances 10 --suite test
