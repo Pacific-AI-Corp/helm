@@ -39,7 +39,7 @@ export default function LeaderboardTable({
 
   // TODO remove truncation once a visually suitable version of wrapping is determined
   const getHeaderValue = (headerValueObject: HeaderValue): string => {
-    const stringsToIgnore = ["AIRBench 2024 -", "-book"];
+    const stringsToIgnore = ["-book"];
     if (headerValueObject.value === "Model/adapter") {
       return "Model";
       // hardcoded values to remove

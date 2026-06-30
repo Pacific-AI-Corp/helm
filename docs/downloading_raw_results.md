@@ -24,7 +24,6 @@ Locations of the `benchmark_output` folders for each project:
 
 - Capabilities: `gs://crfm-helm-public/capabilities/benchmark_output`
 - Safety: `gs://crfm-helm-public/safety/benchmark_output`
-- AIR-Bench: `gs://crfm-helm-public/air-bench/benchmark_output`
 - Lite: `gs://crfm-helm-public/lite/benchmark_output`
 - MMLU: `gs://crfm-helm-public/mmlu/benchmark_output`
 - Classic: `gs://crfm-helm-public/benchmark_output` (see warning above)

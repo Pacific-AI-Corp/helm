@@ -272,16 +272,13 @@ run_groups:
     description: Reasoning about the audio
     category: Core scenarios
     subgroups:
-      - air_bench_chat_reasoning
       - corebench
 
   - name: knowledge
     display_name: Knowledge
     description: Recalling facts or information contained in the audio LLM.
     category: Core scenarios
-    subgroups:
-      - air_bench_chat_knowledge
-      - air_bench_foundation
+    subgroups: []
 
   - name: robustness
     display_name: Robustness
@@ -523,73 +520,6 @@ run_groups:
       what: Classify audio by emotion
       who: Friends TV series
       when: "2018"
-      language: English
-
-  - name: air_bench_chat_knowledge
-    display_name: Air-Bench Chat (knowledge subsets)
-    description: >
-      Air-Bench (Yang et al, 2024) encompasses two dimensions: foundation and chat benchmarks. The former consists of 19 tasks with 
-      approximately 19k single-choice questions. The latter one contains 2k instances of open-ended question-and-answer data. 
-      We consider the chat benchmark in this scenario.
-
-      The dataset contains the audio question answering task in four subjects: sound, speech, music, and mixed.
-      ([Yang et al, 2024](https://aclanthology.org/2024.acl-long.109.pdf)).
-    metric_groups:
-      - accuracy
-      - general_information
-    environment:
-      main_name: gpt4_audio_critique
-      main_split: test
-    taxonomy:
-      task: audio question answering
-      what: audio, question, and answer of audio samples
-      who: real speakers
-      when: "2024"
-      language: English
-
-  - name: air_bench_chat_reasoning
-    display_name: Air-Bench Chat (reasoning subsets)
-    description: >
-      Air-Bench (Yang et al, 2024) encompasses two dimensions: foundation and chat benchmarks. The former consists of 19 tasks with 
-      approximately 19k single-choice questions. The latter one contains 2k instances of open-ended question-and-answer data. 
-      We consider the chat benchmark in this scenario.
-
-      The dataset contains the audio question answering task in four subjects: sound, speech, music, and mixed.
-      ([Yang et al, 2024](https://aclanthology.org/2024.acl-long.109.pdf)).
-    metric_groups:
-      - accuracy
-      - general_information
-    environment:
-      main_name: gpt4_audio_critique
-      main_split: test
-    taxonomy:
-      task: audio question answering
-      what: audio, question, and answer of audio samples
-      who: real speakers
-      when: "2024"
-      language: English
-
-  - name: air_bench_foundation
-    display_name: Air-Bench Foundation
-    description: >
-      Air-Bench (Yang et al, 2024) encompasses two dimensions: foundation and chat benchmarks. The former consists of 19 tasks with 
-      approximately 19k single-choice questions. The latter one contains 2k instances of open-ended question-and-answer data. 
-      We consider the chat benchmark in this scenario.
-
-      The dataset contains the audio multiple choice question answering task in three subjects: music instrument classification, music
-      genera recognition, and music question-answering.
-      ([Yang et al, 2024](https://aclanthology.org/2024.acl-long.109.pdf)).
-    metric_groups:
-      - accuracy
-      - general_information
-    environment:
-      main_name: quasi_exact_match
-      main_split: test
-    taxonomy:
-      task: audio question answering
-      what: audio, question, and answer of the question
-      who: real speakers
-      when: "2024"
       language: English
 
   - name: mutox

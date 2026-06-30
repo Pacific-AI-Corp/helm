@@ -37,7 +37,6 @@ from helm.benchmark.runner import (
 )
 
 scenario_to_metric_name = {
-    "air_bench_2024": "air_score",
     "babi_qa": "quasi_exact_match",
     "bbq": "quasi_exact_match",
     "blimp": "exact_match",

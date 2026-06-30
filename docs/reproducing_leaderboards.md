@@ -57,26 +57,6 @@ export NUM_EVAL_INSTANCES=1000
 export PRIORITY=2
 ```
 
-### AIR-Bench (for reasoning models)
-
-```bash
-export RUN_ENTRIES_CONF_PATH=run_entries_air_bench_reasoning.conf
-export SCHEMA_PATH=schema_air_bench.yaml
-export NUM_TRAIN_TRIALS=1
-export NUM_EVAL_INSTANCES=10000
-export PRIORITY=2
-```
-
-### AIR-Bench (for non-reasoning models)
-
-```bash
-export RUN_ENTRIES_CONF_PATH=run_entries_air_bench.conf
-export SCHEMA_PATH=schema_air_bench.yaml
-export NUM_TRAIN_TRIALS=1
-export NUM_EVAL_INSTANCES=10000
-export PRIORITY=2
-```
-
 ### Lite for non-instruction-following models
 
 ```bash
