@@ -1,5 +1,5 @@
 from typing import Dict, List
-from datasets import load_dataset
+from datasets import DownloadConfig, load_dataset
 
 from helm.benchmark.presentation.taxonomy_info import TaxonomyInfo
 from helm.common.hierarchical_logger import hlog
@@ -96,6 +96,8 @@ class MediQAScenario(Scenario):
             "bigbio/mediqa_qa",
             trust_remote_code=True,
             revision="9288641f4c785c95dc9079fa526dabb12efdb041",
+            # The dataset script downloads a GitHub zip; CI runners can hit transient 404/rate limits.
+            download_config=DownloadConfig(max_retries=5, resume_download=True),
         )
 
         # Process all the instances
