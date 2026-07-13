@@ -3361,15 +3361,6 @@ wheels = [
 ]
 
 [[package]]
-name = "langdetect"
-version = "1.0.9"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "six" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/0e/72/a3add0e4eec4eb9e2569554f7c70f4a3c27712f40e3284d483e88094cc0e/langdetect-1.0.9.tar.gz", hash = "sha256:cbc1fef89f8d062739774bd51eda3da3274006b3661d199c2655f6b3f6d605a0", size = 981474, upload-time = "2021-05-07T07:54:13.562Z" }
-
-[[package]]
 name = "lazy-loader"
 version = "0.4"
 source = { registry = "https://pypi.org/simple" }
@@ -3887,33 +3878,72 @@ all = [
     { name = "ai2-olmo" },
     { name = "aleph-alpha-client" },
     { name = "anthropic" },
+    { name = "autokeras" },
     { name = "awscli" },
     { name = "bert-score" },
     { name = "boto3" },
     { name = "botocore" },
+    { name = "clip-anytorch" },
     { name = "cohere" },
     { name = "colorcet" },
+    { name = "diffusers" },
+    { name = "dspy" },
+    { name = "einops" },
+    { name = "einops-exts" },
+    { name = "flax" },
+    { name = "ftfy" },
     { name = "gdown" },
+    { name = "google-api-python-client" },
     { name = "google-cloud-aiplatform" },
+    { name = "google-cloud-storage" },
+    { name = "google-cloud-translate" },
     { name = "google-genai" },
     { name = "gunicorn" },
+    { name = "icetk" },
+    { name = "jax" },
+    { name = "jaxlib" },
+    { name = "lpips" },
     { name = "lxml" },
     { name = "matplotlib" },
     { name = "mistralai" },
+    { name = "multilingual-clip" },
     { name = "nltk" },
+    { name = "nudenet" },
+    { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11' or (extra == 'extra-7-medhelm-human-evaluation' and extra == 'extra-7-medhelm-ibm')" },
+    { name = "numpy", version = "2.3.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11' or (extra == 'extra-7-medhelm-human-evaluation' and extra == 'extra-7-medhelm-ibm')" },
+    { name = "omegaconf" },
+    { name = "open-clip-torch" },
     { name = "openai" },
+    { name = "opencv-python" },
     { name = "openpyxl" },
     { name = "pillow" },
     { name = "protobuf" },
+    { name = "pycocoevalcap" },
     { name = "pydantic" },
     { name = "python-docx" },
+    { name = "pytorch-fid" },
+    { name = "pytorch-lightning" },
+    { name = "qwen-vl-utils" },
     { name = "reka-api" },
     { name = "rouge-score" },
+    { name = "scikit-image", version = "0.25.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11' or (extra == 'extra-7-medhelm-human-evaluation' and extra == 'extra-7-medhelm-ibm')" },
+    { name = "scikit-image", version = "0.26.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11' or (extra == 'extra-7-medhelm-human-evaluation' and extra == 'extra-7-medhelm-ibm')" },
+    { name = "scipy", version = "1.15.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11' or (extra == 'extra-7-medhelm-human-evaluation' and extra == 'extra-7-medhelm-ibm')" },
+    { name = "scipy", version = "1.17.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11' or (extra == 'extra-7-medhelm-human-evaluation' and extra == 'extra-7-medhelm-ibm')" },
     { name = "seaborn" },
     { name = "sentencepiece" },
+    { name = "tensorflow" },
     { name = "tiktoken" },
+    { name = "timm" },
     { name = "together" },
     { name = "tokenizers" },
+    { name = "torch" },
+    { name = "torch-fidelity" },
+    { name = "torchmetrics" },
+    { name = "torchvision" },
+    { name = "transformers-stream-generator" },
+    { name = "unidecode" },
+    { name = "wandb" },
     { name = "websocket-client" },
     { name = "writerai" },
 ]
@@ -3955,21 +3985,16 @@ audiolm = [
 ci = [
     { name = "cohere" },
     { name = "colorcet" },
+    { name = "google-api-python-client" },
     { name = "gunicorn" },
     { name = "matplotlib" },
     { name = "openai" },
+    { name = "protobuf" },
     { name = "pydantic" },
     { name = "seaborn" },
     { name = "sentencepiece" },
     { name = "tiktoken" },
     { name = "together" },
-]
-cleva = [
-    { name = "jieba" },
-    { name = "langdetect" },
-    { name = "opencc" },
-    { name = "pypinyin" },
-    { name = "unidecode" },
 ]
 cohere = [
     { name = "cohere" },
@@ -4049,6 +4074,7 @@ medhelm = [
 ]
 metrics = [
     { name = "google-api-python-client" },
+    { name = "protobuf" },
 ]
 mistral = [
     { name = "mistralai" },
@@ -4096,6 +4122,7 @@ reka = [
 ]
 scenarios = [
     { name = "gdown" },
+    { name = "openpyxl" },
 ]
 slurm = [
     { name = "simple-slurm" },
@@ -4203,9 +4230,7 @@ requires-dist = [
     { name = "jaxlib", marker = "python_full_version >= '3.10' and extra == 'heim'", specifier = "~=0.6.2" },
     { name = "jaxlib", marker = "python_full_version < '3.10' and extra == 'heim'", specifier = "~=0.4.30" },
     { name = "jieba", marker = "extra == 'audiolm'", specifier = "~=0.42.1" },
-    { name = "jieba", marker = "extra == 'cleva'", specifier = "~=0.42.1" },
     { name = "jiwer", marker = "extra == 'audiolm'", specifier = "~=3.0" },
-    { name = "langdetect", marker = "extra == 'cleva'", specifier = "~=1.0" },
     { name = "librosa", marker = "extra == 'audiolm'", specifier = "~=0.10" },
     { name = "litellm", marker = "extra == 'litellm'", specifier = ">=1.80.0" },
     { name = "lpips", marker = "extra == 'heim'", specifier = "~=0.1.4" },
@@ -4221,13 +4246,17 @@ requires-dist = [
     { name = "medhelm", extras = ["anthropic"], marker = "extra == 'models'" },
     { name = "medhelm", extras = ["cohere"], marker = "extra == 'ci'" },
     { name = "medhelm", extras = ["cohere"], marker = "extra == 'models'" },
+    { name = "medhelm", extras = ["dspy"], marker = "extra == 'all'" },
     { name = "medhelm", extras = ["gated"], marker = "extra == 'all'" },
     { name = "medhelm", extras = ["google"], marker = "extra == 'audiolm'" },
     { name = "medhelm", extras = ["google"], marker = "extra == 'models'" },
+    { name = "medhelm", extras = ["heim"], marker = "extra == 'all'" },
     { name = "medhelm", extras = ["images"], marker = "extra == 'all'" },
     { name = "medhelm", extras = ["images"], marker = "extra == 'heim'" },
     { name = "medhelm", extras = ["images"], marker = "extra == 'vlm'" },
     { name = "medhelm", extras = ["medhelm"], marker = "extra == 'all'" },
+    { name = "medhelm", extras = ["metrics"], marker = "extra == 'all'" },
+    { name = "medhelm", extras = ["metrics"], marker = "extra == 'ci'" },
     { name = "medhelm", extras = ["mistral"], marker = "extra == 'models'" },
     { name = "medhelm", extras = ["models"], marker = "extra == 'all'" },
     { name = "medhelm", extras = ["openai"], marker = "extra == 'audiolm'" },
@@ -4247,6 +4276,7 @@ requires-dist = [
     { name = "medhelm", extras = ["summarization"], marker = "extra == 'all'" },
     { name = "medhelm", extras = ["together"], marker = "extra == 'ci'" },
     { name = "medhelm", extras = ["together"], marker = "extra == 'models'" },
+    { name = "medhelm", extras = ["vlm"], marker = "extra == 'all'" },
     { name = "medhelm", extras = ["writer"], marker = "extra == 'models'" },
     { name = "medhelm", extras = ["yandex"], marker = "extra == 'ci'" },
     { name = "medhelm", extras = ["yandex"], marker = "extra == 'medhelm'" },
@@ -4262,13 +4292,14 @@ requires-dist = [
     { name = "open-clip-torch", marker = "extra == 'vlm'", specifier = "~=2.24" },
     { name = "openai", marker = "extra == 'openai'", specifier = "~=2.8" },
     { name = "openai-whisper", marker = "extra == 'audiolm'", specifier = "==20240930" },
-    { name = "opencc", marker = "extra == 'cleva'", specifier = "~=1.1" },
     { name = "opencv-python", marker = "python_full_version >= '3.10' and extra == 'heim'", specifier = ">=4.7.0.68,<4.8.2.0" },
     { name = "opencv-python-headless", marker = "python_full_version < '3.10' and extra == 'heim'", specifier = ">=4.7.0.68,<=4.11.0.86" },
     { name = "openpyxl", specifier = "~=3.1" },
     { name = "openpyxl", marker = "extra == 'medhelm'", specifier = "~=3.1" },
+    { name = "openpyxl", marker = "extra == 'scenarios'", specifier = "~=3.1" },
     { name = "pandas", specifier = "~=2.0" },
     { name = "pillow", marker = "extra == 'images'", specifier = ">=10.2" },
+    { name = "protobuf", marker = "extra == 'metrics'" },
     { name = "protobuf", marker = "extra == 'summarization'" },
     { name = "pyarrow", specifier = ">=11.0.0" },
     { name = "pyarrow-hotfix", specifier = "~=0.6" },
@@ -4278,7 +4309,6 @@ requires-dist = [
     { name = "pydub", marker = "extra == 'audiolm'", specifier = "~=0.25.1" },
     { name = "pyhocon", specifier = "~=0.3.59" },
     { name = "pymongo", marker = "extra == 'mongo'", specifier = "~=4.2" },
-    { name = "pypinyin", marker = "extra == 'cleva'", specifier = "~=0.49.0" },
     { name = "python-docx", specifier = "~=1.1" },
     { name = "python-docx", marker = "extra == 'medhelm'", specifier = "~=1.1" },
     { name = "pytorch-fid", marker = "extra == 'heim'", specifier = "~=0.3.0" },
@@ -4322,14 +4352,13 @@ requires-dist = [
     { name = "transformers-stream-generator", marker = "extra == 'vlm'", specifier = "~=0.0.4" },
     { name = "ubelt", specifier = "~=1.3" },
     { name = "uncertainty-calibration", specifier = "~=0.1.4" },
-    { name = "unidecode", marker = "extra == 'cleva'", specifier = "~=1.3" },
     { name = "unidecode", marker = "extra == 'heim'", specifier = "~=1.3" },
     { name = "wandb", marker = "extra == 'heim'", specifier = "~=0.16" },
     { name = "websocket-client", marker = "extra == 'anthropic'", specifier = "~=1.3" },
     { name = "writerai", marker = "extra == 'writer'", specifier = "~=4.0" },
     { name = "zstandard", specifier = "~=0.18.0" },
 ]
-provides-extras = ["proxy-server", "human-evaluation", "dspy", "scenarios", "metrics", "summarization", "plots", "slurm", "cleva", "images", "mongo", "accelerate", "aleph-alpha", "allenai", "amazon", "anthropic", "cohere", "writer", "mistral", "openai", "google", "together", "yandex", "models", "reka", "vlm", "ibm", "heim", "medhelm", "gated", "audiolm", "all", "ci", "litellm"]
+provides-extras = ["proxy-server", "human-evaluation", "dspy", "scenarios", "metrics", "summarization", "plots", "slurm", "images", "mongo", "accelerate", "aleph-alpha", "allenai", "amazon", "anthropic", "cohere", "writer", "mistral", "openai", "google", "together", "yandex", "models", "reka", "vlm", "ibm", "heim", "medhelm", "gated", "audiolm", "all", "ci", "litellm"]
 
 [package.metadata.requires-dev]
 dev = [
@@ -5394,23 +5423,6 @@ dependencies = [
     { name = "triton", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux') or (platform_machine != 'x86_64' and extra == 'extra-7-medhelm-human-evaluation' and extra == 'extra-7-medhelm-ibm') or sys_platform == 'linux2' or (sys_platform != 'linux' and extra == 'extra-7-medhelm-human-evaluation' and extra == 'extra-7-medhelm-ibm')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/f5/77/952ca71515f81919bd8a6a4a3f89a27b09e73880cebf90957eda8f2f8545/openai-whisper-20240930.tar.gz", hash = "sha256:b7178e9c1615576807a300024f4daa6353f7e1a815dac5e38c33f1ef055dd2d2", size = 800544, upload-time = "2024-09-30T18:21:22.596Z" }
-
-[[package]]
-name = "opencc"
-version = "1.1.9"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/e6/a2/0e86df1284143c389a3a6e33b159394da34b500a62b2b9c918949a2e6438/opencc-1.1.9.tar.gz", hash = "sha256:8ad72283732951303390fae33a1ceda98ac9b03368a8f2912edc934d74077e4a", size = 3409025, upload-time = "2024-08-08T04:55:32.483Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/df/d0/e17c4251f7981d5b5f5b6250e6a282170b57fe4a188b8966c1978c16fb5b/OpenCC-1.1.9-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:a33941dd4cb67457e6f44dfe36dddc30a602363a4f6a29b41d79b062b332c094", size = 1481497, upload-time = "2024-08-08T05:03:32.086Z" },
-    { url = "https://files.pythonhosted.org/packages/48/dd/9cf7897483f530a174b626e06d1ff3b0d074541547f84b2e221755311ea6/OpenCC-1.1.9-cp310-cp310-manylinux2014_x86_64.whl", hash = "sha256:92769f9a60301574c73096f9ab8a9060fe0d13a9f8266735d82a2a3a92adbd26", size = 1653097, upload-time = "2024-08-08T04:55:21.676Z" },
-    { url = "https://files.pythonhosted.org/packages/47/08/f311ac5422ddc51c3294be76f2b03f701458e6929efc0ac30f5cc9b11f90/OpenCC-1.1.9-cp310-cp310-win_amd64.whl", hash = "sha256:84e35e5ecfad445a64c0dcd6567d9e9f3a6aed9a6ffd89cdbc071f36cb9e089e", size = 1755152, upload-time = "2024-08-08T04:58:31.245Z" },
-    { url = "https://files.pythonhosted.org/packages/64/89/91796feec4bbfd7539a0f773f2c9bc83c0138bcb585d94114099bcfa7bf6/OpenCC-1.1.9-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:3fb7c84f7c182cb5208e7bc1c104b817a3ca1a8fe111d4d19816be0d6e1ab396", size = 1482997, upload-time = "2024-08-08T05:03:34.153Z" },
-    { url = "https://files.pythonhosted.org/packages/bb/07/4eef5a5c43221470af3a9e12fce024c5b9451618c4307c7980c2d6e298b3/OpenCC-1.1.9-cp311-cp311-manylinux2014_x86_64.whl", hash = "sha256:64994c68796d93cdba42f37e0c073fb8ed6f9d6707232be0ba84f24dc5a36bbb", size = 1654464, upload-time = "2024-08-08T04:55:24.014Z" },
-    { url = "https://files.pythonhosted.org/packages/b1/51/b77472e225a2055cb21ab308cabb957e4ec83d2bf427267362c5cb98dacc/OpenCC-1.1.9-cp311-cp311-win_amd64.whl", hash = "sha256:9f6a1413ca2ff490e65a55822e4cae8c3f104bfab46355288de4893a14470fbb", size = 1756305, upload-time = "2024-08-08T04:58:33.07Z" },
-    { url = "https://files.pythonhosted.org/packages/8c/58/d1f270e9d329d4f4f7c1963f9700aa9c9d6f0c5042c641005da6369b4c8e/OpenCC-1.1.9-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:48bc3e37942b91a9cf51f525631792f79378e5332bdba9e10c05f6e7fe9036ca", size = 1482516, upload-time = "2024-08-08T05:03:36.889Z" },
-    { url = "https://files.pythonhosted.org/packages/23/f0/ddd3522a142ebb66b30c7d30509de940979c2fb30a9edbf417fdfc37278d/OpenCC-1.1.9-cp312-cp312-manylinux2014_x86_64.whl", hash = "sha256:1c5d1489bdaf9dc2865f0ea30eb565093253e73c1868d9c19554c8a044b545d4", size = 1653167, upload-time = "2024-08-08T04:55:26.395Z" },
-    { url = "https://files.pythonhosted.org/packages/2c/67/fb4fb43c1502fd9f14646211d9643ef67e8123455e176af6668265d2f875/OpenCC-1.1.9-cp312-cp312-win_amd64.whl", hash = "sha256:64f8d22c8505b65e8ee2d6e73241cbc92785d38b3c93885b423d7c4fcd31c679", size = 1756337, upload-time = "2024-08-08T04:58:34.798Z" },
-]
 
 [[package]]
 name = "opencv-python"
@@ -6779,15 +6791,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/33/c1/1d9de9aeaa1b89b0186e5fe23294ff6517fce1bc69149185577cd31016b2/pyparsing-3.3.1.tar.gz", hash = "sha256:47fad0f17ac1e2cad3de3b458570fbc9b03560aa029ed5e16ee5554da9a2251c", size = 1550512, upload-time = "2025-12-23T03:14:04.391Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/8b/40/2614036cdd416452f5bf98ec037f38a1afb17f327cb8e6b652d4729e0af8/pyparsing-3.3.1-py3-none-any.whl", hash = "sha256:023b5e7e5520ad96642e2c6db4cb683d3970bd640cdf7115049a6e9c3682df82", size = 121793, upload-time = "2025-12-23T03:14:02.103Z" },
-]
-
-[[package]]
-name = "pypinyin"
-version = "0.49.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/64/6b/72c1b51894ce706ead5205c7658497ced96bad06fce084a8009fe6b44ec0/pypinyin-0.49.0.tar.gz", hash = "sha256:a5d61a79c5f48f6b4a422f010c20d48fcd53c705784df4aa80e329493219a4be", size = 1342115, upload-time = "2023-05-14T12:21:17.819Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/00/fc/3e82bf38739a7b2c4f699245ce6c84ff254723c678c2cdc5d2ecbddf9afb/pypinyin-0.49.0-py2.py3-none-any.whl", hash = "sha256:3791f5b647e446866e6b5d3a63942ecbaeb29b49fed268a9d9a4982241c35fe0", size = 1363832, upload-time = "2023-05-14T12:21:14.048Z" },
 ]
 
 [[package]]

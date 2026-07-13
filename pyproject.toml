@@ -78,11 +78,13 @@ dspy = [
 ]
 
 scenarios = [
-    "gdown~=5.1",  # MedQA, MedMCQA and other scenarios using ensure_file_downloaded()
+    "gdown~=5.1",  # For med_mcqa_scenario, med_qa_scenario: used by ensure_file_downloaded()
+    "openpyxl~=3.1",  # For medication_qa_scenario and other .xlsx readers via pandas.read_excel()
 ]
 
 metrics = [
-    "google-api-python-client~=2.64",  # For perspective_api_client (optional toxicity classifier)
+    "google-api-python-client~=2.64",  # For perspective_api_client (proxy server)
+    "protobuf",  # Required by T0pp tokenizer and other proto-based deps in CI
 ]
 
 summarization = [
@@ -105,14 +107,6 @@ plots = [
 
 slurm = [
     "simple-slurm~=0.2.6",
-]
-
-cleva = [
-    "unidecode~=1.3",
-    "pypinyin~=0.49.0",
-    "jieba~=0.42.1",
-    "opencc~=1.1",
-    "langdetect~=1.0",
 ]
 
 images = [
@@ -341,18 +335,24 @@ audiolm = [
 all = [
     "medhelm[proxy-server]",
     "medhelm[scenarios]",
+    "medhelm[metrics]",
     "medhelm[summarization]",
     "medhelm[gated]",
+    "medhelm[medhelm]",
     "medhelm[plots]",
     "medhelm[images]",
     "medhelm[models]",
-    "medhelm[medhelm]",
-    # medhelm[heim] excluded: very heavy (tensorflow); install separately for radiology/mental_disorders
+    "medhelm[heim]",
+    "medhelm[vlm]",
+    "medhelm[dspy]",
     # medhelm[audiolm] excluded: flash-attn build issues on some platforms
     # medhelm[human-evaluation] excluded: conflicts with medhelm[ibm]
+    # medhelm[slurm] excluded: optional HPC infra
+    # medhelm[mongo] excluded: optional cache backend
 ]
 
 ci = [
+  "medhelm[metrics]",
   "medhelm[openai]",
   "medhelm[plots]",
   "medhelm[together]",

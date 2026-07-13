@@ -3,130 +3,102 @@ title: Developer Setup
 ---
 # Developer Setup
 
-## Check your system Python version
+This guide is for contributors working on the MedHELM repository. For end-user installation, see [Installation](/installation).
 
-Check your system verison of Python by running:
+## Requirements
+
+- Python **3.10**, **3.11**, or **3.12** (3.12 recommended)
+- [uv](https://docs.astral.sh/uv/getting-started/installation/) — used by CI and recommended for development
+
+Check your Python version:
 
 ```bash
 python --version
 ```
 
-If your version of Python is older than 3.10, use **pyenv** to install a version of Python >=3.10 when setting up your virtual environment.
+## Set up the environment
 
-## Set up the Python virtual environment
-
-First, create a Python virtual environment with Python version >= 3.10 and activate it.
-
-Using [**Virtualenv**](https://docs.python.org/3/library/venv.html#creating-virtual-environments) (*requires* system Python version >=3.10):
+From the repository root:
 
 ```bash
-# Create a virtual environment.
-# Only run this the first time.
-python3 -m pip install virtualenv
-python3 -m virtualenv -p python3 venv
+# Create and activate a virtual environment
+uv venv --python 3.12 .venv
+source .venv/bin/activate
 
-# Activate the virtual environment.
-# Run this every time you open your shell.
-source venv/bin/activate
+# Install the package plus dev tools and CI dependencies (matches GitHub Actions)
+uv sync --extra ci
 ```
 
-Using [**pyenv**](https://github.com/pyenv/pyenv) and [**pyenv-virtualenv**](https://github.com/pyenv/pyenv-virtualenv):
+The `dev` and `types` dependency groups are included automatically via `[tool.uv] default-groups`.
+
+## Run tests
+
+CI runs unit tests excluding slow integration markers:
 
 ```bash
-# Create a virtual environment.
-# Only run this the first time.
-pyenv virtualenv 3.10 medhelm
-
-# Activate the virtual environment.
-# Run this every time you open your shell.
-pyenv activate medhelm
+uv run pytest -m "not models and not scenarios" --durations=20
 ```
 
-## Install Python dependencies
-
-To install any dependencies:
+Scenario integration tests (network downloads):
 
 ```bash
-pip install --force-reinstall -e .[dev]
+uv sync --extra ci --extra scenarios
+uv run pytest -m scenarios
 ```
 
-## Run Python tests
-
-Currently, running all the unit tests takes about 10 minutes. To run all unit tests:
+Run a specific test file:
 
 ```bash
-python -m pytest
-```
-
-Append `-vv` to output the full diff and results:
-
-```bash
-python -m pytest -vv
-```
-
-When modifying the Python code, you usually want to only run certain relevant tests. To run a specific test file, specify the file path as follows:
-
-```bash
-python -m pytest path/to/test_file.py -vv
+uv run pytest src/helm/benchmark/scenarios/test_medi_qa_scenario.py -vv
 ```
 
 ## Run linter and type-checker
 
-You should always ensure that your code is linted and type-checked before creating a pull request. This is typically enforced by our git pre-commit hooks. Install the pre-commit hooks by running:
+Install pre-commit hooks:
 
 ```bash
 pre-commit install
 ```
 
-This will automatically run the linter and type-checker whenever you run `git push` to push a branch. To skip running the linter and type checker when pushing a branch, use the `--no-verify` flag with `git push`.
-
-To run the linter and type-checker manually:
+Run manually:
 
 ```bash
 ./pre-commit.sh
 ```
 
-Alternatively, you can run only the linter or only the type checker separately:
+Or individually:
 
 ```bash
-# Linters
 black src scripts
 flake8 src scripts
-
-# Type checker
 mypy src scripts
 ```
 
-## Executing helm commands with local modifications
+## Executing commands with local changes
 
-The recommended way to execute `medhelm-run`, `helm-summarize`, `helm-server`, etc, with your local version of the repository is to do an editable install, using the following steps:
+After `uv sync`, CLI entry points use your local checkout:
 
-1. Activate your virtual environment.
-1. Change directory to the repository root (contains pyproject.toml).
-1. Make sure you don't have an existing helm installation for that environment with `pip uninstall medhelm`
-1. Run `pip install -e .`
-
-Now calling `medhelm-run` while the environment is activated will read from your local source.
+```bash
+medhelm-run --run-entries med_qa:model=openai/gpt2 --suite dev --max-eval-instances 5
+helm-summarize --schema src/helm/benchmark/static/schema_medhelm.yaml --suite dev
+helm-server --suite dev
+```
 
 ### Without installing
 
-If you have a compelling reason not to do an editable install, you can execute commands by:
+From the repository root:
 
-1. Change directory to `src`
-1. Execute the module you want with a command like: `python -m helm.benchmark.run`
+```bash
+PYTHONPATH=src uv run python -m helm.benchmark.run --help
+```
 
 ## Checking in code
 
-The HELM repository does not allow direct modifications of the main branch. Instead, developers create a Pull Request which must then be approved by a different person before merging into main. Here is an example workflow:
+MedHELM uses pull requests against `main`. Typical workflow:
 
-1. `git checkout main` to start from the main branch.
-1. `git pull origin main` to get up to date.
-1. Make whatever changes you'll like to group into a single review.
-1. Run tests.
-1. Make a new branch with `git checkout -b <your-handle>/<change-identifier`. For example, `yifanmai/fix-optional-suggestions`.
-1. If you did NOT install the precommit, run the linter and type checker with `./pre-commit.sh`
-1. `git commit -a` to commit all you changes. If you want to ignore precommit warnings,  you can add `--no-verify`.
-1. `git push origin <your-handle>/<change-identifier>` to upload to github.
-1. Loading any HELM github page should now prompt you about creating a new pull request. If not, you can also find your branch on [the branches page](https://github.com/PacificAI/medhelm/branches) to create one.
-1. Update the title and description as necessary, then create the pull request.
-1. Once the reviewer is satisfied, they can approve and either of you can then `Squash and Merge` the branch into main.
+1. `git checkout main && git pull origin main`
+2. Make changes and run tests locally
+3. `git checkout -b <your-handle>/<change-id>`
+4. `./pre-commit.sh` (or rely on pre-commit hooks on push)
+5. `git commit -a` and `git push origin <branch>`
+6. Open a PR on [GitHub](https://github.com/PacificAI/medhelm)

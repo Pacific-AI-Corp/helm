@@ -13,7 +13,6 @@ import numpy as np
 from helm.benchmark.adaptation.adapter_spec import AdapterSpec
 from helm.benchmark.adaptation.request_state import RequestState
 from helm.benchmark.metrics import code_metrics_helper
-from helm.benchmark.metrics.cleva_metrics_helper import ChineseTokenizer
 from helm.benchmark.metrics.metric import MetricMetadata
 from helm.benchmark.metrics.metric_name import MetricName
 from helm.benchmark.metrics.metric_service import MetricService
@@ -173,31 +172,6 @@ def get_rouge_function(rouge_type: str) -> Callable[[str, str], float]:
 
 def bleu_1(gold: str, pred: str) -> float:
     return sentence_bleu([word_tokenize(gold)], word_tokenize(pred), weights=(1, 0, 0, 0))
-
-
-def chinese_bleu_1(gold: str, pred: str) -> float:
-    char_tokenizer = ChineseTokenizer()
-    return sentence_bleu([char_tokenizer.tokenize(gold)], char_tokenizer.tokenize(pred), weights=(1, 0, 0, 0))
-
-
-def get_chinese_rouge_function(rouge_type: str) -> Callable[[str, str], float]:
-    char_tokenizer = ChineseTokenizer()
-    scorer = rouge_scorer.RougeScorer([rouge_type], use_stemmer=True, tokenizer=char_tokenizer)
-    return partial(rouge_score, scorer=scorer, rouge_type=rouge_type)
-
-
-def cleva_math_result_match(gold: str, pred: str) -> float:
-    """
-    Exact match that only cares the last math expression.
-    Common math expressions are numbers and fractions.
-    """
-    pattern = r"[-+*/%\.\(\)\d]+"
-    matches = re.findall(pattern, pred)
-    if matches:
-        pred = matches[-1].lstrip(")")
-    # remove space in front or at the end
-    pred = pred.strip()
-    return exact_match(gold, pred)
 
 
 def bleu_4(gold: str, pred: str) -> float:
@@ -478,10 +452,6 @@ def compute_reference_metrics(
         "rouge_l": get_rouge_function("rougeL"),
         "bleu_1": bleu_1,
         "bleu_4": bleu_4,
-        "chinese_bleu_1": chinese_bleu_1,
-        "chinese_rouge_1": get_chinese_rouge_function("rouge1"),
-        "chinese_rouge_2": get_chinese_rouge_function("rouge2"),
-        "cleva_math_result_match": cleva_math_result_match,
         "absolute_value_difference": absolute_value_difference,
         "wer_score": wer_score,
         "mer_score": mer_score,
@@ -705,46 +675,6 @@ _METRIC_METADATA_MAPPING: Dict[str, MetricMetadata] = {
         "4-gram overlap.",
         lower_is_better=False,
         group=None,
-    ),
-    "chinese_bleu_1": MetricMetadata(
-        name="chinese_bleu_1",
-        display_name="Chinese BLEU-1 score",
-        short_display_name="BLEU-1 (Chinese)",
-        description="BLEU-1 score [(Papineni et al., 2002)](https://aclanthology.org/P02-1040/) based on a "
-        "Chinese tokenizer that segments Chinese strings by character.",
-        lower_is_better=False,
-        group=None,
-        # Group could be one of:
-        # "cleva_pinyin_transliteration_metrics"
-        # "cleva_dialogue_generation_metrics"
-        # "cleva_data_to_text_generation_metrics"
-    ),
-    "chinese_rouge_1": MetricMetadata(
-        name="chinese_rouge_1",
-        display_name="Chinese ROUGE-1 score",
-        short_display_name="ROUGE-1 (Chinese)",
-        description="ROUGE-1 score [(Lin, 2004)](https://aclanthology.org/W04-1013/) based on a Chinese "
-        "tokenizer that segments Chinese strings by character.",
-        lower_is_better=False,
-        group="cleva_summarization_metrics",
-    ),
-    "chinese_rouge_2": MetricMetadata(
-        name="chinese_rouge_2",
-        display_name="Chinese ROUGE-2 score",
-        short_display_name="ROUGE-2 (Chinese)",
-        description="ROUGE-2 score [(Lin, 2004)](https://aclanthology.org/W04-1013/) based on a Chinese "
-        "tokenizer that segments Chinese strings by character.",
-        lower_is_better=False,
-        group="cleva_summarization_metrics",
-    ),
-    "cleva_math_result_match": MetricMetadata(
-        name="cleva_math_result_match",
-        display_name="CLEVA Math Exact Match",
-        short_display_name="EM (Math)",
-        description="Exact match that cares only the last math expression (numbers and fractions) in the "
-        "model's prediction.",
-        lower_is_better=False,
-        group="cleva_mathematical_reasoning_metrics",
     ),
     "absolute_value_difference": MetricMetadata(
         name="absolute_value_difference",

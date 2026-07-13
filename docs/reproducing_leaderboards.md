@@ -3,77 +3,98 @@ title: Reproducing Leaderboards
 ---
 # Reproducing Leaderboards
 
-You can use the HELM package to rerun evaluation runs and recreate a specific public leaderboard.
+Use MedHELM to rerun evaluation runs and reproduce the public [MedHELM leaderboard](https://leaderboard.medhelm.org/).
 
-The general procedure is to first find the appropriate `run_entries_*.conf` and `schema_*.yaml` files from the HELM GitHub repository for the leaderboard version and then place them in your current working directory. The locations of these files are as follows:
+Configuration files live in the repository:
 
-- `run_entries_*.conf`: the `src/helm/benchmark/presentation/` directory [here](https://github.com/PacificAI/medhelm/tree/main/src/helm/benchmark/presentation)
-- `schema_*.conf`: the `src/helm/benchmark/static/` directory [here](https://github.com/PacificAI/medhelm/tree/main/src/helm/benchmark/static)
+- **Run entries:** `src/helm/benchmark/presentation/run_entries_medhelm_*.conf`
+- **Schema:** `src/helm/benchmark/static/schema_medhelm.yaml`
 
-Then run the following shell script:
+## General procedure
 
 ```bash
-# Pick any suite name of your choice
+# Pick any suite name
 export SUITE_NAME=my_suite
 
-# Replace this with your model or models
-export MODELS_TO_RUN=openai/gpt-3.5-turbo-0613
+# Replace with your model(s)
+export MODELS_TO_RUN=openai/gpt-4o-2024-05-13
 
-# Get these from the list below
-export RUN_ENTRIES_CONF_PATH=run_entries_repro.conf
-export SCHEMA_PATH=schema_repro.yaml
+# MedHELM public benchmarks (see access levels below)
+export RUN_ENTRIES_CONF_PATH=src/helm/benchmark/presentation/run_entries_medhelm_public.conf
+export SCHEMA_PATH=src/helm/benchmark/static/schema_medhelm.yaml
 export NUM_TRAIN_TRIALS=1
 export MAX_EVAL_INSTANCES=1000
 export PRIORITY=2
 
-medhelm-run --conf-paths $RUN_ENTRIES_CONF_PATH --num-train-trials $NUM_TRAIN_TRIALS --max-eval-instances $MAX_EVAL_INSTANCES --priority $PRIORITY --suite $SUITE_NAME --models-to-run $MODELS_TO_RUN
+medhelm-run \
+  --conf-paths "$RUN_ENTRIES_CONF_PATH" \
+  --num-train-trials "$NUM_TRAIN_TRIALS" \
+  --max-eval-instances "$MAX_EVAL_INSTANCES" \
+  --priority "$PRIORITY" \
+  --suite "$SUITE_NAME" \
+  --models-to-run "$MODELS_TO_RUN"
 
-helm-summarize --schema $SCHEMA_PATH --suite $SUITE_NAME
+helm-summarize --schema "$SCHEMA_PATH" --suite "$SUITE_NAME"
 
-helm-server --suite $SUITE_NAME
+helm-server --suite "$SUITE_NAME"
 ```
 
-## Leaderboard versions
+Then open the local frontend (typically http://localhost:8000).
 
-The following specifies the appropriate parameters and configuration files for MedHELM leaderboards.
+## Benchmark access levels
 
-### MedHELM
+MedHELM benchmarks are grouped by data access. See [Benchmark Access Levels](/medhelm#benchmark-access-levels) for details and example sources.
 
-> Benchmarks in MedHELM fall under three types of data access: **public**, **gated**, and **private**.  
-> See the [Benchmark Access Levels](/medhelm#benchmark-access-levels) section in the MedHELM page to learn more about each access type and example sources.
+### Public benchmarks
 
-#### Public Benchmarks
-
-Benchmarks that are fully open and freely available to the public.
+Fully open and freely available.
 
 ```bash
-export RUN_ENTRIES_CONF_PATH=run_entries_medhelm_public.conf
-export SCHEMA_PATH=schema_medhelm.yaml
+export RUN_ENTRIES_CONF_PATH=src/helm/benchmark/presentation/run_entries_medhelm_public.conf
+export SCHEMA_PATH=src/helm/benchmark/static/schema_medhelm.yaml
 export NUM_TRAIN_TRIALS=1
-export NUM_EVAL_INSTANCES=1000
+export MAX_EVAL_INSTANCES=1000
 export PRIORITY=2
 ```
 
-#### Gated Benchmarks
+### Gated benchmarks
 
-Benchmarks that are publicly available but require credentials or approval to access (e.g., PhysioNet).
+Publicly available but require credentials or approval (e.g. PhysioNet, Hugging Face gated datasets, Google Drive downloads).
 
 ```bash
-export RUN_ENTRIES_CONF_PATH=run_entries_medhelm_gated.conf
-export SCHEMA_PATH=schema_medhelm.yaml
+export RUN_ENTRIES_CONF_PATH=src/helm/benchmark/presentation/run_entries_medhelm_gated.conf
+export SCHEMA_PATH=src/helm/benchmark/static/schema_medhelm.yaml
 export NUM_TRAIN_TRIALS=1
-export NUM_EVAL_INSTANCES=1000
+export MAX_EVAL_INSTANCES=1000
 export PRIORITY=2
 ```
 
-#### Private Benchmarks
+Install gated dependencies: `pip install "medhelm[gated]"`.
 
-Benchmarks accessible only to specific organizations.
+### Private benchmarks
+
+Accessible only to specific organizations. Use the appropriate private config for your org, for example:
 
 ```bash
-export RUN_ENTRIES_CONF_PATH=run_entries_medhelm_private_{organization}.conf
-export SCHEMA_PATH=schema_medhelm.yaml
+export RUN_ENTRIES_CONF_PATH=src/helm/benchmark/presentation/run_entries_medhelm_private_stanford.conf
+export SCHEMA_PATH=src/helm/benchmark/static/schema_medhelm.yaml
 export NUM_TRAIN_TRIALS=1
-export NUM_EVAL_INSTANCES=1000
+export MAX_EVAL_INSTANCES=1000
 export PRIORITY=2
 ```
+
+Private configs expect local data paths to be configured for your environment.
+
+### DSPy evaluation runs
+
+For MedHELM runs with DSPy-optimized agents:
+
+```bash
+export RUN_ENTRIES_CONF_PATH=src/helm/benchmark/presentation/run_entries_medhelm_dspy.conf
+```
+
+Install the DSPy extra: `pip install "medhelm[dspy]"`.
+
+## Downloading existing leaderboard results
+
+To compare against published results without rerunning everything, download from Google Cloud Storage. See [Downloading Raw Results](/downloading_raw_results) and [MedHELM — Viewing leaderboard results](/medhelm#viewing-and-reproducing-leaderboard-results).

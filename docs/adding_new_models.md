@@ -4,9 +4,9 @@ title: Adding New Models
 
 # Adding New Models
 
-HELM comes with more than a hundred built-in models. If you want to run a HELM evaluation on a model that is not built-in, you can configure HELM to add your own model. This also allows you to evaluate private models that are not publicly accessible, such as a model checkpoint on local disk, or a model server on a private network
+MedHELM supports many built-in model clients (OpenAI, Anthropic, Google, Hugging Face, and others via `src/helm/config/model_deployments.yaml`). To evaluate a model that is not preconfigured, add it to your local configuration. This also works for private models—a local checkpoint or a model server on a private network.
 
-HELM comes with many built-in `Client` classes (i.e. model API clients) and `Tokenizer` clients. If there is already an existing `Client` and `Tokenizer` class for your use case, you can simply add it to your local configuration. You would only need to implement a new class if you are adding a model with a API format or inference platform that is currently not supported by HELM.
+MedHELM ships with built-in `Client` and `Tokenizer` classes. If an existing client matches your API, add an entry to your local config. Implement a new client only when the API format is not already supported.
 
 If you wish to evaluate a model not covered by an existing `Client` and `Tokenizer`, you can implement your own `Client` and `Tokenizer` subclasses. Instructions for adding custom `Client` and `Tokenizer` subclasses will be added to the documentation in the future.
 

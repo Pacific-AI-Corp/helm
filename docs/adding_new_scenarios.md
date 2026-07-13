@@ -3,90 +3,92 @@ title: Adding New Scenarios
 ---
 # Adding New Scenarios
 
-HELM comes with more than a hundred built-in scenarios. However, you may want to run HELM on a scenario that is not built into HELM yet, or you may want to run HELM on scenarios that use your private datasets. Because HELM is a modular framework with a plug-in architecture, you can run evaluations with your custom scenarios on HELM without needing to modify HELM code.
+MedHELM ships with [medical evaluation scenarios](/scenarios) built into the repository. You can also add custom scenarios without forking core framework code by placing modules on your `PYTHONPATH`, or contribute new scenarios directly to MedHELM.
 
-There are two steps to adding a custom scenario: adding the custom `Scenario` subclass, and adding a custom run spec function.
+There are two steps: implement a `Scenario` subclass, then add a run spec function.
 
-The easiest way to implement the custom `Scenario` subclass and the custom run spec function would be to copy from an appropriate example and then make the appropriate modifications. Determine the **task** of your scenario, then find the corresponding example `Scenario` subclass and run spec function from the list below from the `simple_scenarios.py` and `simple_run_specs.py` files:
+The easiest approach is to copy from an existing MedHELM example and adapt it. Match your **task** to one of the patterns in `simple_scenarios.py` and `simple_run_specs.py`:
 
-- **Multiple-choice question answering**: `SimpleMCQAScenario` and `get_simple_mcqa_run_spec()`
-- **Short-answer question answering**: `SimpleShortAnswerQAScenario` and `get_simple_short_answer_qa_run_spec()`
-- **Open-ended question answering**: This is similar to short-answer question answering, but overlap-based automated metrics may be unsuitable for long generations.
-- **Summarization**: This is similar to short-answer question answering, but overlap-based automated metrics may be unsuitable for long generations.
-- **Multi-class classification**: `SimpleClassificationScenario` and `get_simple_classification_run_spec()`
-- **Sentiment analysis**: This a sub-type of the Classification task. Set `input_noun`, `output_noun` and `instructions` appropriately.
-- **Toxicity detection**: This a sub-type of the Classification task. Set `input_noun`, `output_noun` and `instructions` appropriately.
-- **Multi-label classification**: This is currently unsupported by HELM.
-- **Named entity recognition**: This is currently unsupported by HELM.
+- **Multiple-choice QA:** `SimpleMCQAScenario` / `get_simple_mcqa_run_spec()`
+- **Short-answer QA:** `SimpleShortAnswerQAScenario` / `get_simple_short_answer_qa_run_spec()`
+- **Multi-class classification:** `SimpleClassificationScenario` / `get_simple_classification_run_spec()`
 
-If your task is not listed, you may still implement your task using custom adapters and metrics, but there is limited official support for doing so.
+For production MedHELM scenarios, see real implementations such as:
+
+- `pubmed_qa_scenario.py` — Hugging Face dataset, multiple-choice
+- `medi_qa_scenario.py` — Hugging Face dataset with retry logic
+- `med_dialog_scenario.py` — external data download
+- `dischargeme_scenario.py` — summarization (requires `[summarization]` extra)
+
+Run specs for MedHELM live in `src/helm/benchmark/run_specs/medhelm_run_specs.py`.
 
 ## Custom `Scenario` subclass
 
-For this tutorial, we will create a `MyScenario` class in the the `my_scenario` module. Make a file called `./my_scenario.py` under the my_scenario directory. Create a new class called `MyScenario`. Find the appropriate example scenario and copy its implementation into `MyScenario`, making sure to also copy all the required imports.
+Create `my_scenario.py` with a class extending `Scenario`. Copy structure and imports from a similar existing scenario (e.g. `pubmed_qa_scenario.py`).
 
-Now we will create a test for the scenario to make sure that it is working correctly. Create a file called `./my_scenario_test.py` under the my_scenario directory. Create a `test_my_scenario()` function in this file. Find the appropriate example scenario test from `test_simple_scenarios.py` and copy its implementation into `test_my_scenario()`.
+Add a test file `test_my_scenario.py` under `src/helm/benchmark/scenarios/`, following patterns in `test_medi_qa_scenario.py` or `test_pubmed_qa_scenario.py`:
 
-You can now run `python3 -m pytest test_my_scenario.py` to test the example scenario. The test should pass. If you get a `ModuleNotFound` error, you should set up your `PYTHONPATH` as explained above, and then try again.
+```bash
+uv run pytest src/helm/benchmark/scenarios/test_my_scenario.py -vv
+```
 
-Now, modify `MyScenario` to include the actual logic to load the instances from your dataset. Modify the test accordingly. Use the test to ensure that your implementation is working.
+Implement `get_instances()` to load your dataset. Use `output_path` for cached downloads under `benchmark_output/scenarios/`.
 
 ### Downloading data to local disk
 
-Frequently, your `Scenario` will want to download and cache data onto the local disk, rather than downloading it from the internet every time. The `output_path` argument passed into the `get_instances()` method will contain a file path to a scenario-specific download folder that you should download these files to. The folder will be under the `scenarios` subdirectory under the `benchmark_output/` folder (or the path specified by the `--output-path` flag for `medhelm-run`). You can use the `ensure_directory_exists()` and `ensure_file_downloaded()` helper functions to download files, which has the advantage of skipping the download if the file already exists. You can also use set `unpack=True` in `ensure_file_downloaded()` to automatically unpack most archive files (e.g. `.tar.gz` and `.zip` files).
+Use `ensure_directory_exists()` and `ensure_file_downloaded()` from `helm.common.general` so files are cached between runs. Set `unpack=True` for archive files.
 
-For examples, refer to:
+Examples in this repository:
 
-- `gsm_scenario.py` - download a JSONL files
-- `mmlu_scenario.py` - download CSV files
-- `narrativeqa_scenario.py` - download a zip file containing CSV files
+- `med_qa_scenario.py` — Google Drive via `gdown` (requires `[gated]`)
+- `med_dialog_scenario.py` — CodaLab bundle download
+- `medication_qa_scenario.py` — Excel (`.xlsx`) via pandas
 
 ### Working with Hugging Face datasets
 
-Another frequent use case is downloading data from Hugging Face datasets. You can use `load_dataset()` to do so. It is recommended that you set the `cache_dir` parameter to a subdirectory within `output_path`. This ensures hermeticity by ensuring that the data is downloaded into the scenario-specific download folder.
+Use `load_dataset()` with `cache_dir` set to a subdirectory of `output_path` for hermetic caching.
 
-For an example, refer to:
+Examples:
 
-- `math_scenario.py`
-- `legalbench_scenario.py`
+- `pubmed_qa_scenario.py`
+- `medi_qa_scenario.py`
+- `health_bench_scenario.py`
 
 ## Custom run spec function
 
-A run spec function is the entry point to the scenario. A run spec function produces a `RunSpec` (a configuration for an evaluation run). `medhelm-run` will run the run spec function to get the `RunSpec`, and then it will run the evaluation defined by that `RunSpec`.
-
-HELM will search for modules with names matching these patterns for run spec functions:
+A run spec function returns a `RunSpec` that wires together scenario, adapter, and metrics. HELM discovers functions in:
 
 - `helm.benchmark.run_specs.*_run_specs`
-- `helm_*_run_specs` (i.e. a root module)
+- Root modules matching `helm_*_run_specs`
 
-For this tutorial, we will create a `get_my_run_spec()` function in the `helm_my_run_specs` module. Under the `src/helm/benchmark/scenarios/` directory, create a file called `helm_my_run_specs.py`. Then, create a `get_my_run_spec()` function in this file and find the appropriate example run spec function from `simple_run_specs.py` to copy its implementation into `get_my_run_spec()`. Change the file accordingly to the needs of your scenario.
+For MedHELM contributions, add your function to `src/helm/benchmark/run_specs/medhelm_run_specs.py` with the `@run_spec_function("your_name")` decorator. Copy from a similar run spec in that file (e.g. `get_pubmed_qa_spec()`).
 
-Now run:
+Test locally:
 
-```
-medhelm-run --run-entries custom:model=openai/gpt2 --suite custom --max-eval-instances 5
-```
-
-If you get a `ValueError: Unknown run spec name` error, you should set up your `PYTHONPATH` as explained above, and then try again.
-
-### Debugging with models
-
-The above run entry uses the `openai/gpt2` model, which is a lightweight model that is reasonably fast, even when using only CPU inference without a GPU.
-
-However, you might want to avoid waiting for model inference when implementing a scenario in order to speed up your iteration times. To do so, you can use the `simple/model1`, which simply echoes the last word in the prompt. Example `medhelm-run` command:
-
-```
-medhelm-run --run-entries custom:model=simple/model1 --suite custom --max-eval-instances 5
+```bash
+medhelm-run --run-entries your_name:model=openai/gpt2 --suite custom --max-eval-instances 5
 ```
 
-Note: Both the custom `Scenario` subclass and the custom run spec function will be added to custom Python modules that have to be importable by Python. The easiest way to do this is to place your custom Python modules under the current working directory and then run `export PYTHONPATH=".:$PYTHONPATH"` in your shell. Refer to the Importing Custom Modules documentation for other ways to do this.
+For fast iteration without model latency, use the echo model:
 
-## Contributing your scenario
+```bash
+medhelm-run --run-entries your_name:model=simple/model1 --suite custom --max-eval-instances 5
+```
 
-We welcome scenario contributions to HELM if they fit the following criteria:
+For custom modules outside the repo, see [Importing Custom Modules](/importing_custom_modules).
 
-- It is commonly-used or notable benchmark (e.g. it has a published paper).
-- It uses publicly available datasets.
-- It fills a gap in coverage by HELM's existing scenarios.
+## Contributing to MedHELM
 
-If your scenario fits this criteria, you should move the files to the conventional HELM locations, and open a pull request. Your `*_scenario.py` file should be placed in `src/helm/benchmark/scenarios/` and  your `*_run_specs.py` file should be placed in `src/helm/benchmark/scenarios/`. More documentation on the contributor workflow will be added later.
+We welcome contributions that:
+
+- Evaluate LLMs on realistic medical tasks
+- Use publicly available datasets (or document gated/private access clearly)
+- Fill gaps in MedHELM coverage
+
+When contributing:
+
+1. Place `your_scenario.py` in `src/helm/benchmark/scenarios/`
+2. Place run spec functions in `src/helm/benchmark/run_specs/medhelm_run_specs.py` (or a dedicated `*_run_specs.py` if appropriate)
+3. Add `test_your_scenario.py` with at least unit tests; use `@pytest.mark.scenarios` for integration tests that download data
+4. Add an entry to `src/helm/benchmark/static/schema_medhelm.yaml` if the scenario should appear on the leaderboard
+5. Open a pull request
