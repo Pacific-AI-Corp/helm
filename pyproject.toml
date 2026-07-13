@@ -78,22 +78,11 @@ dspy = [
 ]
 
 scenarios = [
-    "gdown~=5.1",  # For disinformation_scenario, med_mcqa_scenario, med_qa_scenario: used by ensure_file_downloaded()
-    "xlrd~=2.0",  # For ice_scenario: used by pandas.read_excel()
-    "openpyxl~=3.1",  # For medication_qa_scenario and other .xlsx readers via pandas.read_excel()
+    "gdown~=5.1",  # MedQA, MedMCQA and other scenarios using ensure_file_downloaded()
 ]
 
 metrics = [
-    "google-api-python-client~=2.64",  # For perspective_api_client via toxicity_metrics
-    "numba>=0.56",  # For copyright_metrics
-    "sacrebleu~=2.2",  # For disinformation_metrics, machine_translation_metrics
-    "langdetect~=1.0",  # For ifeval_metrics
-    "immutabledict~=4.2",  # For ifeval_metrics
-    "gradio_client~=1.3",  # For bigcodebench_metrics
-]
-
-ranking = [
-    "pytrec_eval==0.5",  # For ranking_metrics
+    "google-api-python-client~=2.64",  # For perspective_api_client (optional toxicity classifier)
 ]
 
 summarization = [
@@ -112,10 +101,6 @@ plots = [
     "colorcet~=3.0",
     "matplotlib>=3.6.0",
     "seaborn>=0.11.0",
-]
-
-decodingtrust = [
-    "fairlearn~=0.9.0",
 ]
 
 slurm = [
@@ -137,17 +122,6 @@ images = [
 
 mongo = [
     "pymongo~=4.2",
-]
-
-unitxt = [
-    "evaluate~=0.4.1",
-]
-
-seahelm = [
-    "pythainlp==5.0.0",
-    "pyonmttok==1.37.0",
-    "sacrebleu~=2.2",
-    "python-crfsuite~=0.9.11",
 ]
 
 # Model extras
@@ -248,7 +222,6 @@ vlm = [
 
     # VLM scenarios
     "medhelm[images]",
-    "medhelm[image2struct]",
 
     # For metrics
     "pycocoevalcap~=1.2",
@@ -257,37 +230,13 @@ vlm = [
     "qwen-vl-utils~=0.0.8",
 ]
 
-ibm-enterprise-scenarios = [
-    "openpyxl~=3.1",
-]
-
 ibm = [
     # incompatability issues with pandas library !
     "ibm-watsonx-ai~=1.2",
 ]
 
-image2struct = [
-    "medhelm[images]",
-
-    # Latex
-    # You will need to install LaTeX separately.
-    # You can run `sudo apt-get install texlive-full` on Ubuntu.
-    "latex~=0.7.0",
-    "pdf2image~=1.16",
-
-    # Webpage
-    # You will need install Jekyll separately.
-    "selenium~=4.17",
-    "html2text~=2024.2.26",
-
-    # Metrics
-    "opencv-python-headless>=4.7.0.68,<=4.11.0.86",
-    "lpips~=0.1.4",
-    "imagehash~=4.3"  # for caching
-]
-
 heim = [
-    # HEIM scenarios
+    # Image-generation metrics for MedHELM multimodal benchmarks (e.g. radiology, mental_disorders)
     "gdown~=5.1",
 
     # HEIM models
@@ -389,40 +338,21 @@ audiolm = [
     "jieba~=0.42.1",
 ]
 
-codeinsights = [
-    "clang~=20.1",
-    "Levenshtein~=0.27",
-]
-
-lmkt = [
-    "sentence_transformers~=4.1",
-]
-
 all = [
     "medhelm[proxy-server]",
     "medhelm[scenarios]",
-    "medhelm[metrics]",
+    "medhelm[summarization]",
+    "medhelm[gated]",
     "medhelm[plots]",
-    "medhelm[decodingtrust]",
-    "medhelm[slurm]",
-    "medhelm[cleva]",
     "medhelm[images]",
     "medhelm[models]",
-    "medhelm[mongo]",
-    "medhelm[heim]",
-    "medhelm[vlm]",
-    "medhelm[codeinsights]",
-    "medhelm[lmkt]",
-    # medhelm[human-evaluation] is excluded because it conflicts with medhelm[ibm]
-    # medhelm[audiolm] is excluded because it requires transformers~=4.48
-    # medhelm[seahelm] is excluded because pyonmttok does not support Python 3.12
-    # medhelm[dev] is excluded because end-users don't need it.
-    # medhelm[summarization] is excluded because it requires torch<2.0 and numpy<2.0
-    # medhelm[ranking] is excluded because pytrec_eval causes build errors (see #3470)
+    "medhelm[medhelm]",
+    # medhelm[heim] excluded: very heavy (tensorflow); install separately for radiology/mental_disorders
+    # medhelm[audiolm] excluded: flash-attn build issues on some platforms
+    # medhelm[human-evaluation] excluded: conflicts with medhelm[ibm]
 ]
 
 ci = [
-  "medhelm[metrics]",
   "medhelm[openai]",
   "medhelm[plots]",
   "medhelm[together]",
