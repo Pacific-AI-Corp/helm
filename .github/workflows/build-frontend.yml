@@ -34,7 +34,7 @@ jobs:
     - name: Git add
       run: git add --force src/helm/benchmark/static_build
     - name: Create pull request
-      uses: peter-evans/create-pull-request@v6
+      uses: peter-evans/create-pull-request@v8
       with:
         commit-message: Build frontend
         branch: actions/build-frontend
