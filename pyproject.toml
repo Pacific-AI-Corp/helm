@@ -431,7 +431,7 @@ ci = [
   "medhelm[proxy-server]",
 ]
 litellm = [
-    "litellm>=1.80.0",
+    "litellm>=1.84.0",
 ]
 
 [dependency-groups]
