@@ -114,128 +114,98 @@
       <div class="main-inner">
         <h1 id="developer-setup">Developer Setup</h1>
 
-<h2 id="check-your-system-python-version">Check your system Python version</h2>
+<p>This guide is for contributors working on the MedHELM repository. For end-user installation, see <a href="/installation">Installation</a>.</p>
 
-<p>Check your system verison of Python by running:</p>
+<h2 id="requirements">Requirements</h2>
+
+<ul>
+  <li>Python <strong>3.10</strong>, <strong>3.11</strong>, or <strong>3.12</strong> (3.12 recommended)</li>
+  <li><a href="https://docs.astral.sh/uv/getting-started/installation/">uv</a> — used by CI and recommended for development</li>
+</ul>
+
+<p>Check your Python version:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python <span class="nt">--version</span>
 </code></pre></div></div>
 
-<p>If your version of Python is older than 3.10, use <strong>pyenv</strong> to install a version of Python &gt;=3.10 when setting up your virtual environment.</p>
+<h2 id="set-up-the-environment">Set up the environment</h2>
 
-<h2 id="set-up-the-python-virtual-environment">Set up the Python virtual environment</h2>
+<p>From the repository root:</p>
 
-<p>First, create a Python virtual environment with Python version &gt;= 3.10 and activate it.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create and activate a virtual environment</span>
+uv venv <span class="nt">--python</span> 3.12 .venv
+<span class="nb">source</span> .venv/bin/activate
 
-<p>Using <a href="https://docs.python.org/3/library/venv.html#creating-virtual-environments"><strong>Virtualenv</strong></a> (<em>requires</em> system Python version &gt;=3.10):</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create a virtual environment.</span>
-<span class="c"># Only run this the first time.</span>
-python3 <span class="nt">-m</span> pip <span class="nb">install </span>virtualenv
-python3 <span class="nt">-m</span> virtualenv <span class="nt">-p</span> python3 venv
-
-<span class="c"># Activate the virtual environment.</span>
-<span class="c"># Run this every time you open your shell.</span>
-<span class="nb">source </span>venv/bin/activate
+<span class="c"># Install the package plus dev tools and CI dependencies (matches GitHub Actions)</span>
+uv <span class="nb">sync</span> <span class="nt">--extra</span> ci
 </code></pre></div></div>
 
-<p>Using <a href="https://github.com/pyenv/pyenv"><strong>pyenv</strong></a> and <a href="https://github.com/pyenv/pyenv-virtualenv"><strong>pyenv-virtualenv</strong></a>:</p>
+<p>The <code class="language-plaintext highlighter-rouge">dev</code> and <code class="language-plaintext highlighter-rouge">types</code> dependency groups are included automatically via <code class="language-plaintext highlighter-rouge">[tool.uv] default-groups</code>.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create a virtual environment.</span>
-<span class="c"># Only run this the first time.</span>
-pyenv virtualenv 3.10 medhelm
+<h2 id="run-tests">Run tests</h2>
 
-<span class="c"># Activate the virtual environment.</span>
-<span class="c"># Run this every time you open your shell.</span>
-pyenv activate medhelm
+<p>CI runs unit tests excluding slow integration markers:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uv run pytest <span class="nt">-m</span> <span class="s2">"not models and not scenarios"</span> <span class="nt">--durations</span><span class="o">=</span>20
 </code></pre></div></div>
 
-<h2 id="install-python-dependencies">Install Python dependencies</h2>
+<p>Scenario integration tests (network downloads):</p>
 
-<p>To install any dependencies:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install</span> <span class="nt">--force-reinstall</span> <span class="nt">-e</span> .[dev]
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uv <span class="nb">sync</span> <span class="nt">--extra</span> ci <span class="nt">--extra</span> scenarios
+uv run pytest <span class="nt">-m</span> scenarios
 </code></pre></div></div>
 
-<h2 id="run-python-tests">Run Python tests</h2>
+<p>Run a specific test file:</p>
 
-<p>Currently, running all the unit tests takes about 10 minutes. To run all unit tests:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python <span class="nt">-m</span> pytest
-</code></pre></div></div>
-
-<p>Append <code class="language-plaintext highlighter-rouge">-vv</code> to output the full diff and results:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python <span class="nt">-m</span> pytest <span class="nt">-vv</span>
-</code></pre></div></div>
-
-<p>When modifying the Python code, you usually want to only run certain relevant tests. To run a specific test file, specify the file path as follows:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python <span class="nt">-m</span> pytest path/to/test_file.py <span class="nt">-vv</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uv run pytest src/helm/benchmark/scenarios/test_medi_qa_scenario.py <span class="nt">-vv</span>
 </code></pre></div></div>
 
 <h2 id="run-linter-and-type-checker">Run linter and type-checker</h2>
 
-<p>You should always ensure that your code is linted and type-checked before creating a pull request. This is typically enforced by our git pre-commit hooks. Install the pre-commit hooks by running:</p>
+<p>Install pre-commit hooks:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pre-commit <span class="nb">install</span>
 </code></pre></div></div>
 
-<p>This will automatically run the linter and type-checker whenever you run <code class="language-plaintext highlighter-rouge">git push</code> to push a branch. To skip running the linter and type checker when pushing a branch, use the <code class="language-plaintext highlighter-rouge">--no-verify</code> flag with <code class="language-plaintext highlighter-rouge">git push</code>.</p>
-
-<p>To run the linter and type-checker manually:</p>
+<p>Run manually:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./pre-commit.sh
 </code></pre></div></div>
 
-<p>Alternatively, you can run only the linter or only the type checker separately:</p>
+<p>Or individually:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Linters</span>
-black src scripts
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>black src scripts
 flake8 src scripts
-
-<span class="c"># Type checker</span>
 mypy src scripts
 </code></pre></div></div>
 
-<h2 id="executing-helm-commands-with-local-modifications">Executing helm commands with local modifications</h2>
+<h2 id="executing-commands-with-local-changes">Executing commands with local changes</h2>
 
-<p>The recommended way to execute <code class="language-plaintext highlighter-rouge">medhelm-run</code>, <code class="language-plaintext highlighter-rouge">helm-summarize</code>, <code class="language-plaintext highlighter-rouge">helm-server</code>, etc, with your local version of the repository is to do an editable install, using the following steps:</p>
+<p>After <code class="language-plaintext highlighter-rouge">uv sync</code>, CLI entry points use your local checkout:</p>
 
-<ol>
-  <li>Activate your virtual environment.</li>
-  <li>Change directory to the repository root (contains pyproject.toml).</li>
-  <li>Make sure you don’t have an existing helm installation for that environment with <code class="language-plaintext highlighter-rouge">pip uninstall medhelm</code></li>
-  <li>Run <code class="language-plaintext highlighter-rouge">pip install -e .</code></li>
-</ol>
-
-<p>Now calling <code class="language-plaintext highlighter-rouge">medhelm-run</code> while the environment is activated will read from your local source.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>medhelm-run <span class="nt">--run-entries</span> med_qa:model<span class="o">=</span>openai/gpt2 <span class="nt">--suite</span> dev <span class="nt">--max-eval-instances</span> 5
+helm-summarize <span class="nt">--schema</span> src/helm/benchmark/static/schema_medhelm.yaml <span class="nt">--suite</span> dev
+helm-server <span class="nt">--suite</span> dev
+</code></pre></div></div>
 
 <h3 id="without-installing">Without installing</h3>
 
-<p>If you have a compelling reason not to do an editable install, you can execute commands by:</p>
+<p>From the repository root:</p>
 
-<ol>
-  <li>Change directory to <code class="language-plaintext highlighter-rouge">src</code></li>
-  <li>Execute the module you want with a command like: <code class="language-plaintext highlighter-rouge">python -m helm.benchmark.run</code></li>
-</ol>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">PYTHONPATH</span><span class="o">=</span>src uv run python <span class="nt">-m</span> helm.benchmark.run <span class="nt">--help</span>
+</code></pre></div></div>
 
 <h2 id="checking-in-code">Checking in code</h2>
 
-<p>The HELM repository does not allow direct modifications of the main branch. Instead, developers create a Pull Request which must then be approved by a different person before merging into main. Here is an example workflow:</p>
+<p>MedHELM uses pull requests against <code class="language-plaintext highlighter-rouge">main</code>. Typical workflow:</p>
 
 <ol>
-  <li><code class="language-plaintext highlighter-rouge">git checkout main</code> to start from the main branch.</li>
-  <li><code class="language-plaintext highlighter-rouge">git pull origin main</code> to get up to date.</li>
-  <li>Make whatever changes you’ll like to group into a single review.</li>
-  <li>Run tests.</li>
-  <li>Make a new branch with <code class="language-plaintext highlighter-rouge">git checkout -b &lt;your-handle&gt;/&lt;change-identifier</code>. For example, <code class="language-plaintext highlighter-rouge">yifanmai/fix-optional-suggestions</code>.</li>
-  <li>If you did NOT install the precommit, run the linter and type checker with <code class="language-plaintext highlighter-rouge">./pre-commit.sh</code></li>
-  <li><code class="language-plaintext highlighter-rouge">git commit -a</code> to commit all you changes. If you want to ignore precommit warnings,  you can add <code class="language-plaintext highlighter-rouge">--no-verify</code>.</li>
-  <li><code class="language-plaintext highlighter-rouge">git push origin &lt;your-handle&gt;/&lt;change-identifier&gt;</code> to upload to github.</li>
-  <li>Loading any HELM github page should now prompt you about creating a new pull request. If not, you can also find your branch on <a href="https://github.com/PacificAI/medhelm/branches">the branches page</a> to create one.</li>
-  <li>Update the title and description as necessary, then create the pull request.</li>
-  <li>Once the reviewer is satisfied, they can approve and either of you can then <code class="language-plaintext highlighter-rouge">Squash and Merge</code> the branch into main.</li>
+  <li><code class="language-plaintext highlighter-rouge">git checkout main &amp;&amp; git pull origin main</code></li>
+  <li>Make changes and run tests locally</li>
+  <li><code class="language-plaintext highlighter-rouge">git checkout -b &lt;your-handle&gt;/&lt;change-id&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">./pre-commit.sh</code> (or rely on pre-commit hooks on push)</li>
+  <li><code class="language-plaintext highlighter-rouge">git commit -a</code> and <code class="language-plaintext highlighter-rouge">git push origin &lt;branch&gt;</code></li>
+  <li>Open a PR on <a href="https://github.com/PacificAI/medhelm">GitHub</a></li>
 </ol>
 
       </div>

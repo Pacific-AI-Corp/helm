@@ -114,9 +114,9 @@
       <div class="main-inner">
         <h1 id="adding-new-models">Adding New Models</h1>
 
-<p>HELM comes with more than a hundred built-in models. If you want to run a HELM evaluation on a model that is not built-in, you can configure HELM to add your own model. This also allows you to evaluate private models that are not publicly accessible, such as a model checkpoint on local disk, or a model server on a private network</p>
+<p>MedHELM supports many built-in model clients (OpenAI, Anthropic, Google, Hugging Face, and others via <code class="language-plaintext highlighter-rouge">src/helm/config/model_deployments.yaml</code>). To evaluate a model that is not preconfigured, add it to your local configuration. This also works for private models—a local checkpoint or a model server on a private network.</p>
 
-<p>HELM comes with many built-in <code class="language-plaintext highlighter-rouge">Client</code> classes (i.e. model API clients) and <code class="language-plaintext highlighter-rouge">Tokenizer</code> clients. If there is already an existing <code class="language-plaintext highlighter-rouge">Client</code> and <code class="language-plaintext highlighter-rouge">Tokenizer</code> class for your use case, you can simply add it to your local configuration. You would only need to implement a new class if you are adding a model with a API format or inference platform that is currently not supported by HELM.</p>
+<p>MedHELM ships with built-in <code class="language-plaintext highlighter-rouge">Client</code> and <code class="language-plaintext highlighter-rouge">Tokenizer</code> classes. If an existing client matches your API, add an entry to your local config. Implement a new client only when the API format is not already supported.</p>
 
 <p>If you wish to evaluate a model not covered by an existing <code class="language-plaintext highlighter-rouge">Client</code> and <code class="language-plaintext highlighter-rouge">Tokenizer</code>, you can implement your own <code class="language-plaintext highlighter-rouge">Client</code> and <code class="language-plaintext highlighter-rouge">Tokenizer</code> subclasses. Instructions for adding custom <code class="language-plaintext highlighter-rouge">Client</code> and <code class="language-plaintext highlighter-rouge">Tokenizer</code> subclasses will be added to the documentation in the future.</p>
 

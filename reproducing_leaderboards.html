@@ -114,237 +114,98 @@
       <div class="main-inner">
         <h1 id="reproducing-leaderboards">Reproducing Leaderboards</h1>
 
-<p>You can use the HELM package to rerun evaluation runs and recreate a specific public leaderboard.</p>
+<p>Use MedHELM to rerun evaluation runs and reproduce the public <a href="https://leaderboard.medhelm.org/">MedHELM leaderboard</a>.</p>
 
-<p>The general procedure is to first find the appropriate <code class="language-plaintext highlighter-rouge">run_entries_*.conf</code> and <code class="language-plaintext highlighter-rouge">schema_*.yaml</code> files from the HELM GitHub repository for the leaderboard version and then place them in your current working directory. The locations of these files are as follows:</p>
+<p>Configuration files live in the repository:</p>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">run_entries_*.conf</code>: the <code class="language-plaintext highlighter-rouge">src/helm/benchmark/presentation/</code> directory <a href="https://github.com/PacificAI/medhelm/tree/main/src/helm/benchmark/presentation">here</a></li>
-  <li><code class="language-plaintext highlighter-rouge">schema_*.conf</code>: the <code class="language-plaintext highlighter-rouge">src/helm/benchmark/static/</code> directory <a href="https://github.com/PacificAI/medhelm/tree/main/src/helm/benchmark/static">here</a></li>
+  <li><strong>Run entries:</strong> <code class="language-plaintext highlighter-rouge">src/helm/benchmark/presentation/run_entries_medhelm_*.conf</code></li>
+  <li><strong>Schema:</strong> <code class="language-plaintext highlighter-rouge">src/helm/benchmark/static/schema_medhelm.yaml</code></li>
 </ul>
 
-<p>Then run the following shell script:</p>
+<h2 id="general-procedure">General procedure</h2>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Pick any suite name of your choice</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Pick any suite name</span>
 <span class="nb">export </span><span class="nv">SUITE_NAME</span><span class="o">=</span>my_suite
 
-<span class="c"># Replace this with your model or models</span>
-<span class="nb">export </span><span class="nv">MODELS_TO_RUN</span><span class="o">=</span>openai/gpt-3.5-turbo-0613
+<span class="c"># Replace with your model(s)</span>
+<span class="nb">export </span><span class="nv">MODELS_TO_RUN</span><span class="o">=</span>openai/gpt-4o-2024-05-13
 
-<span class="c"># Get these from the list below</span>
-<span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_repro.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_repro.yaml
+<span class="c"># MedHELM public benchmarks (see access levels below)</span>
+<span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>src/helm/benchmark/presentation/run_entries_medhelm_public.conf
+<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>src/helm/benchmark/static/schema_medhelm.yaml
 <span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
 <span class="nb">export </span><span class="nv">MAX_EVAL_INSTANCES</span><span class="o">=</span>1000
 <span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
 
-medhelm-run <span class="nt">--conf-paths</span> <span class="nv">$RUN_ENTRIES_CONF_PATH</span> <span class="nt">--num-train-trials</span> <span class="nv">$NUM_TRAIN_TRIALS</span> <span class="nt">--max-eval-instances</span> <span class="nv">$MAX_EVAL_INSTANCES</span> <span class="nt">--priority</span> <span class="nv">$PRIORITY</span> <span class="nt">--suite</span> <span class="nv">$SUITE_NAME</span> <span class="nt">--models-to-run</span> <span class="nv">$MODELS_TO_RUN</span>
+medhelm-run <span class="se">\</span>
+  <span class="nt">--conf-paths</span> <span class="s2">"</span><span class="nv">$RUN_ENTRIES_CONF_PATH</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">--num-train-trials</span> <span class="s2">"</span><span class="nv">$NUM_TRAIN_TRIALS</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">--max-eval-instances</span> <span class="s2">"</span><span class="nv">$MAX_EVAL_INSTANCES</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">--priority</span> <span class="s2">"</span><span class="nv">$PRIORITY</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">--suite</span> <span class="s2">"</span><span class="nv">$SUITE_NAME</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">--models-to-run</span> <span class="s2">"</span><span class="nv">$MODELS_TO_RUN</span><span class="s2">"</span>
 
-helm-summarize <span class="nt">--schema</span> <span class="nv">$SCHEMA_PATH</span> <span class="nt">--suite</span> <span class="nv">$SUITE_NAME</span>
+helm-summarize <span class="nt">--schema</span> <span class="s2">"</span><span class="nv">$SCHEMA_PATH</span><span class="s2">"</span> <span class="nt">--suite</span> <span class="s2">"</span><span class="nv">$SUITE_NAME</span><span class="s2">"</span>
 
-helm-server <span class="nt">--suite</span> <span class="nv">$SUITE_NAME</span>
+helm-server <span class="nt">--suite</span> <span class="s2">"</span><span class="nv">$SUITE_NAME</span><span class="s2">"</span>
 </code></pre></div></div>
 
-<h2 id="leaderboard-versions">Leaderboard versions</h2>
+<p>Then open the local frontend (typically http://localhost:8000).</p>
 
-<p>The following specifies the appropriate parameters and configuration files for a leaderboard, given its project and version number.</p>
+<h2 id="benchmark-access-levels">Benchmark access levels</h2>
 
-<h3 id="capabilities">Capabilities</h3>
+<p>MedHELM benchmarks are grouped by data access. See <a href="/medhelm#benchmark-access-levels">Benchmark Access Levels</a> for details and example sources.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_capabilities_reasoning_v2.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_capabilities.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
-<span class="nb">export </span><span class="nv">NUM_EVAL_INSTANCES</span><span class="o">=</span>1000
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
-</code></pre></div></div>
+<h3 id="public-benchmarks">Public benchmarks</h3>
 
-<h3 id="safety">Safety</h3>
+<p>Fully open and freely available.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_safety.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_safety.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
-<span class="nb">export </span><span class="nv">NUM_EVAL_INSTANCES</span><span class="o">=</span>1000
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
-</code></pre></div></div>
-
-<h3 id="air-bench-for-reasoning-models">AIR-Bench (for reasoning models)</h3>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_air_bench_reasoning.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_air_bench.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
-<span class="nb">export </span><span class="nv">NUM_EVAL_INSTANCES</span><span class="o">=</span>10000
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
-</code></pre></div></div>
-
-<h3 id="air-bench-for-non-reasoning-models">AIR-Bench (for non-reasoning models)</h3>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_air_bench.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_air_bench.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
-<span class="nb">export </span><span class="nv">NUM_EVAL_INSTANCES</span><span class="o">=</span>10000
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
-</code></pre></div></div>
-
-<h3 id="lite-for-non-instruction-following-models">Lite for non-instruction-following models</h3>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_lite_20240424.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_lite.yaml
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>src/helm/benchmark/presentation/run_entries_medhelm_public.conf
+<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>src/helm/benchmark/static/schema_medhelm.yaml
 <span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
 <span class="nb">export </span><span class="nv">MAX_EVAL_INSTANCES</span><span class="o">=</span>1000
 <span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
 </code></pre></div></div>
 
-<h3 id="lite-for-instruction-following-models">Lite for instruction-following models</h3>
+<h3 id="gated-benchmarks">Gated benchmarks</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_lite_20240424_output_format_instructions.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_lite.yaml
+<p>Publicly available but require credentials or approval (e.g. PhysioNet, Hugging Face gated datasets, Google Drive downloads).</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>src/helm/benchmark/presentation/run_entries_medhelm_gated.conf
+<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>src/helm/benchmark/static/schema_medhelm.yaml
 <span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
 <span class="nb">export </span><span class="nv">MAX_EVAL_INSTANCES</span><span class="o">=</span>1000
 <span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
 </code></pre></div></div>
 
-<h3 id="classic-before-v024">Classic before v0.2.4</h3>
+<p>Install gated dependencies: <code class="language-plaintext highlighter-rouge">pip install "medhelm[gated]"</code>.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_classic.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>3
-<span class="nb">export </span><span class="nv">MAX_EVAL_INSTANCES</span><span class="o">=</span>1000
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
-</code></pre></div></div>
+<h3 id="private-benchmarks">Private benchmarks</h3>
 
-<h3 id="classic-v024-and-after">Classic v0.2.4 and after</h3>
+<p>Accessible only to specific organizations. Use the appropriate private config for your org, for example:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_lite.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_classic.yaml
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>src/helm/benchmark/presentation/run_entries_medhelm_private_stanford.conf
+<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>src/helm/benchmark/static/schema_medhelm.yaml
 <span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
 <span class="nb">export </span><span class="nv">MAX_EVAL_INSTANCES</span><span class="o">=</span>1000
 <span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
 </code></pre></div></div>
 
-<h3 id="heim">HEIM</h3>
+<p>Private configs expect local data paths to be configured for your environment.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_heim.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_heim.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
-<span class="nb">export </span><span class="nv">NUM_EVAL_INSTANCES</span><span class="o">=</span>1000
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
+<h3 id="dspy-evaluation-runs">DSPy evaluation runs</h3>
+
+<p>For MedHELM runs with DSPy-optimized agents:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>src/helm/benchmark/presentation/run_entries_medhelm_dspy.conf
 </code></pre></div></div>
 
-<h3 id="mmlu">MMLU</h3>
+<p>Install the DSPy extra: <code class="language-plaintext highlighter-rouge">pip install "medhelm[dspy]"</code>.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_mmlu.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_mmlu.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
-<span class="nb">export </span><span class="nv">NUM_EVAL_INSTANCES</span><span class="o">=</span>10000
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>4
-</code></pre></div></div>
+<h2 id="downloading-existing-leaderboard-results">Downloading existing leaderboard results</h2>
 
-<h3 id="vhelm-v100-vlm-evaluation">VHELM v1.0.0 (VLM evaluation)</h3>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_vhelm_lite.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_vhelm_lite.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
-<span class="nb">export </span><span class="nv">NUM_EVAL_INSTANCES</span><span class="o">=</span>1000
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
-</code></pre></div></div>
-
-<h3 id="vhelm-v200">VHELM &gt;=v2.0.0</h3>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_vhelm.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_vhelm.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
-<span class="nb">export </span><span class="nv">NUM_EVAL_INSTANCES</span><span class="o">=</span>1000
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
-</code></pre></div></div>
-
-<h3 id="torr">ToRR</h3>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_torr.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_torr.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
-<span class="nb">export </span><span class="nv">NUM_EVAL_INSTANCES</span><span class="o">=</span>100
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
-</code></pre></div></div>
-
-<h3 id="arabic">Arabic</h3>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_arabic.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_arabic.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
-<span class="nb">export </span><span class="nv">NUM_EVAL_INSTANCES</span><span class="o">=</span>1000
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
-</code></pre></div></div>
-
-<h3 id="sea-helm">SEA-HELM</h3>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_seahelm_zero_shot.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_seahelm.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
-<span class="nb">export </span><span class="nv">NUM_EVAL_INSTANCES</span><span class="o">=</span>1000
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
-</code></pre></div></div>
-
-<h3 id="villm">ViLLM</h3>
-
-<p>ViLLM is experimental and is not intended for production use yet.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_melt.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_melt.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
-<span class="nb">export </span><span class="nv">NUM_EVAL_INSTANCES</span><span class="o">=</span>1000
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
-</code></pre></div></div>
-
-<h3 id="slphelm">SLPHelm</h3>
-
-<p>SLPHelm is experimental and is not intended for production use yet.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_slphelm.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_slphelm.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
-<span class="nb">export </span><span class="nv">NUM_EVAL_INSTANCES</span><span class="o">=</span>1000
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
-</code></pre></div></div>
-
-<h3 id="medhelm">MedHELM</h3>
-
-<blockquote>
-  <p>Benchmarks in MedHELM fall under three types of data access: <strong>public</strong>, <strong>gated</strong>, and <strong>private</strong>.<br />
-See the <a href="/medhelm#benchmark-access-levels">Benchmark Access Levels</a> section in the MedHELM page to learn more about each access type and example sources.</p>
-</blockquote>
-
-<h4 id="public-benchmarks">Public Benchmarks</h4>
-
-<p>Benchmarks that are fully open and freely available to the public.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_medhelm_public.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_medhelm.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
-<span class="nb">export </span><span class="nv">NUM_EVAL_INSTANCES</span><span class="o">=</span>1000
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
-</code></pre></div></div>
-
-<h4 id="gated-benchmarks">Gated Benchmarks</h4>
-
-<p>Benchmarks that are publicly available but require credentials or approval to access (e.g., PhysioNet).</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_medhelm_gated.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_medhelm.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
-<span class="nb">export </span><span class="nv">NUM_EVAL_INSTANCES</span><span class="o">=</span>1000
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
-</code></pre></div></div>
-
-<h4 id="private-benchmarks">Private Benchmarks</h4>
-
-<p>Benchmarks accessible only to specific organizations.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RUN_ENTRIES_CONF_PATH</span><span class="o">=</span>run_entries_medhelm_private_<span class="o">{</span>organization<span class="o">}</span>.conf
-<span class="nb">export </span><span class="nv">SCHEMA_PATH</span><span class="o">=</span>schema_medhelm.yaml
-<span class="nb">export </span><span class="nv">NUM_TRAIN_TRIALS</span><span class="o">=</span>1
-<span class="nb">export </span><span class="nv">NUM_EVAL_INSTANCES</span><span class="o">=</span>1000
-<span class="nb">export </span><span class="nv">PRIORITY</span><span class="o">=</span>2
-</code></pre></div></div>
+<p>To compare against published results without rerunning everything, download from Google Cloud Storage. See <a href="/downloading_raw_results">Downloading Raw Results</a> and <a href="/medhelm#viewing-and-reproducing-leaderboard-results">MedHELM — Viewing leaderboard results</a>.</p>
 
       </div>
     </main>
