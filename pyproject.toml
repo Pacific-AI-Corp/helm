@@ -188,7 +188,9 @@ mistral = [
 ]
 
 openai = [
-    "openai~=2.8",
+    # Keep on 2.20.x: litellm>=1.84 needs openai>=2.20, but newer openai
+    # (e.g. 2.48) triggers an INTERNAL ERROR in mypy==1.16.0.
+    "openai~=2.20.0",
     "tiktoken~=0.7",
     "pydantic~=2.0", # For model_dump(mode="json") - openai only requires pydantic>=1.9.0
 ]
