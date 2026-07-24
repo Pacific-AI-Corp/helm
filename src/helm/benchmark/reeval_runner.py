@@ -37,29 +37,7 @@ from helm.benchmark.runner import (
 )
 
 scenario_to_metric_name = {
-    "air_bench_2024": "air_score",
-    "babi_qa": "quasi_exact_match",
-    "bbq": "quasi_exact_match",
-    "blimp": "exact_match",
-    "boolq": "quasi_exact_match",
-    "civil_comments": "quasi_exact_match",
-    "dyck_language": "exact_match_indicator",
-    "entity_data_imputation": "quasi_exact_match",
-    "entity_matching": "quasi_exact_match",
-    "imdb": "quasi_exact_match",
-    "legal_support": "quasi_exact_match",
-    "raft": "quasi_exact_match",
-    "synthetic_reasoning": "quasi_exact_match",
-    "truthful_qa": "exact_match",
-    "wikifact": "quasi_exact_match",
-    "mmlu": "exact_match",
-    "commonsense": "exact_match",
-    "gsm": "final_number_exact_match",
-    # "gsm": ["exact_match_indicator", "final_number_exact_match"],
-    "legalbench": "quasi_exact_match",
-    "math": "math_equiv_chain_of_thought",
     "med_qa": "quasi_exact_match",
-    "thai_exam": "exact_match",
 }
 
 

@@ -825,61 +825,6 @@ def gender(
     )
 
 
-def cleva_mild_mix() -> PerturbationSpec:
-    return PerturbationSpec(
-        class_name="helm.benchmark.augmentations.cleva_perturbation.CLEVAMildMixPerturbation",
-        args={},
-    )
-
-
-def cleva_gender(
-    mode: str,
-    prob: float,
-    source_class: str,
-    target_class: str,
-) -> PerturbationSpec:
-    return PerturbationSpec(
-        class_name="helm.benchmark.augmentations.cleva_perturbation.ChineseGenderPerturbation",
-        args={
-            "mode": mode,
-            "prob": prob,
-            "source_class": source_class,
-            "target_class": target_class,
-        },
-    )
-
-
-def cleva_person_name(
-    prob: float,
-    source_class: Dict[str, str],
-    target_class: Dict[str, str],
-    preserve_gender: bool = True,
-) -> PerturbationSpec:
-    return PerturbationSpec(
-        class_name="helm.benchmark.augmentations.cleva_perturbation.ChinesePersonNamePerturbation",
-        args={
-            "prob": prob,
-            "source_class": source_class,
-            "target_class": target_class,
-            "preserve_gender": preserve_gender,
-        },
-    )
-
-
-def simplified_to_traditional() -> PerturbationSpec:
-    return PerturbationSpec(
-        class_name="helm.benchmark.augmentations.cleva_perturbation.SimplifiedToTraditionalPerturbation",
-        args={},
-    )
-
-
-def mandarin_to_cantonese() -> PerturbationSpec:
-    return PerturbationSpec(
-        class_name="helm.benchmark.augmentations.cleva_perturbation.MandarinToCantonesePerturbation",
-        args={},
-    )
-
-
 def translate(language_code: str) -> PerturbationSpec:
     return PerturbationSpec(
         class_name="helm.benchmark.augmentations.translate_perturbation.TranslatePerturbation",
@@ -1055,34 +1000,6 @@ PERTURBATION_SPECS_DICT: Dict[str, Dict[str, List[PerturbationSpec]]] = {
             space(max_spaces=3),
             synonym(prob=0.1),
             typo(prob=0.01),
-        ]
-    },
-    "cleva_robustness": {"robustness": [cleva_mild_mix()]},
-    "cleva_fairness": {
-        "fairness": [
-            cleva_gender(mode="pronouns", prob=1.0, source_class="male", target_class="female"),
-            cleva_person_name(
-                prob=1.0,
-                source_class={"gender": "male"},
-                target_class={"gender": "female"},
-                preserve_gender=True,
-            ),
-            simplified_to_traditional(),
-            mandarin_to_cantonese(),
-        ]
-    },
-    "cleva": {
-        "cleva": [
-            cleva_mild_mix(),
-            cleva_gender(mode="pronouns", prob=1.0, source_class="male", target_class="female"),
-            cleva_person_name(
-                prob=1.0,
-                source_class={"gender": "male"},
-                target_class={"gender": "female"},
-                preserve_gender=True,
-            ),
-            simplified_to_traditional(),
-            mandarin_to_cantonese(),
         ]
     },
     # Multilinguality

@@ -62,7 +62,7 @@ def test_run_with_custom_logging_config():
         argv = [
             "run.py",  # Fake script name
             "--run-entries",
-            "mmlu:subject=philosophy,model=openai/gpt2",
+            "simple1:model=simple/model1",
             "-m",
             "1",
             "--suite",
@@ -86,7 +86,11 @@ def test_run_with_custom_logging_config():
         print(log_contents)
 
         assert (
-            "mscoco" in log_contents or "huggingface" in log_contents or "dry-run" in log_contents
+            "mscoco" in log_contents
+            or "huggingface" in log_contents
+            or "dry-run" in log_contents
+            or "DryRunMetric" in log_contents
+            or "simple1" in log_contents
         ), "Expected log content not found in log file:\n"
 
 

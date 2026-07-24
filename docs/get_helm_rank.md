@@ -5,7 +5,7 @@ title: Efficient MedHELM
 
 This tutorial shows how to add your model to the [MedHELM leaderboard](https://leaderboard.medhelm.org/#/leaderboard) at a fraction of the cost of a full run, using the technique from IBM Research described in [Efficient Benchmarking (of Language Models)](https://arxiv.org/pdf/2308.11696.pdf) (Perlitz et al., 2023).
 
-The rank-location tradeoffs in the table below were measured on HELM Classic scenarios, but MedHELM uses the same `--max-eval-instances` flag to subsample evaluation items.
+The rank-location tradeoffs in the table below were measured on the original HELM Classic benchmark suite. MedHELM uses the same `--max-eval-instances` subsampling approach; treat the rank CI numbers as approximate guidance rather than MedHELM-specific calibration.
 
 ## Prerequisites
 

@@ -37,7 +37,7 @@ Note: the run spec function name is frequently the same as the scenario name by 
 
 The second part of the run entry after the `:` is a mapping of argument names to argument values. The string has the format `arg_name_1=arg_value_1,arg_name_2=arg_value_2` i.e. the name and value of each argument is joined by `=`, and the argument name-value pairs are joined by `,`. All argument values must be non-empty strings.
 
-The run entry arguments are used for two different things: run spec function arguments, and run expanders. For instance, in the example run entry `mmlu:subject=anatomy,model=openai/gpt2`, a run spec function argument is specified by `subject=anatomy`, and a run expander is specified by `model=openai/gpt2`.
+The run entry arguments are used for two different things: run spec function arguments, and run expanders. For instance, in the example run entry `head_qa:subset=english,model=openai/gpt2`, a run spec function argument is specified by `subset=english`, and a run expander is specified by `model=openai/gpt2`.
 
 As in the above example, you can mix run expanders and run spec function arguments in a single run entry. If there is a name conflict between a run expander name and a run spec function argument name, the run expander has precedence. 
 

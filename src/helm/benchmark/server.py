@@ -15,7 +15,7 @@ import urllib
 from bottle import Bottle, static_file, HTTPResponse, response
 import yaml
 
-from helm.benchmark.presentation.schema import SCHEMA_CLASSIC_YAML_FILENAME
+from helm.benchmark.presentation.schema import SCHEMA_DEFAULT_YAML_FILENAME
 from helm.common.general import ensure_directory_exists, serialize_dates
 
 
@@ -55,12 +55,8 @@ def serve_config():
 #
 # The HELM web frontend expects to find a schema.json at /benchmark_output/runs/<version>/schema.json
 # which is produced by the new version of helm-summarize but not the old version.
-# When serving a suite produced by the old version of helm-summarize, the schena.json will be missing.
-# This shim supports those suites by serving a schena.json that is dynamically computed from schema_classic.yaml
-#
-# We will remove this in a few months after most users have moved to the new version of helm-summarize.
-#
-# TODO(2024-03-01): Remove this.
+# When serving a suite produced by the old version of helm-summarize, the schema.json will be missing.
+# This shim supports those suites by serving a schema.json computed from schema_medhelm.yaml.
 @app.get("/benchmark_output/<runs_or_releases:re:runs|releases>/<version>/schema.json")
 def server_schema(runs_or_releases, version):
     relative_schema_path = path.join(runs_or_releases, version, "schema.json")
@@ -69,9 +65,9 @@ def server_schema(runs_or_releases, version):
         response = static_file(relative_schema_path, root=app.config["helm.outputpath"])
     else:
         # Suite does not contain schema.json
-        # Fall back to schema_classic.yaml from the static directory
-        classic_schema_path = path.join(app.config["helm.staticpath"], SCHEMA_CLASSIC_YAML_FILENAME)
-        with open(classic_schema_path, "r") as f:
+        # Fall back to the MedHELM default schema from the static directory
+        default_schema_path = path.join(app.config["helm.staticpath"], SCHEMA_DEFAULT_YAML_FILENAME)
+        with open(default_schema_path, "r") as f:
             response = HTTPResponse(json.dumps(yaml.safe_load(f), indent=2, default=serialize_dates))
     response.set_header("Cache-Control", "no-cache, no-store, must-revalidate")
     response.set_header("Expires", "0")

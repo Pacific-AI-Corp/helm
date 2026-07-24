@@ -24,10 +24,7 @@ export default function Scenarios() {
        */
       setRunGroups(
         schema.run_groups.filter(
-          (runGroup) =>
-            !runGroup.todo &&
-            runGroup.taxonomy &&
-            !runGroup.display_name.includes("CLEVA"),
+          (runGroup) => !runGroup.todo && runGroup.taxonomy,
         ),
       );
 

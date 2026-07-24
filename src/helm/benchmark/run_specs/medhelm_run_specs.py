@@ -24,7 +24,6 @@ from helm.benchmark.annotation.model_as_judge import AnnotatorModelInfo
 from helm.benchmark.metrics.common_metric_specs import (
     get_basic_metric_specs,
     get_exact_match_metric_specs,
-    get_open_ended_generation_metric_specs,
     get_summarization_metric_specs,
     get_generic_metric_specs,
 )
@@ -462,42 +461,6 @@ def get_medhelm_med_mcqa_spec() -> RunSpec:
         adapter_spec=adapter_spec,
         metric_specs=get_exact_match_metric_specs(),
         groups=["med_mcqa"],
-    )
-
-
-@run_spec_function("medbullets_freetext")
-def get_medbullets_freetext_run_spec() -> RunSpec:
-    """RunSpec for the MedBullets Free-text dataset."""
-    # Define the scenario
-    scenario_spec = ScenarioSpec(
-        class_name="helm.benchmark.scenarios.medbullets_scenario.MedBulletsFreeTextScenario",
-        args={},
-    )
-
-    # Define the adapter
-    adapter_spec = get_generation_adapter_spec(
-        instructions=(
-            "You are a helpful and highly knowledgeable AI assistant specializing in medicine. "
-            "Your task is to answer medical questions similar to those found on the USMLE Step 2/3 exams. "
-            "You will be provided with a clinical scenario, "
-            "and for each question, you must:\n"
-            "- Provide an answer to the question.\n"
-            "- Give a concise explanation for why that answer is correct, based on the clinical scenario provided."
-        ),
-        input_noun="Clinical Scenario",
-        output_noun="Answer",
-    )
-
-    # Define the metrics
-    metric_specs = get_open_ended_generation_metric_specs()
-
-    # Return the RunSpec
-    return RunSpec(
-        name="medbullets-freetext",
-        scenario_spec=scenario_spec,
-        adapter_spec=adapter_spec,
-        metric_specs=metric_specs,
-        groups=["clinical", "medbullets-freetext"],
     )
 
 
@@ -1760,4 +1723,82 @@ def get_medxpert_qa_text_spec() -> RunSpec:
         adapter_spec=adapter_spec,
         metric_specs=metric_specs,
         groups=["medxpert_qa_text"],
+    )
+
+
+@run_spec_function("healthqa_br")
+def get_healthqa_br_spec() -> RunSpec:
+    scenario_spec = ScenarioSpec(
+        class_name="helm.benchmark.scenarios.healthqa_br_scenario.HEALTHQA_BR_Scenario", args={}
+    )
+
+    adapter_spec = get_multiple_choice_adapter_spec(
+        method=ADAPT_MULTIPLE_CHOICE_JOINT,
+        instructions="""
+        Escolha a alternativa correta para as questões de medicina (responda apenas com a letra).
+        Exemplo de Pergunta com a resposta:
+        Qual dos seguintes órgãos é responsável pela produção da insulina no corpo humano?
+        A) Fígado
+        B) Rins
+        C) Pâncreas
+        D) Baço
+        E) Coração
+
+        Resposta correta: C
+
+        A partir disso, responda:
+        """,
+        input_noun="Pergunta",
+        output_noun="Resposta",
+    )
+
+    return RunSpec(
+        name="healthqa_br",
+        scenario_spec=scenario_spec,
+        adapter_spec=adapter_spec,
+        metric_specs=get_exact_match_metric_specs(),
+        groups=["healthqa_br"],
+    )
+
+
+@run_spec_function("mmlu_clinical_afr")
+def get_mmlu_clinical_afr_spec(subject: str, lang: str, method: str = ADAPT_MULTIPLE_CHOICE_JOINT) -> RunSpec:
+    """Run spec for MMLU clinical subjects translated into African languages.
+
+    Available subjects: "clinical_knowledge", "college_medicine", "virology"
+    Available langs: "af", "zu", "xh", "am", "bm", "ig", "nso", "sn", "st", "tn", "ts"
+    """
+    scenario_spec = ScenarioSpec(
+        class_name="helm.benchmark.scenarios.mmlu_clinical_afr_scenario.MMLU_Clinical_Afr_Scenario",
+        args={"subject": subject, "lang": lang},
+    )
+
+    lang_map = {
+        "af": "Afrikaans",
+        "zu": "Zulu",
+        "xh": "Xhosa",
+        "am": "Amharic",
+        "bm": "Bambara",
+        "ig": "Igbo",
+        "nso": "Sepedi",
+        "sn": "Shona",
+        "st": "Sesotho",
+        "tn": "Setswana",
+        "ts": "Tsonga",
+    }
+
+    adapter_spec = get_multiple_choice_adapter_spec(
+        method=method,
+        instructions=f"The following are multiple choice questions (with answers) about {subject.replace('_', ' ')} "
+        f"in {lang_map[lang]}.",
+        input_noun="Question",
+        output_noun="Answer",
+    )
+
+    return RunSpec(
+        name=f"mmlu_clinical_afr:subject={subject},lang={lang},method={method}",
+        scenario_spec=scenario_spec,
+        adapter_spec=adapter_spec,
+        metric_specs=get_exact_match_metric_specs(),
+        groups=[f"mmlu_clinical_afr_{subject}", f"mmlu_clinical_afr_{subject}_{lang}"],
     )

@@ -12,7 +12,7 @@ type Props = {
 };
 
 function listAnnotationDisplay(listAnnotation: Array<CompletionAnnotation>) {
-  // This is a dirty hack to support annotations from Image2Struct.
+  // List-style annotations (e.g. health bench jury outputs)
   return (
     <div>
       {listAnnotation.map((annotation, idx) => (
