@@ -123,6 +123,10 @@ accelerate = [
     "accelerate~=0.25",
 ]
 
+ai21 = [
+    "ai21>=2.0.0",
+]
+
 aleph-alpha = [
     "aleph-alpha-client~=2.14",
     "tokenizers>=0.13.3",

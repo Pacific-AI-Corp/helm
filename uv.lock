@@ -82,6 +82,21 @@ wheels = [
 ]
 
 [[package]]
+name = "ai21"
+version = "4.3.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "tenacity" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/4e/4b/74d3a5843a3eaf0be323dc4bac8df652a59f61598b6fd20ccd95f2df3ec8/ai21-4.3.0.tar.gz", hash = "sha256:86af8698f773098e8bd88ad7f2a9b80e2d5e65ddf7916edbe0ed67132d945bda", size = 46001, upload-time = "2025-11-06T13:56:58.818Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5e/0d/4aa5c45af20025de2049d38cb8f9d78ecd05aeb89af8cf1dbed456b62a0f/ai21-4.3.0-py3-none-any.whl", hash = "sha256:8cfaee894df85a7a8d28de63e76591a5874752cb0cc72bd20120f6f5e992b83e", size = 74880, upload-time = "2025-11-06T13:56:57.261Z" },
+]
+
+[[package]]
 name = "aiodns"
 version = "4.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -3869,6 +3884,9 @@ dependencies = [
 accelerate = [
     { name = "accelerate" },
 ]
+ai21 = [
+    { name = "ai21" },
+]
 aleph-alpha = [
     { name = "aleph-alpha-client" },
     { name = "tokenizers" },
@@ -3876,6 +3894,7 @@ aleph-alpha = [
 all = [
     { name = "accelerate" },
     { name = "ai2-olmo" },
+    { name = "ai21" },
     { name = "aleph-alpha-client" },
     { name = "anthropic" },
     { name = "autokeras" },
@@ -4082,6 +4101,7 @@ mistral = [
 models = [
     { name = "accelerate" },
     { name = "ai2-olmo" },
+    { name = "ai21" },
     { name = "aleph-alpha-client" },
     { name = "anthropic" },
     { name = "awscli" },
@@ -4186,6 +4206,7 @@ requires-dist = [
     { name = "accelerate", marker = "extra == 'accelerate'", specifier = "~=0.25" },
     { name = "accelerate", marker = "extra == 'medhelm'", specifier = "~=0.25" },
     { name = "ai2-olmo", marker = "extra == 'allenai'", specifier = "~=0.2" },
+    { name = "ai21", marker = "extra == 'ai21'", specifier = ">=2.0.0" },
     { name = "aleph-alpha-client", marker = "extra == 'aleph-alpha'", specifier = "~=2.14" },
     { name = "anthropic", marker = "extra == 'anthropic'", specifier = "~=0.41" },
     { name = "autokeras", marker = "extra == 'heim'", specifier = "~=1.0" },
@@ -4358,7 +4379,7 @@ requires-dist = [
     { name = "writerai", marker = "extra == 'writer'", specifier = "~=4.0" },
     { name = "zstandard", specifier = "~=0.18.0" },
 ]
-provides-extras = ["proxy-server", "human-evaluation", "dspy", "scenarios", "metrics", "summarization", "plots", "slurm", "images", "mongo", "accelerate", "aleph-alpha", "allenai", "amazon", "anthropic", "cohere", "writer", "mistral", "openai", "google", "together", "yandex", "models", "reka", "vlm", "ibm", "heim", "medhelm", "gated", "audiolm", "all", "ci", "litellm"]
+provides-extras = ["proxy-server", "human-evaluation", "dspy", "scenarios", "metrics", "summarization", "plots", "slurm", "images", "mongo", "accelerate", "ai21", "aleph-alpha", "allenai", "amazon", "anthropic", "cohere", "writer", "mistral", "openai", "google", "together", "yandex", "models", "reka", "vlm", "ibm", "heim", "medhelm", "gated", "audiolm", "all", "ci", "litellm"]
 
 [package.metadata.requires-dev]
 dev = [
@@ -8465,11 +8486,11 @@ wheels = [
 
 [[package]]
 name = "tenacity"
-version = "9.1.2"
+version = "8.5.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/0a/d4/2b0cd0fe285e14b36db076e78c93766ff1d529d70408bd1d2a5a84f1d929/tenacity-9.1.2.tar.gz", hash = "sha256:1169d376c297e7de388d18b4481760d478b0e99a777cad3a9c86e556f4b697cb", size = 48036, upload-time = "2025-04-02T08:25:09.966Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a3/4d/6a19536c50b849338fcbe9290d562b52cbdcf30d8963d3588a68a4107df1/tenacity-8.5.0.tar.gz", hash = "sha256:8bc6c0c8a09b31e6cad13c47afbed1a567518250a9a171418582ed8d9c20ca78", size = 47309, upload-time = "2024-07-05T07:25:31.836Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e5/30/643397144bfbfec6f6ef821f36f33e57d35946c44a2352d3c9f0ae847619/tenacity-9.1.2-py3-none-any.whl", hash = "sha256:f77bf36710d8b73a50b2dd155c97b870017ad21afe6ab300326b0371b3b05138", size = 28248, upload-time = "2025-04-02T08:25:07.678Z" },
+    { url = "https://files.pythonhosted.org/packages/d2/3f/8ba87d9e287b9d385a02a7114ddcef61b26f86411e121c9003eb509a1773/tenacity-8.5.0-py3-none-any.whl", hash = "sha256:b594c2a5945830c267ce6b79a166228323ed52718f30302c1359836112346687", size = 28165, upload-time = "2024-07-05T07:25:29.591Z" },
 ]
 
 [[package]]

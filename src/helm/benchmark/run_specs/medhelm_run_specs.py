@@ -24,7 +24,6 @@ from helm.benchmark.annotation.model_as_judge import AnnotatorModelInfo
 from helm.benchmark.metrics.common_metric_specs import (
     get_basic_metric_specs,
     get_exact_match_metric_specs,
-    get_open_ended_generation_metric_specs,
     get_summarization_metric_specs,
     get_generic_metric_specs,
 )
@@ -462,42 +461,6 @@ def get_medhelm_med_mcqa_spec() -> RunSpec:
         adapter_spec=adapter_spec,
         metric_specs=get_exact_match_metric_specs(),
         groups=["med_mcqa"],
-    )
-
-
-@run_spec_function("medbullets_freetext")
-def get_medbullets_freetext_run_spec() -> RunSpec:
-    """RunSpec for the MedBullets Free-text dataset."""
-    # Define the scenario
-    scenario_spec = ScenarioSpec(
-        class_name="helm.benchmark.scenarios.medbullets_scenario.MedBulletsFreeTextScenario",
-        args={},
-    )
-
-    # Define the adapter
-    adapter_spec = get_generation_adapter_spec(
-        instructions=(
-            "You are a helpful and highly knowledgeable AI assistant specializing in medicine. "
-            "Your task is to answer medical questions similar to those found on the USMLE Step 2/3 exams. "
-            "You will be provided with a clinical scenario, "
-            "and for each question, you must:\n"
-            "- Provide an answer to the question.\n"
-            "- Give a concise explanation for why that answer is correct, based on the clinical scenario provided."
-        ),
-        input_noun="Clinical Scenario",
-        output_noun="Answer",
-    )
-
-    # Define the metrics
-    metric_specs = get_open_ended_generation_metric_specs()
-
-    # Return the RunSpec
-    return RunSpec(
-        name="medbullets-freetext",
-        scenario_spec=scenario_spec,
-        adapter_spec=adapter_spec,
-        metric_specs=metric_specs,
-        groups=["clinical", "medbullets-freetext"],
     )
 
 
