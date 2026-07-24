@@ -55,7 +55,7 @@ jobs:
       - name: Run helm-run
         run: uv run helm-run --suite test --run-entries simple1:model=simple/model1 --max-eval-instances 10 --exit-on-error
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: Upgrade requirements
           title: "Upgrade requirements"
