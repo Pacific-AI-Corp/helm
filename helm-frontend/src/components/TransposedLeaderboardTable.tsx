@@ -243,11 +243,9 @@ export default function LeaderboardTable({
         <tr>{rows[0]}</tr>
       </thead>
       <tbody>
-        {rows.slice(1).map(
-          (row: JSX.Element[], idx: number): JSX.Element => (
-            <tr key={idx}>{row}</tr>
-          ),
-        )}
+        {rows.slice(1).map((row: JSX.Element[], idx: number): JSX.Element => (
+          <tr key={idx}>{row}</tr>
+        ))}
       </tbody>
     </table>
   );
