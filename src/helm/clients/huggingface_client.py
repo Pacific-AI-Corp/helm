@@ -89,8 +89,9 @@ class HuggingFaceServer:
                 # Do not call to() because accelerate will take care of model device placement.
                 self.model = AutoModelForCausalLM.from_pretrained(pretrained_model_name_or_path, **kwargs)
             else:
+                # transformers stubs type Model.to() more strictly than runtime; device is str | None here.
                 self.model = AutoModelForCausalLM.from_pretrained(pretrained_model_name_or_path, **kwargs).to(
-                    self.device
+                    self.device  # type: ignore[arg-type]
                 )
         self.wrapped_tokenizer = wrapped_tokenizer
 
@@ -141,8 +142,10 @@ class HuggingFaceServer:
                 stopping_criteria=stopping_criteria,
                 pad_token_id=pad_token_id,
             )
-            sequences = output.sequences
-            scores = output.scores
+            # return_dict_in_generate=True guarantees Generate*Output with sequences/scores,
+            # but stubs still union with LongTensor.
+            sequences = output.sequences  # type: ignore[union-attr]
+            scores = output.scores  # type: ignore[union-attr]
 
         prompt_tokens_logprobs = []
         if compute_logprobs_only:

@@ -346,7 +346,7 @@ class SummaCConv(torch.nn.Module):
             full_histogram.append(histogram_row)
 
         n_rows_missing = self.n_rows - len(full_histogram)
-        full_histogram += [[0.0] * self.full_size] * n_rows_missing
+        full_histogram += [np.zeros(self.full_size)] * n_rows_missing
         full_histogram = full_histogram[: self.n_rows]
         return image, np.array(full_histogram)
 

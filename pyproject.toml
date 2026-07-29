@@ -446,6 +446,16 @@ disable_error_code = "annotation-unchecked"
 disallow_untyped_defs = false
 exclude = "dalle_mini|mindalle|open_flamingo|llama_omni|qwen_omni"
 
+# together>=2 triggers an INTERNAL ERROR in mypy==1.16.0 when following imports
+# into together/_client.py. Skip analyzing the vendor package; our client wrappers
+# remain type-checked.
+[[tool.mypy.overrides]]
+module = [
+    "together",
+    "together.*",
+]
+follow_imports = "skip"
+
 [tool.pytest.ini_options]
 # By default:
 # - we don't test models because doing so will
