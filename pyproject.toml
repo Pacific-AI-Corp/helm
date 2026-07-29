@@ -296,7 +296,7 @@ medhelm = [
 
     #MedHELM scenarios
     "bert_score~=0.3.13",
-    "lxml~=5.3",
+    "lxml>=6.1.0,<7",
     "openpyxl~=3.1",
     "python-docx~=1.1",
 ]
