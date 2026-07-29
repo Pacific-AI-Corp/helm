@@ -296,7 +296,7 @@ medhelm = [
 
     #MedHELM scenarios
     "bert_score~=0.3.13",
-    "lxml~=5.3",
+    "lxml>=6.1.0,<7",
     "openpyxl~=3.1",
     "python-docx~=1.1",
 ]
@@ -445,6 +445,16 @@ disable_error_code = "annotation-unchecked"
 # TODO: Change disallow_untyped_defs to True
 disallow_untyped_defs = false
 exclude = "dalle_mini|mindalle|open_flamingo|llama_omni|qwen_omni"
+
+# together>=2 triggers an INTERNAL ERROR in mypy==1.16.0 when following imports
+# into together/_client.py. Skip analyzing the vendor package; our client wrappers
+# remain type-checked.
+[[tool.mypy.overrides]]
+module = [
+    "together",
+    "together.*",
+]
+follow_imports = "skip"
 
 [tool.pytest.ini_options]
 # By default:

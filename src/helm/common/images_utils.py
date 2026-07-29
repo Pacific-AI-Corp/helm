@@ -66,20 +66,23 @@ def copy_image(src: str, dest: str, width: Optional[int] = None, height: Optiona
 
 def resize_image_to_max_file_size(src: str, dest: str, max_size_in_bytes: int, step=10):
     # Open an image file
-    with Image.open(src) as img:
-        width, height = img.size
+    with Image.open(src) as opened:
+        # Copy into Image.Image so resize() reassignment type-checks under Pillow 12 stubs
+        # (Image.open() is typed as ImageFile; resize() returns Image).
+        image: Image.Image = opened
+        width, height = image.size
 
         # Reduce dimensions iteratively until the file size is under the limit
         while True:
             # Save the image temporarily to check the file size
-            img.save(dest, quality=95)  # Start with high quality
+            image.save(dest, quality=95)  # Start with high quality
             if os.path.getsize(dest) < max_size_in_bytes:
                 break
 
             # Reduce dimensions
             width -= step
             height -= step
-            img = img.resize((width, height), Image.Resampling.LANCZOS)
+            image = image.resize((width, height), Image.Resampling.LANCZOS)
 
 
 def is_blacked_out_image(image_location: str) -> bool:
