@@ -22,7 +22,7 @@ source $HOME/.local/bin/env   # add uv to PATH; restart the terminal or add this
 uv --version
 ```
 
-**Node.js 18+** (only needed to build the web UI for `helm-server`):
+**Node.js 20+** (only needed to build the web UI for `helm-server`):
 
 ```sh
 # macOS (Homebrew): brew install node

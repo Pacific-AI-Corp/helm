@@ -44,7 +44,7 @@ source $HOME/.local/bin/env   # add uv to PATH; restart the terminal or add this
 uv --version
 ```
 
-**Node.js 18+** (only needed to build the web UI for `helm-server`):
+**Node.js 20+** (only needed to build the web UI for `helm-server`):
 
 ```sh
 # macOS (Homebrew): brew install node
@@ -224,7 +224,7 @@ helm-server --suite board_exams -o ./benchmark_output --port 8000
 |--------|----------------|-----|
 | `command not found: uv` | uv not installed or not on `PATH` | [Install uv](#0-install-tools-once-per-machine), then `source $HOME/.local/bin/env` |
 | `ModuleNotFoundError: helm.benchmark.static_build` | Web UI not built (git clone only) | [Build the web UI](#4-build-the-web-ui-required-before-helm-server) |
-| `command not found: npm` | Node.js not installed | Install Node.js 18+ (only needed for `helm-server` after a git clone) |
+| `command not found: npm` | Node.js not installed | Install Node.js 20+ (only needed for `helm-server` after a git clone) |
 | `zsh: bus error` on Mac when running a local Hugging Face model | PyTorch CPU crash on Apple Silicon | Use a build with MPS device support (CUDA → MPS → CPU); add `--num-threads 1` |
 | Blank browser page at `helm-server` | Wrong URL or UI not built | Open **http://localhost:8000** (not `0.0.0.0`); rebuild the UI if needed |
 | Missing `gdown` / Drive download errors | Gated extra not installed | `uv pip install -e ".[gated]"` or `uv pip install "medhelm[gated]"` |
