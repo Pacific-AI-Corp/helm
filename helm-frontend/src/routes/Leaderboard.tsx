@@ -107,7 +107,9 @@ export default function Leaderboard() {
             <select
               id="group"
               name="group"
-              onChange={(e) => navigate("/leaderboard/" + e.target.value)}
+              onChange={(e) => {
+                void navigate("/leaderboard/" + e.target.value);
+              }}
               className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-300 rounded-md"
               value={runGroupName}
             >
