@@ -50,6 +50,9 @@ class OpenAIClientUtils:
     INAPPROPRIATE_PROMPT_MICROSOFT_ERROR: str = (
         "The response was filtered due to the prompt triggering Microsoft's content management policy."
     )
+    INAPPROPRIATE_PROMPT_OPENAI_ERROR: str = (
+        "The response was filtered due to the prompt triggering our content management policy."
+    )
     # Grok content safety guidelines error message
     # TODO: Refactor so that this is owned by the Grok client instead.
     SAFETY_GUIDELINES_GROK_ERROR: str = "Content violates safety guidelines."
@@ -87,11 +90,15 @@ class OpenAIClientUtils:
                 embedding=[],
                 error_flags=ErrorFlags(is_retriable=False, is_fatal=False),
             )
-        elif cls.INAPPROPRIATE_PROMPT_AZURE_ERROR in str(e) or cls.INAPPROPRIATE_PROMPT_MICROSOFT_ERROR in str(e):
+        elif (
+            cls.INAPPROPRIATE_PROMPT_AZURE_ERROR in str(e)
+            or cls.INAPPROPRIATE_PROMPT_MICROSOFT_ERROR in str(e)
+            or cls.INAPPROPRIATE_PROMPT_OPENAI_ERROR in str(e)
+        ):
             return RequestResult(
                 success=False,
                 cached=False,
-                error="Content blocked by Azure's content management filter",
+                error="Content blocked by Azure's, Microsoft's, or OpenAI's content management filter",
                 completions=[],
                 embedding=[],
                 error_flags=ErrorFlags(is_retriable=False, is_fatal=False),
