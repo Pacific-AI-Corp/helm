@@ -174,9 +174,11 @@ def calculate_score(rubric_items: List[dict], graded_responses: List[dict]) -> O
     if total_possible_points == 0:
         return None
 
+    # Some rubric grading calls can fail and return fewer responses than rubric items.
+    # Score on the overlapping items rather than raising on length mismatch.
     achieved_points = sum(
         pts
-        for pts, grading_response in zip(rectified_points, graded_responses, strict=True)
+        for pts, grading_response in zip(rectified_points, graded_responses)
         if str(grading_response.get("criteria_met", "")).lower() == "true"
     )
 
@@ -228,8 +230,6 @@ class HealthBenchAnnotator(LLMAsJuryAnnotator):
 
         convo_str = "\n\n".join([f"{m['role']}: {m['content']}" for m in convo_with_response])
 
-        grading_responses: List[dict] = []
-
         for annotator_name, annotator_model_info in self._annotator_models.items():
             if instance.extra_data is None or "rubrics" not in instance.extra_data:
                 hlog(
@@ -238,6 +238,7 @@ class HealthBenchAnnotator(LLMAsJuryAnnotator):
                 continue
 
             rubric_items = instance.extra_data.get("rubrics", [])
+            grading_responses: List[dict] = []
 
             for rubric_item in rubric_items:
                 annotator_prompt = self._prompt_template.replace("<<conversation>>", convo_str).replace(
