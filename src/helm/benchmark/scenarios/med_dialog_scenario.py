@@ -20,7 +20,7 @@ from helm.benchmark.scenarios.scenario import (
 # Codalab worksheets.codalab.org TLS certificates may expire; use bundled repo copies first,
 # then GitHub raw for PyPI installs without packaged data.
 # Update this hash when refreshing mirrored files (must match the commit on PacificAI/medhelm).
-MED_DIALOG_SOURCE_DATA_GIT_HASH = "d300eaea55c36fee57102521c19252ca099e9dd9"
+MED_DIALOG_SOURCE_DATA_GIT_HASH = "42f4b243ffec6eb28ae51455223b1078a96c4c93"
 MED_DIALOG_RAW_BASE = (
     "https://raw.githubusercontent.com/PacificAI/medhelm/"
     f"{MED_DIALOG_SOURCE_DATA_GIT_HASH}/src/helm/benchmark/scenarios/data/med_dialog"
