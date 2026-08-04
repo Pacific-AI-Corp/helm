@@ -1,7 +1,9 @@
-from typing import Dict, List
-from datasets import DownloadConfig, load_dataset
+import os
+import xml.etree.ElementTree as ET
+from typing import Any, Dict, List
 
 from helm.benchmark.presentation.taxonomy_info import TaxonomyInfo
+from helm.common.general import ensure_directory_exists, ensure_file_downloaded
 from helm.common.hierarchical_logger import hlog
 from helm.benchmark.scenarios.scenario import (
     Scenario,
@@ -49,6 +51,14 @@ class MediQAScenario(Scenario):
     }
     """
 
+    # Hugging Face `datasets>=4` removed dataset-script loading (`trust_remote_code`).
+    # Load the upstream MEDIQA 2019 release directly instead of `bigbio/mediqa_qa`.
+    SOURCE_URL = "https://github.com/abachaa/MEDIQA2019/archive/refs/heads/master.zip"
+    TEST_XML_RELATIVE_PATH = os.path.join(
+        "MEDIQA_Task3_QA",
+        "MEDIQA2019-Task3-QA-TestSet-wLabels.xml",
+    )
+
     name = "medi_qa"
     description = (
         "MEDIQA is a benchmark designed to evaluate a model's ability to generate"
@@ -90,29 +100,54 @@ class MediQAScenario(Scenario):
             )
         return instances
 
-    def get_instances(self, output_path: str) -> List[Instance]:
-        # Load the MEDIQA dataset from Hugging Face
-        dataset = load_dataset(
-            "bigbio/mediqa_qa",
-            trust_remote_code=True,
-            revision="9288641f4c785c95dc9079fa526dabb12efdb041",
-            # The dataset script downloads a GitHub zip; CI runners can hit transient 404/rate limits.
-            download_config=DownloadConfig(max_retries=5, resume_download=True),
+    @staticmethod
+    def _parse_xml(filepath: str) -> List[Dict[str, Any]]:
+        """Parse a MEDIQA Task-3 QA XML file into the source-schema rows used by `process_csv`."""
+        root = ET.parse(filepath).getroot()
+        rows: List[Dict[str, Any]] = []
+        for question in root.iterfind("Question"):
+            answer_list = []
+            for answer in question.find("AnswerList").findall("Answer"):
+                answer_list.append(
+                    {
+                        "Answer": {
+                            "AID": answer.attrib["AID"],
+                            "SystemRank": int(answer.attrib["SystemRank"]),
+                            "ReferenceRank": int(answer.attrib["ReferenceRank"]),
+                            "ReferenceScore": int(answer.attrib.get("ReferenceScore", "0")),
+                            "AnswerURL": (answer.findtext("AnswerURL") or ""),
+                            "AnswerText": (answer.findtext("AnswerText") or ""),
+                        }
+                    }
+                )
+            rows.append(
+                {
+                    "QUESTION": {
+                        "QID": question.attrib["QID"],
+                        "QuestionText": question.findtext("QuestionText") or "",
+                        "AnswerList": answer_list,
+                    }
+                }
+            )
+        return rows
+
+    def _load_test_rows(self, output_path: str) -> List[Dict[str, Any]]:
+        data_path = os.path.join(output_path, "data")
+        ensure_directory_exists(data_path)
+        # GitHub zips contain a single top-level directory; ensure_file_downloaded renames it
+        # to target_path when unpacking.
+        archive_path = os.path.join(data_path, "MEDIQA2019")
+        ensure_file_downloaded(
+            source_url=self.SOURCE_URL,
+            target_path=archive_path,
+            unpack=True,
         )
+        test_xml_path = os.path.join(archive_path, self.TEST_XML_RELATIVE_PATH)
+        return self._parse_xml(test_xml_path)
 
-        # Process all the instances
-        instances: List[Instance] = []
-        # Limit to zero shot setting
-        splits: Dict[str, str] = {
-            # "train_live_qa_med": TRAIN_SPLIT,
-            # "validation": VALID_SPLIT,
-            "test": TEST_SPLIT,
-        }
-        for hf_split, split in splits.items():
-            data = dataset[hf_split]
-            instances.extend(self.process_csv(data, split))
-
-        return instances
+    def get_instances(self, output_path: str) -> List[Instance]:
+        # Limit to zero shot setting (test split only).
+        return self.process_csv(self._load_test_rows(output_path), TEST_SPLIT)
 
     def get_metadata(self):
         return ScenarioMetadata(

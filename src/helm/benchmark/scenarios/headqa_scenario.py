@@ -1,7 +1,6 @@
+import json
 import os
-from typing import List, Optional
-
-from datasets import DatasetDict, load_dataset
+from typing import Any, Dict, Iterator, List, Optional
 
 from helm.benchmark.presentation.taxonomy_info import TaxonomyInfo
 from helm.benchmark.scenarios.scenario import (
@@ -14,7 +13,7 @@ from helm.benchmark.scenarios.scenario import (
     Scenario,
     ScenarioMetadata,
 )
-from helm.common.general import ensure_directory_exists
+from helm.common.general import ensure_directory_exists, ensure_file_downloaded
 
 
 class HeadQAScenario(Scenario):
@@ -54,7 +53,10 @@ class HeadQAScenario(Scenario):
     `ra` field in the dataset. The dataset spans six healthcare domains and is challenging even for experts.
     """
 
-    HUGGING_FACE_DATASET_PATH: str = "dvilares/head_qa"
+    # Hugging Face `datasets>=4` removed dataset-script loading (`trust_remote_code`).
+    # Download the upstream archive referenced by `dvilares/head_qa` directly.
+    SOURCE_URL = "https://huggingface.co/datasets/dvilares/head_qa/resolve/main/data/head-qa-es-en-pdfs.zip"
+    LANGUAGE_DIRS = {"es": "HEAD", "en": "HEAD_EN"}
     SKIP_VQA: bool = True
     SKIP_TEXTQA: bool = False
 
@@ -80,60 +82,81 @@ class HeadQAScenario(Scenario):
         assert (
             self.SKIP_VQA or self.SKIP_TEXTQA
         ), "Failed to initialize HeadQAScenario, one of `SKIP_VQA` or `SKIP_TEXTQA` must be True."
+        assert self.language in self.LANGUAGE_DIRS, f"Unsupported HEAD-QA language: {self.language}"
 
-    def get_instances(self, output_path: str) -> List[Instance]:
+    def _iter_test_examples(self, output_path: str) -> Iterator[Dict[str, Any]]:
         data_path: str = os.path.join(output_path, "data")
         ensure_directory_exists(data_path)
-        dataset: DatasetDict = load_dataset(self.HUGGING_FACE_DATASET_PATH, self.language, trust_remote_code=True)
+        archive_path = os.path.join(data_path, "head-qa-es-en-pdfs")
+        ensure_file_downloaded(
+            source_url=self.SOURCE_URL,
+            target_path=archive_path,
+            unpack=True,
+        )
 
-        # XXX: Should we consider validation as test too?
-        # splits = {TRAIN_SPLIT: ["train", "validation"], TEST_SPLIT: ["test"]}
-        # Limit to zero shot setting
-        splits = {TEST_SPLIT: ["test"]}
+        language_dir = self.LANGUAGE_DIRS[self.language]
+        filepath = os.path.join(archive_path, language_dir, f"test_{language_dir}.json")
+        with open(filepath, encoding="utf-8") as f:
+            head_qa = json.load(f)
+
+        for exam in head_qa["exams"]:
+            content = head_qa["exams"][exam]
+            name = content["name"].strip()
+            year = content["year"].strip()
+            category = content["category"].strip()
+            for question in content["data"]:
+                image_path = (question.get("image") or "").strip()
+                yield {
+                    "name": name,
+                    "year": year,
+                    "category": category,
+                    "qid": int(str(question["qid"]).strip()),
+                    "qtext": question["qtext"].strip(),
+                    "ra": int(str(question["ra"]).strip()),
+                    "image": os.path.join(archive_path, image_path) if image_path else None,
+                    "answers": [
+                        {
+                            "aid": int(answer["aid"]),
+                            "atext": str(answer["atext"]).strip(),
+                        }
+                        for answer in question["answers"]
+                    ],
+                }
+
+    def get_instances(self, output_path: str) -> List[Instance]:
         instances: List[Instance] = []
-        for (
-            helm_split_name,
-            dataset_splits_name,
-        ) in splits.items():  # Iterate over the splits
-            for dataset_split_name in dataset_splits_name:
-                split_data = dataset[dataset_split_name]
+        for example in self._iter_test_examples(output_path):
+            # Whether to process Visual Question Answering (VQA) examples
+            if self.SKIP_VQA and example["image"] is not None:
+                continue
 
-                for example in split_data:
-                    # Whether to process Visual Question Answering (VQA) examples
-                    if self.SKIP_VQA and example["image"] is not None:
-                        continue
+            # Whether to process Text Question Answering (TextQA) examples
+            if self.SKIP_TEXTQA and example["image"] is None:
+                continue
 
-                    # Whether to process Text Question Answering (TextQA) examples
-                    if self.SKIP_TEXTQA and example["image"] is None:
-                        continue
+            # If specified, filter by category
+            if self.category is not None and example["category"] != self.category:
+                continue
 
-                    # If specified, filter by category
-                    if self.category is not None:
-                        if example["category"] != self.category:
-                            continue
-
-                    question = example["qtext"]
-
-                    # Format the final answer with explanation
-                    instances.append(
-                        Instance(
-                            input=Input(text=question),
-                            references=[
-                                Reference(
-                                    Output(text=option["atext"]),
-                                    tags=[CORRECT_TAG] if option["aid"] == example["ra"] else [],
-                                )
-                                for option in example["answers"]
-                            ],
-                            split=helm_split_name,
-                            extra_data={
-                                "id": example["qid"],
-                                "name": example["name"],
-                                "category": example["category"],
-                                "year": example["year"],
-                            },
+            instances.append(
+                Instance(
+                    input=Input(text=example["qtext"]),
+                    references=[
+                        Reference(
+                            Output(text=option["atext"]),
+                            tags=[CORRECT_TAG] if option["aid"] == example["ra"] else [],
                         )
-                    )
+                        for option in example["answers"]
+                    ],
+                    split=TEST_SPLIT,
+                    extra_data={
+                        "id": example["qid"],
+                        "name": example["name"],
+                        "category": example["category"],
+                        "year": example["year"],
+                    },
+                )
+            )
 
         return instances
 
