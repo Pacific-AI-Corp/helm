@@ -106,8 +106,11 @@ class MediQAScenario(Scenario):
         root = ET.parse(filepath).getroot()
         rows: List[Dict[str, Any]] = []
         for question in root.iterfind("Question"):
+            answer_list_element = question.find("AnswerList")
+            if answer_list_element is None:
+                continue
             answer_list = []
-            for answer in question.find("AnswerList").findall("Answer"):
+            for answer in answer_list_element.findall("Answer"):
                 answer_list.append(
                     {
                         "Answer": {
