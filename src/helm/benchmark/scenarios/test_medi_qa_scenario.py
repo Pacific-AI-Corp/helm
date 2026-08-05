@@ -165,34 +165,25 @@ def test_process_csv_propagates_split(split):
 
 
 # ---------------------------------------------------------------------------
-# End-to-end mocked test for `get_instances` (replaces `load_dataset`).
+# End-to-end mocked test for `get_instances` (replaces archive download/parse).
 # ---------------------------------------------------------------------------
 
 
-def test_get_instances_with_mocked_load_dataset(monkeypatch):
-    """`get_instances` only consumes the `test` split; the mock provides several splits to make
-    sure the scenario picks the right one."""
-    fake_dataset = {
-        "train_live_qa_med": [_row(qid="train-1", question="Train Q")],  # ignored
-        "validation": [_row(qid="val-1", question="Validation Q")],  # ignored
-        "test": [
-            _row(qid="t-1", question="Test Q-1", answers=[_answer(rank=1, text="Top test answer.")]),
-            _row(
-                qid="t-2",
-                question="Test Q-2",
-                answers=[_answer(rank=1, text="Another."), _answer(rank=2, text="Lower.")],
-            ),
-        ],
-    }
+def test_get_instances_with_mocked_load_test_rows(monkeypatch):
+    """`get_instances` only consumes the test rows returned by `_load_test_rows`."""
+    fake_rows = [
+        _row(qid="t-1", question="Test Q-1", answers=[_answer(rank=1, text="Top test answer.")]),
+        _row(
+            qid="t-2",
+            question="Test Q-2",
+            answers=[_answer(rank=1, text="Another."), _answer(rank=2, text="Lower.")],
+        ),
+    ]
 
-    def _fake_load_dataset(name, **kwargs):
-        assert name == "bigbio/mediqa_qa"
-        # The scenario pins the dataset revision; surface it in the assertion to detect drift.
-        assert kwargs.get("revision") == "9288641f4c785c95dc9079fa526dabb12efdb041"
-        assert kwargs.get("trust_remote_code") is True
-        return fake_dataset
-
-    monkeypatch.setattr("helm.benchmark.scenarios.medi_qa_scenario.load_dataset", _fake_load_dataset)
+    monkeypatch.setattr(
+        "helm.benchmark.scenarios.medi_qa_scenario.MediQAScenario._load_test_rows",
+        lambda self, output_path: fake_rows,
+    )
 
     scenario = MediQAScenario()
     with TemporaryDirectory() as tmpdir:
@@ -207,8 +198,8 @@ def test_get_instances_with_mocked_load_dataset(monkeypatch):
 
 def test_get_instances_returns_empty_when_test_split_is_empty(monkeypatch):
     monkeypatch.setattr(
-        "helm.benchmark.scenarios.medi_qa_scenario.load_dataset",
-        lambda *args, **kwargs: {"test": []},
+        "helm.benchmark.scenarios.medi_qa_scenario.MediQAScenario._load_test_rows",
+        lambda self, output_path: [],
     )
 
     scenario = MediQAScenario()
@@ -216,6 +207,39 @@ def test_get_instances_returns_empty_when_test_split_is_empty(monkeypatch):
         instances = scenario.get_instances(tmpdir)
 
     assert instances == []
+
+
+def test_parse_xml_builds_source_schema_rows(tmp_path):
+    xml_path = tmp_path / "sample.xml"
+    xml_path.write_text(
+        """
+        <Questions>
+          <Question QID="q-1">
+            <QuestionText>What is fever?</QuestionText>
+            <AnswerList>
+              <Answer AID="a1" SystemRank="2" ReferenceRank="1" ReferenceScore="4">
+                <AnswerURL>http://example.com/1</AnswerURL>
+                <AnswerText>Elevated body temperature.</AnswerText>
+              </Answer>
+              <Answer AID="a2" SystemRank="1" ReferenceRank="2" ReferenceScore="2">
+                <AnswerURL>http://example.com/2</AnswerURL>
+                <AnswerText>Unrelated answer.</AnswerText>
+              </Answer>
+            </AnswerList>
+          </Question>
+        </Questions>
+        """.strip(),
+        encoding="utf-8",
+    )
+
+    rows = MediQAScenario._parse_xml(str(xml_path))
+
+    assert len(rows) == 1
+    question = rows[0]["QUESTION"]
+    assert question["QID"] == "q-1"
+    assert question["QuestionText"] == "What is fever?"
+    assert question["AnswerList"][0]["Answer"]["ReferenceRank"] == 1
+    assert question["AnswerList"][0]["Answer"]["AnswerText"] == "Elevated body temperature."
 
 
 # ---------------------------------------------------------------------------

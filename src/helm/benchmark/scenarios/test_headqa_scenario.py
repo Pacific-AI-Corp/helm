@@ -8,12 +8,6 @@ from helm.benchmark.scenarios.scenario import CORRECT_TAG, TEST_SPLIT, Output, R
 VALID_CATEGORIES = {"biology", "chemistry", "medicine", "nursery", "pharmacology", "psychology"}
 
 
-@pytest.fixture(autouse=True)
-def _trust_remote_code(monkeypatch):
-    """The `dvilares/head_qa` dataset uses a custom loading script, so we must opt in."""
-    monkeypatch.setenv("HF_DATASETS_TRUST_REMOTE_CODE", "1")
-
-
 @pytest.mark.scenarios
 def test_headqa_scenario_english_default():
     scenario = HeadQAScenario()
