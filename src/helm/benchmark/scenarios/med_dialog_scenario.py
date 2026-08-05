@@ -1,6 +1,5 @@
 import json
 import os
-import shutil
 from typing import List
 
 from helm.benchmark.presentation.taxonomy_info import TaxonomyInfo
@@ -15,36 +14,6 @@ from helm.benchmark.scenarios.scenario import (
     Output,
     ScenarioMetadata,
 )
-
-# BioBART test splits mirrored from Codalab bundle 0x82f0c47f6d3e4462ae9ef8ea39eebe64.
-# Codalab worksheets.codalab.org TLS certificates may expire; use bundled repo copies first,
-# then GitHub raw for PyPI installs without packaged data.
-# Update this hash when refreshing mirrored files (must match the commit on PacificAI/medhelm).
-MED_DIALOG_SOURCE_DATA_GIT_HASH = "42f4b243ffec6eb28ae51455223b1078a96c4c93"
-MED_DIALOG_RAW_BASE = (
-    "https://raw.githubusercontent.com/PacificAI/medhelm/"
-    f"{MED_DIALOG_SOURCE_DATA_GIT_HASH}/src/helm/benchmark/scenarios/data/med_dialog"
-)
-
-
-def med_dialog_source_url(subset: str, split_file_name: str) -> str:
-    return f"{MED_DIALOG_RAW_BASE}/{subset}/{split_file_name}"
-
-
-def _bundled_split_path(subset: str, split_file_name: str) -> str:
-    return os.path.join(os.path.dirname(__file__), "data", "med_dialog", subset, split_file_name)
-
-
-def _ensure_med_dialog_split_file(subset: str, split_file_name: str, split_path: str) -> None:
-    bundled_path = _bundled_split_path(subset, split_file_name)
-    if os.path.isfile(bundled_path):
-        shutil.copy2(bundled_path, split_path)
-        return
-    ensure_file_downloaded(
-        source_url=med_dialog_source_url(subset, split_file_name),
-        target_path=split_path,
-        unpack=False,
-    )
 
 
 class MedDialogScenario(Scenario):
@@ -155,7 +124,12 @@ class MedDialogScenario(Scenario):
             if split == "test":
                 split_file_name: str = f"{split}.json"
                 split_path: str = os.path.join(data_path, split_file_name)
-                _ensure_med_dialog_split_file(self.subset, split_file_name, split_path)
+                ensure_file_downloaded(
+                    source_url="https://worksheets.codalab.org/rest/bundles/0x82f0c47f6d3e4462ae9ef8ea39eebe64/"
+                    f"contents/blob/{self.subset}/{split_file_name}",
+                    target_path=split_path,
+                    unpack=False,
+                )
 
                 with open(split_path, "r") as f:
                     examples: List = json.load(f)["data"]

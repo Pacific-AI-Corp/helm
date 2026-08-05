@@ -3,11 +3,7 @@ import os
 import pytest
 from tempfile import TemporaryDirectory
 
-from helm.benchmark.scenarios.med_dialog_scenario import (
-    MED_DIALOG_SOURCE_DATA_GIT_HASH,
-    MedDialogScenario,
-    med_dialog_source_url,
-)
+from helm.benchmark.scenarios.med_dialog_scenario import MedDialogScenario
 from helm.benchmark.scenarios.scenario import CORRECT_TAG, TEST_SPLIT, Output, Reference
 
 
@@ -20,22 +16,16 @@ VALID_SUBSETS = ["healthcaremagic", "icliniq"]
 
 
 def _patch_with_entries(monkeypatch, entries: list, recorded_calls=None):
-    """Mock split resolution so it writes `{"data": entries}` to the requested path."""
+    """Mock `ensure_file_downloaded` so it writes `{"data": entries}` to the requested path."""
 
-    def _fake(subset: str, split_file_name: str, target_path: str) -> None:
+    def _fake(source_url, target_path, **kwargs):
         if recorded_calls is not None:
-            recorded_calls.append(
-                {
-                    "subset": subset,
-                    "split_file_name": split_file_name,
-                    "target_path": target_path,
-                }
-            )
+            recorded_calls.append({"source_url": source_url, "target_path": target_path})
         os.makedirs(os.path.dirname(target_path), exist_ok=True)
         with open(target_path, "w", encoding="utf-8") as f:
             json.dump({"data": entries}, f)
 
-    monkeypatch.setattr("helm.benchmark.scenarios.med_dialog_scenario._ensure_med_dialog_split_file", _fake)
+    monkeypatch.setattr("helm.benchmark.scenarios.med_dialog_scenario.ensure_file_downloaded", _fake)
 
 
 def _entry(src: str = "Patient: ...\nDoctor: ...", tgt: str = "Summary."):
@@ -94,7 +84,8 @@ def test_get_instances_basic_processing(monkeypatch):
 
 @pytest.mark.parametrize("subset", VALID_SUBSETS)
 def test_get_instances_builds_subset_specific_url(monkeypatch, subset):
-    """Split resolution must use the chosen subset, otherwise both subsets would share data."""
+    """The download URL must include the chosen subset, otherwise the scenario would always
+    fetch the same data regardless of the subset argument."""
     recorded: list = []
     _patch_with_entries(monkeypatch, entries=[_entry()], recorded_calls=recorded)
 
@@ -103,9 +94,7 @@ def test_get_instances_builds_subset_specific_url(monkeypatch, subset):
         scenario.get_instances(tmpdir)
 
     assert len(recorded) == 1
-    assert recorded[0]["subset"] == subset
-    assert recorded[0]["split_file_name"] == "test.json"
-    assert med_dialog_source_url(subset, "test.json").endswith(f"/{subset}/test.json")
+    assert f"/blob/{subset}/test.json" in recorded[0]["source_url"]
     assert recorded[0]["target_path"].endswith(os.path.join(subset, "test.json"))
 
 
@@ -173,17 +162,11 @@ def test_get_instances_writes_subset_specific_subdirectory(monkeypatch):
         assert os.path.exists(os.path.join(tmpdir, "healthcaremagic"))
 
 
-def test_med_dialog_source_url_uses_github_raw():
-    url = med_dialog_source_url("icliniq", "test.json")
-    assert url.startswith("https://raw.githubusercontent.com/PacificAI/medhelm/")
-    assert MED_DIALOG_SOURCE_DATA_GIT_HASH in url
-    assert url.endswith("/icliniq/test.json")
-
-
 # ---------------------------------------------------------------------------
-# Integration test against bundled mirrored data (or GitHub raw fallback).
+# Integration test against the real Codalab bundle.
 #
-# Only iCliniq is exercised because HealthCareMagic's test split is ~7x larger.
+# Only iCliniq is exercised because HealthCareMagic's test split is ~7x larger and the Codalab
+# endpoint is slower than GitHub raw URLs.
 # ---------------------------------------------------------------------------
 
 
