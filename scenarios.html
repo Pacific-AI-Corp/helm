@@ -649,6 +649,93 @@ counselor: I can see you have been facing challenges with feeling like you don't
 
 <p><a href="https://github.com/InstituteforDiseaseModeling/Bridging-the-Gap-Low-Resource-African-Languages">https://github.com/InstituteforDiseaseModeling/Bridging-the-Gap-Low-Resource-African-Languages</a></p>
 
+<h2 id="mmlu_pro_scenario"><code class="language-plaintext highlighter-rouge">mmlu_pro_scenario</code></h2>
+
+<h3 id="mmluproscenariosubject-str"><code class="language-plaintext highlighter-rouge">MMLUProScenario(subject: str)</code></h3>
+
+<p>The MMLU-Pro dataset is an advanced version of the Massive Multitask Language Understanding (MMLU) benchmark, created to push the boundaries of language models’ reasoning and comprehension skills. Designed as a more challenging evaluation, it increases the answer options per question from four to ten, significantly reducing the likelihood of correct random guesses. This update makes the dataset better at distinguishing the capabilities of models on complex tasks.</p>
+
+<p>MMLU-Pro emphasizes reasoning over simple factual recall by integrating diverse, intricate questions across 14 domains, including subjects like biology, economics, law, and psychology. In addition, it addresses limitations in the original MMLU by filtering out trivial questions, making it a more robust benchmark. Performance comparisons suggest that models benefit from reasoning-based approaches (such as Chain of Thought, or CoT) on MMLU-Pro, which contrasts with the original MMLU where CoT didn’t show as much benefit. This makes MMLU-Pro especially suitable for evaluating advanced models that rely on nuanced reasoning and comprehension skills​.</p>
+
+<p>Dataset: <a href="https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro">https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro</a> Paper: <a href="https://arxiv.org/abs/2406.01574">https://arxiv.org/abs/2406.01574</a></p>
+
+<h2 id="mmlu_scenario"><code class="language-plaintext highlighter-rouge">mmlu_scenario</code></h2>
+
+<h3 id="mmluscenariosubject-str"><code class="language-plaintext highlighter-rouge">MMLUScenario(subject: str)</code></h3>
+
+<p>The Massive Multitask Language Understanding benchmark from this paper:</p>
+
+<ul>
+  <li><a href="https://arxiv.org/pdf/2009.03300.pdf">https://arxiv.org/pdf/2009.03300.pdf</a></li>
+</ul>
+
+<p>Code is adapted from:</p>
+
+<ul>
+  <li><a href="https://github.com/hendrycks/test/blob/master/evaluate.py">https://github.com/hendrycks/test/blob/master/evaluate.py</a></li>
+  <li><a href="https://github.com/EleutherAI/lm-evaluation-harness/blob/master/lm_eval/tasks/hendrycks_test.py">https://github.com/EleutherAI/lm-evaluation-harness/blob/master/lm_eval/tasks/hendrycks_test.py</a></li>
+</ul>
+
+<p>We prompt models using the following format</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;input&gt;                  # train
+A. &lt;reference&gt;
+B. &lt;reference&gt;
+C. &lt;reference&gt;
+D. &lt;reference&gt;
+Answer: &lt;A/B/C/D&gt;
+
+x N (N-shot)
+
+&lt;input&gt;                  # test
+A. &lt;reference1&gt;
+B. &lt;reference2&gt;
+C. &lt;reference3&gt;
+D. &lt;reference4&gt;
+Answer:
+</code></pre></div></div>
+
+<p>For example (from mmlu:anatomy), we have:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The pleura
+A. have no sensory innervation.
+B. are separated by a 2 mm space.
+C. extend into the neck.
+D. are composed of respiratory epithelium.
+Answer: C
+
+Which of the following terms describes the body's ability to maintain its normal state?
+A. Anabolism
+B. Catabolism
+C. Tolerance
+D. Homeostasis
+Answer:
+</code></pre></div></div>
+
+<p>Target: D</p>
+
+<h2 id="mmmlu_scenario"><code class="language-plaintext highlighter-rouge">mmmlu_scenario</code></h2>
+
+<h3 id="mmmluscenariolocale-str-subject-str"><code class="language-plaintext highlighter-rouge">MMMLUScenario(locale: str, subject: str)</code></h3>
+
+<p>Multilingual Massive Multitask Language Understanding (MMMLU) by OpenAI</p>
+
+<p>The MMLU is a widely recognized benchmark of general knowledge attained by AI models. It covers a broad range of topics from 57 different categories, covering elementary-level knowledge up to advanced professional subjects like law, physics, history, and computer science.</p>
+
+<p>MMMLU is a translation of MMLU’s test set into 14 languages using professional human translators. Relying on human translators for this evaluation increases confidence in the accuracy of the translations, especially for low-resource languages like Yoruba.</p>
+
+<p>The Massive Multitask Language Understanding benchmark from this paper:</p>
+
+<ul>
+  <li><a href="https://arxiv.org/pdf/2009.03300.pdf">https://arxiv.org/pdf/2009.03300.pdf</a></li>
+</ul>
+
+<p>The MMMLU dataset is from here:</p>
+
+<ul>
+  <li><a href="https://huggingface.co/datasets/openai/MMMLU">https://huggingface.co/datasets/openai/MMMLU</a></li>
+</ul>
+
 <h2 id="mtsamples_procedures_scenario"><code class="language-plaintext highlighter-rouge">mtsamples_procedures_scenario</code></h2>
 
 <h3 id="mtsamplesproceduresscenario"><code class="language-plaintext highlighter-rouge">MTSamplesProceduresScenario</code></h3>
