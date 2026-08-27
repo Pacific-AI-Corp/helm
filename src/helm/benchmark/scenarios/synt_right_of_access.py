@@ -28,10 +28,9 @@ class SyntRightOfAccessScenario(Scenario):
 
     name = "synt_right_of_access"
     description = (
-        "FamilyDisclosure is a benchmark of synthetic clinical scenarios that tests whether"
-        " a model can determine when the HIPAA Privacy Rule permits a healthcare provider to "
-        "disclose an adult patient's health information to a family member, friend, or other "
-        "person involved in the patient's care."
+        "RightOfAccess is a benchmark of synthetic clinical scenarios that tests whether a model "
+        "can determine how the HIPAA Right of Access under 45 CFR 164.524 applies to requests for "
+        "an individual's own health information."
     )
     tags = ["knowledge", "reasoning", "biomedical"]
 
