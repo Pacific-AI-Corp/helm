@@ -1816,6 +1816,7 @@ def get_synt_family_disclosure_spec(data_path: str) -> RunSpec:
         instructions="Answer A or B.",
         input_noun="",
         output_noun="",
+        max_train_instances=0,
     )
 
     return RunSpec(
@@ -1839,6 +1840,7 @@ def get_synt_right_of_access_spec(data_path: str) -> RunSpec:
         instructions="Answer A or B or C.",
         input_noun="",
         output_noun="",
+        max_train_instances=0,
     )
 
     return RunSpec(
@@ -1862,6 +1864,7 @@ def get_synt_written_consent_spec(data_path: str) -> RunSpec:
         instructions="Answer A or B.",
         input_noun="",
         output_noun="",
+        max_train_instances=0,
     )
 
     return RunSpec(
