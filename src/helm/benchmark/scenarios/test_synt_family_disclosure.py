@@ -5,7 +5,7 @@ from typing import List
 
 import pytest
 
-from helm.benchmark.scenarios.synt_family_disclosure import SyntFamilyDisclosureScenario
+from helm.benchmark.scenarios.synt_family_disclosure_scenario import SyntFamilyDisclosureScenario
 from helm.benchmark.scenarios.scenario import CORRECT_TAG, TEST_SPLIT
 
 

@@ -5,7 +5,7 @@ from typing import List
 
 import pytest
 
-from helm.benchmark.scenarios.synt_right_of_access import SyntRightOfAccessScenario
+from helm.benchmark.scenarios.synt_right_of_access_scenario import SyntRightOfAccessScenario
 from helm.benchmark.scenarios.scenario import CORRECT_TAG, TEST_SPLIT
 
 

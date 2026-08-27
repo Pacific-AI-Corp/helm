@@ -5,7 +5,7 @@ from typing import List
 
 import pytest
 
-from helm.benchmark.scenarios.synt_written_consent import SyntWrittenConsentScenario
+from helm.benchmark.scenarios.synt_written_consent_scenario import SyntWrittenConsentScenario
 from helm.benchmark.scenarios.scenario import CORRECT_TAG, TEST_SPLIT
 
 
