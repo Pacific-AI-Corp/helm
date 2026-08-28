@@ -49,9 +49,11 @@ class SHCPROXYMedScenario(Scenario):
                 answer = row["label"]
                 prompt = (
                     "You are reviewing a clinical messages in order to determine if they have been "
-                    f"sent by a proxy user. Please determine the following: {question} with the "
-                    f"following context: {context} , Answer the question with a 'A' for yes or 'B' "
-                    "for no or 'C' for neither. Do not provide any additional details or response, just a simple A or B or C response."
+                    "sent by a patient, a proxy, or if the author is unclear. Please determine the following: "
+                    f"{question} with the following context: {context}. "
+                    "Answer with 'A' if the message is written by the patient about themselves, "
+                    "'B' if it is written by a proxy on the patient's behalf, or 'C' if the author is unclear. "
+                    "Respond with only A, B, or C. Do not provide any additional details."
                 )
                 data[prompt] = answer
         return data
