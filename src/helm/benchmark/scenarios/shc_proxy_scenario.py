@@ -51,7 +51,7 @@ class SHCPROXYMedScenario(Scenario):
                     "You are reviewing a clinical messages in order to determine if they have been "
                     f"sent by a proxy user. Please determine the following: {question} with the "
                     f"following context: {context} , Answer the question with a 'A' for yes or 'B' "
-                    "for no. Do not provide any additional details or response, just a simple A or B response."
+                    "for no or 'C' for neither. Do not provide any additional details or response, just a simple A or B or C response."
                 )
                 data[prompt] = answer
         return data

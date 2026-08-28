@@ -568,6 +568,9 @@ run_groups:
       - shc_sequoia_med
       - shc_cdi_med
       - shc_ent_med
+      - shc_family_disclosure_med
+      - shc_right_of_access_med
+      - shc_written_consent_med
 
   - name: sct_bench
     display_name: SCT-Bench
@@ -1289,4 +1292,55 @@ run_groups:
       what: Identify referrals for ENT specialists
       who: Hospital Admistrator
       when: Any
+      language: English
+
+  - name: synt_family_disclosure
+    display_name: Family Disclosure
+    description: Family Disclosure is a benchmark designed to evaluate a model's ability to determine whether patient information can be appropriately shared with family members based on clinical notes and consent documentation. It assesses models' understanding of privacy regulations and family communication policies in healthcare settings.
+    metric_groups:
+      - accuracy
+      - efficiency
+      - general_information
+    environment:
+      main_name: exact_match
+      main_split: test
+    taxonomy:
+      task: Classification
+      what: Determine appropriateness of sharing patient information with family members
+      who: Clinician, Legal Compliance Officer
+      when: During family communication
+      language: English
+
+  - name: synt_right_of_access
+    display_name: Right of Access
+    description: Right of Access is a benchmark that evaluates a model's ability to identify what patient information can be accessed based on regulatory requirements and access control policies. Each instance includes clinical documentation and a request for specific medical information, requiring the model to determine access permissions in compliance with healthcare privacy laws.
+    metric_groups:
+      - accuracy
+      - efficiency
+      - general_information
+    environment:
+      main_name: exact_match
+      main_split: test
+    taxonomy:
+      task: Classification
+      what: Determine patient data access permissions based on regulations
+      who: Clinician, Health Information Manager
+      when: Upon access request
+      language: English
+
+  - name: synt_written_consent
+    display_name: Written Consent
+    description: Written Consent is a benchmark designed to evaluate a model's ability to identify and verify whether appropriate written consent has been obtained for medical procedures, information sharing, or research participation based on clinical documentation. It assesses models' understanding of consent requirements and legal documentation standards.
+    metric_groups:
+      - accuracy
+      - efficiency
+      - general_information
+    environment:
+      main_name: exact_match
+      main_split: test
+    taxonomy:
+      task: Classification
+      what: Verify presence and validity of written consent for medical procedures or information sharing
+      who: Clinician, Legal Compliance Officer
+      when: Pre-procedure or prior to information sharing
       language: English
