@@ -568,9 +568,9 @@ run_groups:
       - shc_sequoia_med
       - shc_cdi_med
       - shc_ent_med
-      - shc_family_disclosure_med
-      - shc_right_of_access_med
-      - shc_written_consent_med
+      - synt_family_disclosure
+      - synt_right_of_access
+      - synt_written_consent
 
   - name: sct_bench
     display_name: SCT-Bench
