@@ -75,9 +75,12 @@ class MMLUScenario(Scenario):
         super().__init__()
         self.subject: str = subject
 
+    # Berkeley's original host is often unreachable; use the mirror bundled with cais/mmlu.
+    SOURCE_URL = "https://huggingface.co/datasets/cais/mmlu/resolve/main/data.tar"
+
     def download_mmlu(self, path: str):
         ensure_file_downloaded(
-            source_url="https://people.eecs.berkeley.edu/~hendrycks/data.tar",
+            source_url=self.SOURCE_URL,
             target_path=path,
             unpack=True,
             unpack_type="untar",
