@@ -10,6 +10,7 @@ Usage:
 
 import argparse
 import dataclasses
+import hashlib
 import os
 import datetime
 import urllib.parse
@@ -143,6 +144,16 @@ def dict_to_str(d: Dict[str, Any]) -> str:
 
 def get_scenario_name(group: RunGroup, scenario_spec: ScenarioSpec):
     return group.name + "_" + dict_to_str(scenario_spec.args).replace(" ", "").replace("/", "_")
+
+
+def _group_table_basename(group_name: str, table_name: Optional[str], max_stem: int = 180) -> str:
+    """Keep group latex/json stems under OS filename limits (macOS NAME_MAX is 255)."""
+    stem = f"{group_name}_{table_name or 'table'}".replace(os.path.sep, "_")
+    if len(stem) <= max_stem:
+        return stem
+    digest = hashlib.sha1(stem.encode("utf-8")).hexdigest()[:16]
+    keep = max(16, max_stem - len(digest) - 1)
+    return f"{stem[:keep]}_{digest}"
 
 
 def get_model_metadata_for_adapter_spec(adapter_spec: AdapterSpec) -> ModelMetadata:
@@ -1336,11 +1347,12 @@ class Summarizer:
             ensure_directory_exists(os.path.join(groups_path, "latex"))
             ensure_directory_exists(os.path.join(groups_path, "json"))
             for table in tables:
-                latex_path = os.path.join(groups_path, "latex", f"{group.name}_{table.name}.tex")
+                basename = _group_table_basename(group.name, table.name)
+                latex_path = os.path.join(groups_path, "latex", f"{basename}.tex")
                 table.links.append(Hyperlink(text="LaTeX", href=latex_path))
                 write(latex_path, table_to_latex(table, f"{table.name} ({group.name})"))
 
-                json_path = os.path.join(groups_path, "json", f"{group.name}_{table.name}.json")
+                json_path = os.path.join(groups_path, "json", f"{basename}.json")
                 table.links.append(Hyperlink(text="JSON", href=json_path))
                 write(json_path, json.dumps(asdict_without_nones(table), indent=2))
 

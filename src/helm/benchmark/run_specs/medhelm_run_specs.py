@@ -5,6 +5,7 @@ Website: https://leaderboard.medhelm.org/
 
 import importlib.resources as pkg_resources
 
+import json
 import os
 from typing import Dict, Union, Optional
 
@@ -13,6 +14,7 @@ import yaml
 from helm.benchmark.adaptation.adapter_spec import (
     ADAPT_MULTIPLE_CHOICE_JOINT,
     ADAPT_CHAT,
+    ADAPT_HEALTH_ADMIN_BENCH,
     AdapterSpec,
 )
 from helm.benchmark.adaptation.common_adapter_specs import (
@@ -1873,4 +1875,102 @@ def get_synt_written_consent_spec(data_path: str) -> RunSpec:
         adapter_spec=adapter_spec,
         metric_specs=get_exact_match_metric_specs(),
         groups=["synt_written_consent"],
+    )
+
+
+def _health_admin_bench_judge_knobs(
+    jury_config_path: Optional[str],
+    judge_model: str,
+    judge_model_deployment: str,
+) -> Dict[str, str]:
+    """First judge from judges.yaml (HealthBench pattern), with run-entry overrides."""
+    if not judge_model or not judge_model_deployment:
+        annotator_models = get_annotator_models_from_config(jury_config_path)
+        if not annotator_models:
+            raise ValueError("HealthAdminBench judges config has no judges")
+        first = next(iter(annotator_models.values()))
+        judge_model = judge_model or first.model_name
+        judge_model_deployment = judge_model_deployment or first.model_deployment
+    knobs = {
+        "judge_model": judge_model,
+        "judge_model_deployment": judge_model_deployment,
+    }
+    if jury_config_path:
+        knobs["jury_config_path"] = jury_config_path
+    return knobs
+
+
+@run_spec_function("health_admin_bench")
+def get_health_admin_bench_spec(
+    task_set: str = "prior_auth",
+    difficulty: str = "easy",
+    prompt_mode: str = "general",
+    observation_mode: str = "axtree_only",
+    action_space: str = "dom",
+    hab_root: str = "",
+    env_base_url: str = "https://emrportal.vercel.app",
+    task_ids: str = "",
+    max_steps: str = "",
+    version: str = "v2",
+    jury_config_path: Optional[str] = None,
+    judge_model: str = "",
+    judge_model_deployment: str = "",
+    is_gui: str = "",
+) -> RunSpec:
+    scenario_args: Dict[str, str] = {
+        "task_set": task_set,
+        "difficulty": difficulty,
+        "version": version,
+    }
+    if hab_root:
+        scenario_args["hab_root"] = hab_root
+    if task_ids:
+        scenario_args["task_ids"] = task_ids
+
+    scenario_spec = ScenarioSpec(
+        class_name="helm.benchmark.scenarios.health_admin_bench_scenario.HealthAdminBenchScenario",
+        args=scenario_args,
+    )
+
+    knobs = {
+        "prompt_mode": prompt_mode,
+        "observation_mode": observation_mode,
+        "action_space": action_space,
+        "env_base_url": env_base_url,
+        "hab_root": hab_root,
+    }
+    knobs.update(_health_admin_bench_judge_knobs(jury_config_path, judge_model, judge_model_deployment))
+    if max_steps:
+        knobs["max_steps"] = int(max_steps)
+    if str(is_gui).strip().lower() in ("1", "true", "yes", "on"):
+        knobs["is_gui"] = True
+
+    adapter_spec = AdapterSpec(
+        method=ADAPT_HEALTH_ADMIN_BENCH,
+        instructions=json.dumps(knobs),
+        input_prefix="",
+        input_suffix="",
+        output_prefix="",
+        output_suffix="",
+        instance_prefix="",
+        max_train_instances=0,
+        num_outputs=1,
+        max_tokens=1,
+        temperature=0.0,
+        stop_sequences=[],
+    )
+
+    metric_specs = [
+        MetricSpec(
+            class_name="helm.benchmark.metrics.health_admin_bench_metrics.HealthAdminBenchMetric",
+            args={},
+        )
+    ] + get_basic_metric_specs([])
+
+    return RunSpec(
+        name="health_admin_bench",
+        scenario_spec=scenario_spec,
+        adapter_spec=adapter_spec,
+        metric_specs=metric_specs,
+        groups=["health_admin_bench"],
     )
