@@ -1802,3 +1802,75 @@ def get_mmlu_clinical_afr_spec(subject: str, lang: str, method: str = ADAPT_MULT
         metric_specs=get_exact_match_metric_specs(),
         groups=[f"mmlu_clinical_afr_{subject}", f"mmlu_clinical_afr_{subject}_{lang}"],
     )
+
+
+@run_spec_function("synt_family_disclosure")
+def get_synt_family_disclosure_spec(data_path: str) -> RunSpec:
+    scenario_spec = ScenarioSpec(
+        class_name="helm.benchmark.scenarios.synt_family_disclosure_scenario.SyntFamilyDisclosureScenario",
+        args={"data_path": data_path},
+    )
+
+    adapter_spec = get_multiple_choice_adapter_spec(
+        method=ADAPT_MULTIPLE_CHOICE_JOINT,
+        instructions="Answer A or B.",
+        input_noun="",
+        output_noun="",
+        max_train_instances=0,
+    )
+
+    return RunSpec(
+        name="synt_family_disclosure",
+        scenario_spec=scenario_spec,
+        adapter_spec=adapter_spec,
+        metric_specs=get_exact_match_metric_specs(),
+        groups=["synt_family_disclosure"],
+    )
+
+
+@run_spec_function("synt_right_of_access")
+def get_synt_right_of_access_spec(data_path: str) -> RunSpec:
+    scenario_spec = ScenarioSpec(
+        class_name="helm.benchmark.scenarios.synt_right_of_access_scenario.SyntRightOfAccessScenario",
+        args={"data_path": data_path},
+    )
+
+    adapter_spec = get_multiple_choice_adapter_spec(
+        method=ADAPT_MULTIPLE_CHOICE_JOINT,
+        instructions="Answer A or B or C.",
+        input_noun="",
+        output_noun="",
+        max_train_instances=0,
+    )
+
+    return RunSpec(
+        name="synt_right_of_access",
+        scenario_spec=scenario_spec,
+        adapter_spec=adapter_spec,
+        metric_specs=get_exact_match_metric_specs(),
+        groups=["synt_right_of_access"],
+    )
+
+
+@run_spec_function("synt_written_consent")
+def get_synt_written_consent_spec(data_path: str) -> RunSpec:
+    scenario_spec = ScenarioSpec(
+        class_name="helm.benchmark.scenarios.synt_written_consent_scenario.SyntWrittenConsentScenario",
+        args={"data_path": data_path},
+    )
+
+    adapter_spec = get_multiple_choice_adapter_spec(
+        method=ADAPT_MULTIPLE_CHOICE_JOINT,
+        instructions="Answer A or B.",
+        input_noun="",
+        output_noun="",
+        max_train_instances=0,
+    )
+
+    return RunSpec(
+        name="synt_written_consent",
+        scenario_spec=scenario_spec,
+        adapter_spec=adapter_spec,
+        metric_specs=get_exact_match_metric_specs(),
+        groups=["synt_written_consent"],
+    )

@@ -80,7 +80,7 @@ def test_create_benchmark_prompt_uses_proxy_framing_and_no_adhd_framing():
         data = scenario.create_benchmark(path)
 
     prompt = next(iter(data.keys()))
-    assert "proxy user" in prompt
+    assert "a proxy" in prompt
     assert "clinical messages" in prompt
     # The ADHD framing must NOT appear (would mean cross-contamination with PTBM).
     assert "attention deficit hyperactivity disorder" not in prompt.lower()
@@ -102,10 +102,10 @@ def test_create_benchmark_prompt_instructs_a_or_b_response_documented_discrepanc
         data = scenario.create_benchmark(path)
 
     prompt = next(iter(data.keys()))
-    assert "'A' for yes or 'B' for no" in prompt
-    # No mention of a third option C in the *prompt itself*, even though POSSIBLE_ANSWER_CHOICES
-    # contains C.
-    assert "'C'" not in prompt
+    assert "'A' if the message is written by the patient" in prompt
+    assert "'B' if it is written by a proxy" in prompt
+    # The prompt DOES mention a third option C, even though we test with 3-class setup
+    assert "'C' if the author is unclear" in prompt
 
 
 def test_create_benchmark_multiple_rows_produce_multiple_entries():
