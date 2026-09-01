@@ -47,23 +47,28 @@ def make_judge_complete(
     judge_deployment: str,
     harness_deployment: str,
 ) -> Any:
-    def complete(prompt: str) -> str:
+    def complete(prompt: str, **kwargs: Any) -> str:
         if not judge_deployment or judge_deployment == harness_deployment:
             raise ValueError(
                 f"HealthAdminBench judge must not use {harness_deployment!r}; "
                 "set jury_config_path or judge_model_deployment"
             )
+        system = str(kwargs.get("system") or HAB_JUDGE_SYSTEM)
+        temperature = float(kwargs.get("temperature", 0.0))
+        max_tokens = int(kwargs.get("max_tokens") or 4096)
+        # HAB's ``model`` kwarg is the task JSON native judge id (e.g. gpt-5.4),
+        # not a MedHELM model name. Always use the envelope judge.
         hlog(f"HealthAdminBench judge via {judge_deployment} ({judge_model})")
         result: RequestResult = auto_client.make_request(
             Request(
                 model=judge_model,
                 model_deployment=judge_deployment,
                 messages=[
-                    {"role": "system", "content": HAB_JUDGE_SYSTEM},
+                    {"role": "system", "content": system},
                     {"role": "user", "content": prompt},
                 ],
-                temperature=0.0,
-                max_tokens=4096,
+                temperature=temperature,
+                max_tokens=max_tokens,
                 num_completions=1,
             )
         )
@@ -83,9 +88,7 @@ def create_helm_backed_agent(
 ):
     """Build a HAB BaseAgent subclass after HAB is on sys.path."""
     if deployment.name == HAB_HARNESS_DEPLOYMENT:
-        raise ValueError(
-            f"HelmBackedAgent must not use {HAB_HARNESS_DEPLOYMENT!r} as the evaluated deployment"
-        )
+        raise ValueError(f"HelmBackedAgent must not use {HAB_HARNESS_DEPLOYMENT!r} as the evaluated deployment")
     from harness.agents.base import BaseAgent
     from harness.prompts import get_prompt_builder
 
@@ -135,10 +138,7 @@ def create_helm_backed_agent(
             )
             if not result.success or not result.completions:
                 self.api_failures += 1
-                hwarn(
-                    f"HelmBackedAgent API failure {self.api_failures}/{self.max_api_failures}: "
-                    f"{result.error}"
-                )
+                hwarn(f"HelmBackedAgent API failure {self.api_failures}/{self.max_api_failures}: " f"{result.error}")
                 if self.api_failures >= self.max_api_failures:
                     raise RuntimeError(f"HelmBackedAgent failed: {result.error}")
                 action = "scroll(down)"

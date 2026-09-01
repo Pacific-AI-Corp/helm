@@ -2,10 +2,16 @@ import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+import pytest
+
 from helm.benchmark.adaptation.adapter_spec import AdapterSpec
 from helm.benchmark.adaptation.adapters.health_admin_bench_adapter import build_hab_request
-from helm.benchmark.scenarios.health_admin_bench_constants import HAB_HARNESS_DEPLOYMENT, HAB_PROTOCOL
-from helm.benchmark.scenarios.health_admin_bench_scenario import HealthAdminBenchScenario
+from helm.benchmark.scenarios.health_admin_bench_constants import (
+    HAB_HARNESS_DEPLOYMENT,
+    HAB_PROTOCOL,
+    HAB_ROOT_ENV,
+)
+from helm.benchmark.scenarios.health_admin_bench_scenario import HealthAdminBenchScenario, resolve_hab_root
 from helm.benchmark.scenarios.scenario import TEST_SPLIT, Input, Instance
 
 
@@ -189,3 +195,55 @@ def test_build_hab_request_copies_judge_knobs():
     assert payload["judge_model"] == "openai/gpt-4o-2024-05-13"
     assert payload["judge_model_deployment"] == "openai/gpt-4o-2024-05-13"
     assert payload["jury_config_path"].endswith("health_admin_bench_judges.yaml")
+
+
+def test_resolve_hab_root_explicit_wins_over_env(monkeypatch, tmp_path):
+    chosen = tmp_path / "chosen"
+    decoy = tmp_path / "decoy"
+    _write_fixture(chosen)
+    _write_fixture(decoy)
+    monkeypatch.setenv(HAB_ROOT_ENV, str(decoy))
+    empty = tmp_path / "empty"
+    empty.mkdir()
+    monkeypatch.chdir(empty)
+    assert resolve_hab_root(str(chosen)) == chosen.resolve()
+
+
+def test_resolve_hab_root_uses_env_when_explicit_empty(monkeypatch, tmp_path):
+    hab = tmp_path / "hab"
+    _write_fixture(hab)
+    work = tmp_path / "work"
+    work.mkdir()
+    monkeypatch.setenv(HAB_ROOT_ENV, str(hab))
+    monkeypatch.chdir(work)
+    assert resolve_hab_root("") == hab.resolve()
+
+
+def test_resolve_hab_root_cwd_and_parent_siblings(monkeypatch, tmp_path):
+    monkeypatch.delenv(HAB_ROOT_ENV, raising=False)
+
+    cwd_parent = tmp_path / "cwd_case"
+    cwd_parent.mkdir()
+    hab_cwd = cwd_parent / "health-admin-bench"
+    _write_fixture(hab_cwd)
+    monkeypatch.chdir(cwd_parent)
+    assert resolve_hab_root("") == hab_cwd.resolve()
+
+    parent_case = tmp_path / "parent_case"
+    work = parent_case / "medhelm"
+    work.mkdir(parents=True)
+    hab_parent = parent_case / "health-admin-bench"
+    _write_fixture(hab_parent)
+    monkeypatch.chdir(work)
+    assert resolve_hab_root("") == hab_parent.resolve()
+
+
+def test_resolve_hab_root_missing_is_explicit(monkeypatch, tmp_path):
+    monkeypatch.delenv(HAB_ROOT_ENV, raising=False)
+    work = tmp_path / "nowhere"
+    work.mkdir()
+    monkeypatch.chdir(work)
+    with pytest.raises(FileNotFoundError, match="HEALTH_ADMIN_BENCH_ROOT") as exc_info:
+        resolve_hab_root("")
+    assert "hab_root=" in str(exc_info.value)
+    assert "benchmark/v2/tasks" in str(exc_info.value)

@@ -104,14 +104,32 @@ npm run build -- --outDir '../src/helm/benchmark/static_build' --emptyOutDir
 
 ## Credentials
 
-Put **agent** and **judge** keys for OpenAI-chat MedHELM deployments in `prod_env/credentials.conf` (see [Credentials](/credentials)):
+MedHELM agent and judge HTTP use **`prod_env/credentials.conf`** (HOCON), not HAB `.env` and not `OPENAI_API_KEY`. Create `prod_env/` next to `medhelm-run` if needed (the directory is gitignored).
+
+| Key | Used by |
+| --- | --- |
+| `openaiApiKey` | Public OpenAI deployments (`openai/gpt-4o-…`) |
+| `xaiApiKey` | Grok (`xai/grok-…`) |
+| `stanfordhealthcareApiKey` + `stanfordhealthcareEndpoint` | Package judges YAML and `stanfordhealthcare/*` Azure/APIM |
+| `azureApiKey` + `azureEndpoint` | A local `azure/…` row in `prod_env/model_deployments.yaml` |
+
+Example (public OpenAI):
 
 ```text
 openaiApiKey: sk-...
 xaiApiKey: xai-...
 ```
 
-HAB `.env` is only for **`hab_native`** agents (Claude / Gemini) and the OpenRouter judge **fallback** when no MedHELM judge is configured:
+Example (your Azure OpenAI resource; prefix of the deployment name is the credential prefix):
+
+```text
+azureApiKey: ...
+azureEndpoint: https://<resource>.openai.azure.com
+```
+
+You do **not** need `openaiApiKey` if the **agent and judge** both use Azure (`azure/…` or `stanfordhealthcare/…`).
+
+HAB `.env` is only for **`hab_native`** agents (Claude / Gemini) and the OpenRouter judge **fallback** when the envelope has no MedHELM judge:
 
 ```bash
 cd "$HEALTH_ADMIN_BENCH_ROOT"
@@ -141,6 +159,8 @@ HealthAdminBench episodes are **always serial**. MedHELM `--num-threads` (defaul
 
 `simple/model1` maps to HealthAdminBench `RandomAgent`. Expect a failed episode on `emr-easy-1`: the random agent does not complete the workflow. This only checks that MedHELM can find HAB, launch Chromium, and write stats.
 
+The **default judge is still Stanford Healthcare**. Without `jury_config_path` (or SHC keys), LLM-judge subevals score 0 with `[COMPLETE_ERROR]` and the episode still finishes. Pass a public or Azure judges YAML if you want a real judge on this smoke.
+
 ```bash
 export HEALTH_ADMIN_BENCH_ROOT=/absolute/path/to/health-admin-bench
 cd /path/to/medhelm
@@ -164,7 +184,9 @@ uv run hab run --model random --task emr-easy-1 --observation-mode axtree_only -
 
 ## Evaluated model (HelmBackedAgent)
 
-If the run entry’s `model_deployment` exists and its client is `OpenAIClient` or a chat-compatible subclass (`GrokChatClient`, OpenAI-API `base_url`), HealthAdminBenchClient builds `HelmBackedAgent`. No map row is required.
+If the run entry’s `model_deployment` exists and its client is `OpenAIClient` or a chat-compatible subclass (`GrokChatClient`, `AzureOpenAIClient`, OpenAI-API `base_url`), HealthAdminBenchClient builds `HelmBackedAgent`. No map row is required.
+
+Public OpenAI (needs `openaiApiKey`):
 
 ```bash
 export HEALTH_ADMIN_BENCH_ROOT=/absolute/path/to/health-admin-bench
@@ -186,14 +208,54 @@ medhelm-run --run-entries \
 
 Local OpenAI-compatible server: add a row in `prod_env/model_deployments.yaml` with `helm.clients.openai_client.OpenAIClient` and `base_url`. See [Adding New Models](/adding_new_models).
 
+Local **Azure OpenAI** (no public `openaiApiKey`): add a deployment whose name prefix matches the credential keys (`azure` → `azureApiKey` / `azureEndpoint`):
+
+```yaml
+# prod_env/model_deployments.yaml
+model_deployments:
+  - name: azure/gpt-5-mini
+    model_name: openai/gpt-5-mini-2025-08-07
+    tokenizer_name: openai/o200k_base
+    max_sequence_length: 400000
+    client_spec:
+      class_name: "helm.clients.azure_openai_client.AzureOpenAIClient"
+      args:
+        azure_openai_deployment_name: gpt-5-mini   # Azure deployment name
+        api_version: "2024-06-01"
+```
+
+Point the judge at the same deployment (example `prod_env/health_admin_bench_judges.yaml`):
+
+```yaml
+judges:
+  - name: gpt
+    model: openai/gpt-5-mini-2025-08-07
+    model_deployment: azure/gpt-5-mini
+```
+
+```bash
+medhelm-run --run-entries \
+  "health_admin_bench:task_ids=emr-easy-1,observation_mode=axtree_only,is_gui=true,jury_config_path=prod_env/health_admin_bench_judges.yaml,model=openai/gpt-5-mini-2025-08-07,model_deployment=azure/gpt-5-mini" \
+  --suite hab-azure --max-eval-instances 1 --num-threads 1
+```
+
+`is_gui=true` is a **run-entry** argument (`headless=False`). There is no `medhelm-run --is-gui` flag.
+
+Stanford Healthcare Azure GPT-5 (needs `stanfordhealthcareApiKey` + `stanfordhealthcareEndpoint`): `model_deployment=stanfordhealthcare/gpt-5-2025-08-07`. Omit `jury_config_path` to reuse the package SHC judges.
+
 Non-OpenAI-chat clients fail closed unless `src/helm/benchmark/static/health_admin_bench_model_map.yaml` sets `backend: hab_native` (RandomAgent, Claude, Gemini).
 
 ## Judges
 
-Reuse HealthBench `get_annotator_models_from_config(jury_config_path)`. The first YAML judge is copied onto the episode envelope. HAB `LLMJudge` still runs **inside** `evaluate_episode` (portal `{{jmespath}}` state). Only the HTTP call goes through `AutoClient`.
+Reuse HealthBench `get_annotator_models_from_config(jury_config_path)`. The first YAML judge is copied onto the episode envelope. HAB `LLMJudge` still runs **inside** `evaluate_episode` (portal `{{jmespath}}` state, JSON parse, majority vote). Only the HTTP call goes through `AutoClient` via `llm_complete`.
 
-- Default: package `helm.benchmark.scenarios.medhelm.judges.yaml` (Stanford Healthcare).
-- Public OpenAI judge: `jury_config_path=src/helm/benchmark/static/health_admin_bench_judges.yaml`.
+HAB may pass `system`, `temperature`, `max_tokens`, and a native judge `model` id (often `gpt-5.4` from the task JSON). MedHELM uses **envelope** `judge_model` / `judge_model_deployment` for the AutoClient `Request` — it does not treat HAB’s native id as a MedHELM model name. A one-argument `complete(prompt) -> str` still works.
+
+If the callback raises (timeout, missing key, Azure/auth), HAB records `[COMPLETE_ERROR] Type: message`, scores that run 0, and continues majority vote. The episode returns a structured eval row instead of aborting `grade()`. Extra HTTP retries stay on HAB’s native path only.
+
+- Default: package `helm.benchmark.scenarios.medhelm.judges.yaml` (Stanford Healthcare → `stanfordhealthcareApiKey`).
+- Public OpenAI judge: `jury_config_path=src/helm/benchmark/static/health_admin_bench_judges.yaml` (`openaiApiKey`).
+- Local Azure judge: `jury_config_path=prod_env/health_admin_bench_judges.yaml` as above.
 - Override: `judge_model` / `judge_model_deployment`.
 
 Do not set the judge to `hab/harness`. Do not use the evaluated model as judge unless the run spec sets them equal on purpose. Keep HAB’s JSON grader contract `{score, reasoning, evidence_quote}` — HealthBench `<score>` tags parse as 0.
@@ -217,23 +279,36 @@ health_admin_bench:task_ids=emr-easy-1+emr-easy-2,task_set=prior_auth,difficulty
 | `env_base_url` | `https://emrportal.vercel.app` | local: `http://localhost:3002` |
 | `hab_root` | `$HEALTH_ADMIN_BENCH_ROOT` | absolute path to the HAB checkout |
 | `max_steps` | HAB defaults (easy ≈ 20) | cap episode length for smoke tests |
-| `is_gui` | `false` | `true` shows Chromium (`headless=False`) |
+| `is_gui` | `false` | `true` shows Chromium. Put this **in the run entry**, not as `medhelm-run --is-gui`. |
 | `jury_config_path` | package `judges.yaml` (SHC) | see Judges above |
 | `judge_model` / `judge_model_deployment` | first judge in that YAML | run-entry override |
 
-`--max-eval-instances N` still applies after the scenario loads tasks.
+`--max-eval-instances N` still applies after the scenario loads tasks. For all 20 prior-auth easy tasks use `task_ids=emr-easy-1+…+emr-easy-20` (or `task_set=prior_auth,difficulty=easy`) and `--max-eval-instances 20`.
+
+After a run:
+
+```bash
+helm-summarize --suite <suite> -o ./benchmark_output
+helm-server --suite <suite> -o ./benchmark_output --port 8000
+```
 
 ## Troubleshooting
 
 | Symptom | Fix |
 | --- | --- |
-| Task JSON / `run.py` not found | Export `HEALTH_ADMIN_BENCH_ROOT` to the HAB clone, or pass `hab_root=`. Use the PacificAI fork (`main`), not the som-shahlab upstream. |
+| Task JSON / `run.py` not found | Export `HEALTH_ADMIN_BENCH_ROOT` or pass `hab_root=`. MedHELM also looks at `./health-admin-bench` and `../health-admin-bench` relative to cwd (not the package install path). Use the PacificAI fork (`main`), not the som-shahlab upstream. |
 | `ModuleNotFoundError: harness` / HAB imports | `uv pip install -e "$HEALTH_ADMIN_BENCH_ROOT"` into the MedHELM venv. |
 | Playwright browser missing | `source .venv/bin/activate && python -m playwright install chromium` (MedHELM venv). |
-| Judge looks for Stanford credentials | Pass `jury_config_path=src/helm/benchmark/static/health_admin_bench_judges.yaml`. |
+| `The api_key client option must be set` / `openaiApiKey should be specified` | HelmBackedAgent reads `prod_env/credentials.conf`, not HAB `.env`. Match the key to the deployment prefix (`openaiApiKey`, `azureApiKey`, `stanfordhealthcareApiKey`). |
+| Judge looks for Stanford credentials / `stanfordhealthcareApiKey` | Default judges YAML is SHC. Pass `jury_config_path=` to a public OpenAI or local Azure judges file. |
+| `[COMPLETE_ERROR]` / judge `run_scores=[0,0,0]` | Callback failed (missing key, timeout, auth). Episode still finishes; fix credentials or `jury_config_path`. |
+| `prod_env/cache` does not exist | Create it once (`mkdir -p prod_env/cache`). Cache paths are stored absolute so HAB `os.chdir` does not resolve `prod_env/cache` under the HAB checkout. |
 | `OPENROUTER_API_KEY is required` | Only if no MedHELM judge is on the envelope. Prefer `jury_config_path`. |
-| `no agent for model X` / not OpenAI-chat-compatible | Use `OpenAIClient` / `GrokChatClient`, or a `hab_native` map row. |
+| `no agent for model X` / not OpenAI-chat-compatible | Use `OpenAIClient` / `GrokChatClient` / `AzureOpenAIClient`, or a `hab_native` map row. |
+| missing `evaluated_model` / `evaluated_model_deployment` | Set `model=` and `model_deployment=` on the run entry. The client fails with that message instead of a generic no-agent miss. |
+| invalid `prompt_mode` / `observation_mode` / `action_space` | Use `zero_shot` \| `general` \| `task_specific`, `screenshot_only` \| `axtree_only` \| `both`, `dom` \| `coordinate`. The client lists those values in the error. |
 | `must not be hab/harness` | Agent and judge deployments cannot be `hab/harness`. |
+| GUI never opens | `is_gui=true` inside the run-entry string, not `--is-gui` on `medhelm-run`. |
 | `ModuleNotFoundError: helm.benchmark.static_build` | Build the frontend (step 3). |
 | Warning about `--num-threads` | Harmless; HAB episodes stay serial. Use `--num-threads 1` to silence it. |
 | Hosted portal changed | Pin `env_base_url` or run local portals on `:3002`. |

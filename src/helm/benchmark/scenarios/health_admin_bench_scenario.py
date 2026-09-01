@@ -25,26 +25,24 @@ from helm.benchmark.scenarios.scenario import (
 
 
 def resolve_hab_root(explicit: str = "") -> Path:
-    """Locate the HealthAdminBench checkout."""
-    candidates: List[Path] = []
-    if explicit:
-        candidates.append(Path(explicit).expanduser())
-    env_root = os.environ.get(HAB_ROOT_ENV)
-    if env_root:
-        candidates.append(Path(env_root).expanduser())
+    """Locate the HealthAdminBench checkout.
+
+    Precedence: ``hab_root`` argument, ``HEALTH_ADMIN_BENCH_ROOT``,
+    ``./health-admin-bench``, ``../health-admin-bench`` (relative to cwd).
+    """
     cwd = Path.cwd()
+    candidates: List[Path] = []
+    if explicit and str(explicit).strip():
+        candidates.append(Path(str(explicit).strip()).expanduser())
+    env_root = os.environ.get(HAB_ROOT_ENV)
+    if env_root and str(env_root).strip():
+        candidates.append(Path(str(env_root).strip()).expanduser())
     candidates.extend(
         [
             cwd / "health-admin-bench",
             cwd.parent / "health-admin-bench",
         ]
     )
-    # health_admin_bench_scenario.py -> scenarios -> benchmark -> helm -> src -> medhelm -> workspace
-    here = Path(__file__).resolve()
-    if len(here.parents) >= 6:
-        candidates.append(here.parents[5] / "health-admin-bench")
-    if len(here.parents) >= 5:
-        candidates.append(here.parents[4].parent / "health-admin-bench")
 
     seen = set()
     for candidate in candidates:
@@ -56,8 +54,9 @@ def resolve_hab_root(explicit: str = "") -> Path:
             return resolved
 
     raise FileNotFoundError(
-        "Could not find HealthAdminBench. Set HEALTH_ADMIN_BENCH_ROOT or pass hab_root= "
-        "to the health_admin_bench run spec."
+        "Could not find HealthAdminBench (need benchmark/v2/tasks). "
+        "Set hab_root= on the run entry, export HEALTH_ADMIN_BENCH_ROOT, "
+        f"or place a checkout at ./health-admin-bench or ../health-admin-bench (cwd={cwd})."
     )
 
 

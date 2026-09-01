@@ -30,8 +30,7 @@ def build_hab_request(instance: Instance, adapter_spec) -> Request:
     envelope = json.loads(instance.input.text)
     if envelope.get("hab_protocol") != HAB_PROTOCOL:
         raise ValueError(
-            f"HealthAdminBench adapter expected protocol {HAB_PROTOCOL}, "
-            f"got {envelope.get('hab_protocol')!r}"
+            f"HealthAdminBench adapter expected protocol {HAB_PROTOCOL}, " f"got {envelope.get('hab_protocol')!r}"
         )
     envelope["evaluated_model"] = adapter_spec.model
     envelope["evaluated_model_deployment"] = adapter_spec.model_deployment

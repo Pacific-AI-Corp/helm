@@ -7,7 +7,7 @@ import importlib.resources as pkg_resources
 
 import json
 import os
-from typing import Dict, Union, Optional
+from typing import Any, Dict, Union, Optional
 
 import yaml
 
@@ -1932,7 +1932,7 @@ def get_health_admin_bench_spec(
         args=scenario_args,
     )
 
-    knobs = {
+    knobs: Dict[str, Any] = {
         "prompt_mode": prompt_mode,
         "observation_mode": observation_mode,
         "action_space": action_space,

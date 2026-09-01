@@ -43,5 +43,10 @@ class SqliteCacheBackendConfig(CacheBackendConfig):
     path: str
     """Path for the directory that will contain Sqlite files for caches."""
 
+    def __post_init__(self) -> None:
+        # Absolute so HAB `_hab_runtime` os.chdir does not resolve prod_env/cache
+        # under the HealthAdminBench checkout.
+        object.__setattr__(self, "path", os.path.abspath(self.path))
+
     def get_cache_config(self, shard_name: str) -> CacheConfig:
         return SqliteCacheConfig(path=os.path.join(self.path, f"{shard_name}.sqlite"))

@@ -90,6 +90,29 @@ def test_make_judge_complete_uses_judge_deployment_not_harness():
     assert request.messages[1]["content"] == "grade this submission"
 
 
+def test_make_judge_complete_uses_kwargs_from_hab():
+    fake = FakeAutoClient('{"score": 0}')
+    complete = make_judge_complete(
+        fake,  # type: ignore[arg-type]
+        "openai/gpt-4o-2024-05-13",
+        "openai/gpt-4o-2024-05-13",
+        HAB_HARNESS_DEPLOYMENT,
+    )
+    complete(
+        "prompt",
+        system="custom system",
+        temperature=0.2,
+        max_tokens=128,
+        model="gpt-5.4",
+    )
+    request = fake.requests[0]
+    assert request.messages[0]["content"] == "custom system"
+    assert request.max_tokens == 128
+    assert request.temperature == 0.2
+    assert request.model == "openai/gpt-4o-2024-05-13"
+    assert request.model_deployment == "openai/gpt-4o-2024-05-13"
+
+
 def test_make_judge_complete_rejects_harness_deployment():
     complete = make_judge_complete(
         FakeAutoClient(""),  # type: ignore[arg-type]
@@ -127,9 +150,7 @@ def test_resolve_backend_native_and_helm_backed(monkeypatch):
     assert mapping["agent_class"] == "RandomAgent"
     assert deployment is None
 
-    backend, mapping, deployment = client._resolve_backend(
-        "openai/gpt-4o-2024-05-13", "openai/gpt-4o-2024-05-13"
-    )
+    backend, mapping, deployment = client._resolve_backend("openai/gpt-4o-2024-05-13", "openai/gpt-4o-2024-05-13")
     assert backend == "helm_backed"
     assert mapping is None
     assert deployment is openai_dep

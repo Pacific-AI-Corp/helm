@@ -15,10 +15,13 @@ import yaml
 
 from helm.benchmark.model_deployment_registry import ModelDeployment, get_model_deployment
 from helm.benchmark.scenarios.health_admin_bench_constants import (
+    ACTION_SPACES,
     DEFAULT_ENV_BASE_URL,
     HAB_HARNESS_DEPLOYMENT,
     HAB_PROTOCOL,
     HAB_ROOT_ENV,
+    OBSERVATION_MODES,
+    PROMPT_MODES,
 )
 from helm.benchmark.scenarios.health_admin_bench_scenario import resolve_hab_root
 from helm.clients.auto_client import AutoClient
@@ -121,6 +124,51 @@ def _try_get_deployment(name: str) -> Optional[ModelDeployment]:
         return None
 
 
+def _require_allowed(name: str, value: Any, allowed: tuple[str, ...]) -> str:
+    """Strip and lowercase ``value``; raise with the allow-list if it is not valid."""
+    raw = "" if value is None else str(value)
+    normalized = raw.strip().lower()
+    if normalized not in allowed:
+        raise ValueError(f"HealthAdminBench invalid {name}={raw!r}; allowed: {'|'.join(allowed)}")
+    return normalized
+
+
+def _strip_identity(value: Any) -> str:
+    if value is None:
+        return ""
+    return str(value).strip()
+
+
+def _normalize_evaluated_identity(envelope: Dict[str, Any], request_model: str = "") -> tuple[str, str]:
+    """Require a named evaluated model before backend routing.
+
+    Fills a missing deployment from the model (and vice versa). Does not use the
+    outer Request.model_deployment, which is always ``hab/harness``.
+    """
+    evaluated_model = _strip_identity(envelope.get("evaluated_model"))
+    evaluated_deployment = _strip_identity(envelope.get("evaluated_model_deployment"))
+    fallback_model = _strip_identity(request_model)
+    if fallback_model == HAB_HARNESS_DEPLOYMENT:
+        fallback_model = ""
+    if not evaluated_model and fallback_model:
+        evaluated_model = fallback_model
+
+    evaluated_deployment = evaluated_deployment or evaluated_model
+    evaluated_model = evaluated_model or evaluated_deployment
+
+    if not evaluated_model and not evaluated_deployment:
+        raise ValueError(
+            "HealthAdminBench envelope missing evaluated_model and evaluated_model_deployment; "
+            "set model= and model_deployment= on the run entry."
+        )
+    if evaluated_model == HAB_HARNESS_DEPLOYMENT or evaluated_deployment == HAB_HARNESS_DEPLOYMENT:
+        raise ValueError("evaluated_model_deployment must not be hab/harness")
+
+    envelope["evaluated_model"] = evaluated_model
+    envelope["evaluated_model_deployment"] = evaluated_deployment
+    return evaluated_model, evaluated_deployment
+
+
 class HealthAdminBenchClient(Client):
     """Runs HealthAdminBench `run_task` in-process. Does not cache GUI episodes."""
 
@@ -150,6 +198,7 @@ class HealthAdminBenchClient(Client):
             )
 
         try:
+            _normalize_evaluated_identity(envelope, request.model)
             with _HAB_EPISODE_LOCK:
                 payload = self._run_episode(envelope)
             text = json.dumps(payload)
@@ -231,11 +280,20 @@ class HealthAdminBenchClient(Client):
         evaluated_deployment = str(envelope.get("evaluated_model_deployment") or "")
         backend, mapping, deployment = self._resolve_backend(evaluated_model, evaluated_deployment)
 
-        prompt_mode = envelope.get("prompt_mode") or "general"
-        observation_mode = (
-            envelope.get("observation_mode") or (mapping or {}).get("observation_mode_default") or "axtree_only"
+        prompt_mode = _require_allowed("prompt_mode", envelope.get("prompt_mode") or "general", PROMPT_MODES)
+        observation_mode = _require_allowed(
+            "observation_mode",
+            envelope.get("observation_mode") or (mapping or {}).get("observation_mode_default") or "axtree_only",
+            OBSERVATION_MODES,
         )
-        action_space = envelope.get("action_space") or (mapping or {}).get("action_space_default") or "dom"
+        action_space = _require_allowed(
+            "action_space",
+            envelope.get("action_space") or (mapping or {}).get("action_space_default") or "dom",
+            ACTION_SPACES,
+        )
+        envelope["prompt_mode"] = prompt_mode
+        envelope["observation_mode"] = observation_mode
+        envelope["action_space"] = action_space
         env_base_url = envelope.get("env_base_url") or DEFAULT_ENV_BASE_URL
         is_gui = _as_bool(envelope.get("is_gui"), False)
         max_steps = envelope.get("max_steps")
