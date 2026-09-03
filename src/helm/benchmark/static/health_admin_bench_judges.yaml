@@ -1,0 +1,7 @@
+# Public OpenAI judge for local HealthAdminBench runs.
+# Package judges.yaml defaults to Stanford Healthcare deployments.
+# Pass this file as jury_config_path when you have openaiApiKey in credentials.conf.
+judges:
+  - name: "gpt"
+    model: "openai/gpt-4o-2024-05-13"
+    model_deployment: "openai/gpt-4o-2024-05-13"

@@ -306,6 +306,16 @@ gated = [
     "gdown~=5.1",
 ]
 
+# Computer-use HealthAdminBench scenario. Also install the sibling checkout:
+#   uv pip install -e ../health-admin-bench
+# and set HEALTH_ADMIN_BENCH_ROOT. Playwright Chromium is required (`playwright install chromium`).
+health-admin-bench = [
+    "playwright~=1.48",
+    "jmespath~=1.0",
+    "loguru",
+    "pydantic-settings",
+]
+
 audiolm = [
     "medhelm[openai]",
     "medhelm[google]",
@@ -422,6 +432,7 @@ openai-whisper = ["setuptools<82", "wheel"]
 
 [tool.setuptools.package-data]
 "helm.benchmark.static_build" = ["**/*"]
+"helm.benchmark.static" = ["*.yaml"]
 
 [tool.setuptools]
 package-dir = { "" = "src" }

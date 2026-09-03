@@ -25,6 +25,7 @@ from helm.benchmark.scenarios.scenario import (
     with_instance_ids,
 )
 from helm.benchmark.adaptation.adapters.adapter import Adapter
+from helm.benchmark.adaptation.adapter_spec import ADAPT_HEALTH_ADMIN_BENCH
 from helm.benchmark.adaptation.adapters.adapter_factory import AdapterFactory
 from helm.benchmark.adaptation.scenario_state import ScenarioState
 from helm.benchmark.run_spec import RunSpec
@@ -73,6 +74,21 @@ class RunnerError(Exception):
     """Error that happens in the Runner."""
 
     pass
+
+
+def execute_parallelism_for_run(adapter_method: str, requested: int) -> int:
+    """Return executor thread count for this run.
+
+    MedHELM `--num-threads` is an in-process `ThreadPoolExecutor`, not HealthAdminBench
+    `--max-parallel`. Playwright + `os.chdir` cannot overlap, so HAB episodes stay serial.
+    """
+    if adapter_method == ADAPT_HEALTH_ADMIN_BENCH and requested != 1:
+        hwarn(
+            "HealthAdminBench uses Playwright, which is not thread-safe; "
+            f"ignoring --num-threads {requested} and running episodes serially."
+        )
+        return 1
+    return requested
 
 
 def remove_stats_nans(stats: List[Stat]) -> List[Stat]:
@@ -228,6 +244,17 @@ class Runner:
             failed_runs_str = ", ".join([f'"{run_spec.name}"' for run_spec in failed_run_specs])
             raise RunnerError(f"Failed runs: [{failed_runs_str}]")
 
+    def _execute_requests(self, run_spec: RunSpec, scenario_state: ScenarioState) -> ScenarioState:
+        """Issue model requests. HealthAdminBench episodes run serially even if `--num-threads` > 1."""
+        original_spec = self.executor.execution_spec
+        effective = execute_parallelism_for_run(run_spec.adapter_spec.method, original_spec.parallelism)
+        if effective != original_spec.parallelism:
+            self.executor.execution_spec = dataclasses.replace(original_spec, parallelism=effective)
+        try:
+            return self.executor.execute(scenario_state)
+        finally:
+            self.executor.execution_spec = original_spec
+
     def run_one(self, run_spec: RunSpec):
         global _CURRENT_RUN_SPEC_NAME
         _CURRENT_RUN_SPEC_NAME = run_spec.name
@@ -293,8 +320,9 @@ class Runner:
             annotator_specs=run_spec.annotators,
         )
 
-        # Execute (fill up results)
-        scenario_state = self.executor.execute(scenario_state)
+        # Execute (fill up results). HealthAdminBench episodes are Playwright +
+        # os.chdir; MedHELM `--num-threads` is an in-process pool, not HAB `-j`.
+        scenario_state = self._execute_requests(run_spec, scenario_state)
 
         # Annotate (post-process the results)
         scenario_state = self.annotator_executor.execute(scenario_state)

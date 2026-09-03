@@ -95,6 +95,7 @@ class AutoClient(Client):
                     "end_of_text_token": lambda: self._get_end_of_text_token(
                         tokenizer_name=model_deployment.tokenizer_name or model_deployment.name
                     ),
+                    "auto_client": lambda: self,
                 },
             )
             client = create_object(client_spec)

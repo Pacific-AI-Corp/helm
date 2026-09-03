@@ -24,6 +24,8 @@ Here are the keys that must be set for to access these platforms:
 - Hugging Face Hub: None, but see Additional Setup below
 - Mistral AI: `mistralaiApiKey`
 - OpenAI: `openaiApiKey`, `openApiOrgId`
+- Azure OpenAI (local `azure/…` deployments): `azureApiKey`, `azureEndpoint`
+- Stanford Health Care: `stanfordhealthcareApiKey`, `stanfordhealthcareEndpoint`
 - Perspective: `perspectiveApiKey`
 - Writer: `writerApiKey`
 

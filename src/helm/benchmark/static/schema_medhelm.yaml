@@ -281,6 +281,48 @@ metrics:
     description: Measures the average score assigned by an LLM-based jury evaluating task performance for HealthBench Professional scenarios and a score comparring the response with the one from a physicians
     lower_is_better: false
 
+  - name: health_admin_bench_score
+    display_name: HealthAdminBench Score
+    short_display_name: HAB Score
+    description: Fraction of HealthAdminBench subeval points earned (deterministic JMESPath checks plus LLM-judge rubrics) on computer-use healthcare administration tasks.
+    lower_is_better: false
+
+  - name: health_admin_bench_pass
+    display_name: HealthAdminBench Pass Rate
+    short_display_name: HAB Pass
+    description: Fraction of HealthAdminBench tasks that earned 100% of subeval points.
+    lower_is_better: false
+
+  - name: health_admin_bench_points
+    display_name: HealthAdminBench Points
+    short_display_name: HAB Points
+    description: Raw HealthAdminBench subeval points earned on the task.
+    lower_is_better: false
+
+  - name: health_admin_bench_max_points
+    display_name: HealthAdminBench Max Points
+    short_display_name: HAB Max
+    description: Maximum HealthAdminBench subeval points available on the task.
+    lower_is_better: false
+
+  - name: health_admin_bench_jmespath_score
+    display_name: HealthAdminBench JMESPath Score
+    short_display_name: HAB JMESPath
+    description: Fraction of deterministic JMESPath subeval points earned.
+    lower_is_better: false
+
+  - name: health_admin_bench_llm_judge_score
+    display_name: HealthAdminBench LLM-Judge Score
+    short_display_name: HAB Judge
+    description: Fraction of LLM-judge subeval points earned.
+    lower_is_better: false
+
+  - name: health_admin_bench_steps
+    display_name: HealthAdminBench Steps
+    short_display_name: HAB Steps
+    description: Number of browser actions taken during a HealthAdminBench episode.
+    lower_is_better: true
+
 
   # Summariazation metrics
   - name: summac
@@ -568,6 +610,7 @@ run_groups:
       - shc_sequoia_med
       - shc_cdi_med
       - shc_ent_med
+      - health_admin_bench
       - synt_family_disclosure
       - synt_right_of_access
       - synt_written_consent
@@ -1242,7 +1285,24 @@ run_groups:
       who: Hospital Admistrator
       when: During or after patient discharge
       language: English
-  
+
+  - name: health_admin_bench
+    display_name: HealthAdminBench
+    description: "HealthAdminBench evaluates computer-use agents on 135 synthetic healthcare administration tasks (prior authorization, appeals and denials, DME order processing) against simulated EMR, payer, and fax portals. Scoring uses deterministic JMESPath checks plus LLM-judge rubrics [(Bedi et al., 2026)](https://arxiv.org/abs/2604.09937)."
+    metric_groups:
+      - accuracy
+      - efficiency
+      - general_information
+    environment:
+      main_name: health_admin_bench_score
+      main_split: test
+    taxonomy:
+      task: Computer-use agent evaluation
+      what: Complete prior authorization, appeals/denials, and DME workflows in simulated portals
+      who: Hospital Administrator
+      when: Any
+      language: English
+
   - name: shc_sequoia_med
     display_name: ClinicReferral
     description: ClinicReferral is a benchmark that determines patient eligibility for referral to the Sequoia Clinic based on information from palliative care notes. The dataset provides curated decisions on referral appropriateness to assist in automating clinic workflows.

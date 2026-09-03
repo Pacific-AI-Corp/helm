@@ -1,0 +1,33 @@
+# Override map for HealthAdminBench. Default is helm_backed (OpenAI-chat-compatible
+# MedHELM deployments). Unmapped models with no such deployment fail closed.
+# Exact `model` / `model_deployment` matches win over `model_prefix`.
+
+models:
+  - model: simple/model1
+    backend: hab_native
+    hab_model_id: random
+    agent_class: RandomAgent
+    observation_mode_default: axtree_only
+    action_space_default: dom
+
+  # Claude / Gemini are not OpenAI-chat-compatible in this slice; keep native HAB agents.
+  - model: anthropic/claude-opus-4-6
+    backend: hab_native
+    hab_model_id: claude-opus-4-6
+    agent_class: AnthropicAgent
+    observation_mode_default: axtree_only
+    action_space_default: dom
+
+  - model_prefix: anthropic/claude
+    backend: hab_native
+    hab_model_id: claude-opus-4-6
+    agent_class: AnthropicAgent
+    observation_mode_default: axtree_only
+    action_space_default: dom
+
+  - model_prefix: google/gemini
+    backend: hab_native
+    hab_model_id: gemini-2.5-pro
+    agent_class: GeminiAgent
+    observation_mode_default: axtree_only
+    action_space_default: dom
