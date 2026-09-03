@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+(function () {
+  try {
+    var stored = localStorage.getItem('medhelm-theme');
+    if (stored === 'light' || stored === 'dark') {
+      document.documentElement.setAttribute('data-theme', stored);
+      return;
+    }
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script>
+
+  <title>HealthAdminBench | MedHELM</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body class="docs-page docs-page-health_admin_bench">
+  <header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="header-logo header-logo-text" aria-label="MedHELM">MedHELM</a>
+    <nav class="header-nav">
+      <a href="/">Home</a>
+      <a href="https://leaderboard.medhelm.org" rel="noopener" target="_blank">Leaderboard</a>
+      <a href="/installation">Docs</a>
+      <a href="/tutorial">Tutorials</a>
+      <a href="/benchmark">Tests</a>
+      <a href="/reproducing_leaderboards">Benchmarks</a>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="theme-toggle" aria-label="Toggle color theme" aria-pressed="false">
+        <span class="theme-toggle-icon theme-toggle-moon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </span>
+        <span class="theme-toggle-icon theme-toggle-sun" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </span>
+      </button>
+      <a class="btn btn-gh" href="https://github.com/PacificAI/medhelm" rel="noopener" target="_blank" aria-label="PacificAI/medhelm on GitHub">
+        <svg viewBox="0 0 16 16" width="16" height="16" class="octicon octicon-mark-github" aria-hidden="true"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.47 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.1 1.5.07.09.45.68.1 1.5-.01.24-.01.47-.01.71 0 .21.15.46.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>&nbsp;<span>GitHub</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+  <div class="docs-wrapper">
+    <nav class="docs-sidebar" aria-label="Documentation">
+  <div class="docs-sidebar-inner">
+    
+    <a href="/installation" class="docs-sidebar-title">Docs</a>
+    <ul class="docs-nav-list">
+      <li class="docs-nav-section">
+        <span class="docs-nav-section-title">User Guide</span>
+        <ul>
+          <li><a href="/installation" class="">Installation</a></li>
+          <li><a href="/quick_start" class="">Quick Start</a></li>
+          <li><a href="/tutorial" class="">Tutorial</a></li>
+          <li><a href="/run_entries_configuration_files" class="">Run Entries Configuration Files</a></li>
+          <li><a href="/run_entries" class="">Run Entries</a></li>
+          <li><a href="/credentials" class="">Credentials</a></li>
+          <li><a href="/importing_custom_modules" class="">Importing Custom Modules</a></li>
+          <li><a href="/adding_new_models" class="">Adding New Models</a></li>
+          <li><a href="/adding_new_scenarios" class="">Adding New Scenarios</a></li>
+          <li><a href="/adding_new_tokenizers" class="">Adding New Tokenizers</a></li>
+          <li><a href="/downloading_raw_results" class="">Downloading Raw Results</a></li>
+          <li><a href="/reproducing_leaderboards" class="">Reproducing Leaderboards</a></li>
+          <li><a href="/get_helm_rank" class="">Efficient MedHELM</a></li>
+          <li><a href="/benchmark" class="">Advanced Benchmarking Guide</a></li>
+          <li><a href="/huggingface_models" class="">Hugging Face Model Hub</a></li>
+        </ul>
+      </li>
+      <li class="docs-nav-section">
+        <span class="docs-nav-section-title">Papers</span>
+        <ul>
+          <li><a href="/medhelm" class="">MedHELM</a></li>
+        </ul>
+      </li>
+      <li class="docs-nav-section">
+        <span class="docs-nav-section-title">Reference</span>
+        <ul>
+          <li><a href="/models" class="">Models</a></li>
+          <li><a href="/metrics" class="">Metrics</a></li>
+          <li><a href="/perturbations" class="">Perturbations</a></li>
+          <li><a href="/scenarios" class="">Scenarios</a></li>
+          <li><a href="/schemas" class="">Schemas</a></li>
+        </ul>
+      </li>
+      <li class="docs-nav-section">
+        <span class="docs-nav-section-title">Developer Guide</span>
+        <ul>
+          <li><a href="/developer_setup" class="">Developer Setup</a></li>
+          <li><a href="/code" class="">Code Structure</a></li>
+          <li><a href="/developer_adding_new_models" class="">Adding New Clients</a></li>
+          <li><a href="/proxy_server" class="">Proxy Server</a></li>
+          <li><a href="/editing_documentation" class="">Editing Documentation</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="site-main docs-main">
+      <div class="main-inner">
+        <h1 id="healthadminbench">HealthAdminBench</h1>
+
+<p>HealthAdminBench is a <strong>computer-use</strong> evaluation of healthcare administration workflows (prior authorization, appeals/denials, DME). The MedHELM scenario name is <code class="language-plaintext highlighter-rouge">health_admin_bench</code>. It is <strong>not</strong> OpenAI HealthBench (<code class="language-plaintext highlighter-rouge">health_bench</code>).</p>
+
+<p>Paper: <a href="https://arxiv.org/abs/2604.09937">HealthAdminBench (Bedi et al., 2026)</a>. Upstream harness: <a href="https://github.com/som-shahlab/health-admin-bench">som-shahlab/health-admin-bench</a>.</p>
+
+<p>This page covers how to <strong>clone the PacificAI forks</strong>, <strong>set the HAB path</strong>, <strong>install dependencies</strong>, and <strong>run</strong> the scenario with <code class="language-plaintext highlighter-rouge">medhelm-run</code>. For general MedHELM install, see <a href="/installation">Installation</a> and <a href="/quick_start">Quick Start</a>. API keys: <a href="/credentials">Credentials</a>.</p>
+
+<h2 id="what-medhelm-runs">What MedHELM runs</h2>
+
+<p>One MedHELM instance is one Playwright episode. The adapter routes the outer request to the internal deployment <code class="language-plaintext highlighter-rouge">hab/harness</code>. OpenAI-chat-compatible <code class="language-plaintext highlighter-rouge">model_deployment</code>s run as <code class="language-plaintext highlighter-rouge">HelmBackedAgent</code> (each browser step is an inner <code class="language-plaintext highlighter-rouge">AutoClient</code> request). Native HAB agents (RandomAgent, Claude, Gemini) stay an override in <code class="language-plaintext highlighter-rouge">health_admin_bench_model_map.yaml</code>. The model completion is HAB <code class="language-plaintext highlighter-rouge">EvaluationResult</code> JSON. The leaderboard metric is <code class="language-plaintext highlighter-rouge">health_admin_bench_score</code> (subeval points / max, 0–1), under <strong>Administration and Workflow</strong>.</p>
+
+<h2 id="get-the-code-pacificai-forks">Get the code (PacificAI forks)</h2>
+
+<p>You need <strong>two</strong> checkouts next to each other: MedHELM and HealthAdminBench. Use the PacificAI forks (this is where the MedHELM integration lives). Do not use the HAB upstream alone — MedHELM needs in-process hooks (<code class="language-plaintext highlighter-rouge">run_task(agent=..., llm_complete=...)</code>) that are on the fork.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Parent directory for both repos (adjust as you like)</span>
+<span class="nb">mkdir</span> <span class="nt">-p</span> ~/src <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ~/src
+
+git clone https://github.com/PacificAI/medhelm.git
+git clone https://github.com/PacificAI/health-admin-bench.git
+</code></pre></div></div>
+
+<p>Expected layout:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/src/
+  medhelm/              # PacificAI/medhelm
+  health-admin-bench/   # PacificAI/health-admin-bench
+</code></pre></div></div>
+
+<p>The directories do not have to be siblings, but a single parent folder is easiest. Record the <strong>absolute</strong> path to the HAB checkout; MedHELM will not find task JSON files without it.</p>
+
+<h2 id="set-the-hab-path">Set the HAB path</h2>
+
+<p>Export this in every shell that runs <code class="language-plaintext highlighter-rouge">medhelm-run</code> (or put it in <code class="language-plaintext highlighter-rouge">~/.zshrc</code> / <code class="language-plaintext highlighter-rouge">~/.bashrc</code>):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">HEALTH_ADMIN_BENCH_ROOT</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/src/health-admin-bench"</span>
+</code></pre></div></div>
+
+<p>Replace <code class="language-plaintext highlighter-rouge">$HOME/src/health-admin-bench</code> with the absolute path from <code class="language-plaintext highlighter-rouge">git clone</code>. You can also pass <code class="language-plaintext highlighter-rouge">hab_root=/absolute/path/to/health-admin-bench</code> on the run entry instead of the env var.</p>
+
+<p>Check:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$HEALTH_ADMIN_BENCH_ROOT</span><span class="s2">/run.py"</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"HAB root OK"</span>
+</code></pre></div></div>
+
+<h2 id="install-dependencies">Install dependencies</h2>
+
+<p>MedHELM needs Python <strong>3.12</strong>. HealthAdminBench needs <strong>Python ≥ 3.10</strong>, <a href="https://docs.astral.sh/uv/">uv</a>, and Playwright Chromium. Node.js is only required if you run the local portals or build the <code class="language-plaintext highlighter-rouge">helm-server</code> UI.</p>
+
+<p>Install uv if needed:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-LsSf</span> https://astral.sh/uv/install.sh | sh
+<span class="nb">source</span> <span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.local/bin/env"</span>
+</code></pre></div></div>
+
+<h3 id="1-healthadminbench-harness">1. HealthAdminBench harness</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> <span class="s2">"</span><span class="nv">$HEALTH_ADMIN_BENCH_ROOT</span><span class="s2">"</span>
+uv <span class="nb">sync
+</span>uv run hab <span class="nb">install</span>          <span class="c"># Playwright Chromium + copy .env.local → .env</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">hab install</code> is required even when you only drive HAB from MedHELM: it installs Chromium and creates HAB <code class="language-plaintext highlighter-rouge">.env</code>.</p>
+
+<h3 id="2-medhelm-with-the-healthadminbench-extra">2. MedHELM with the HealthAdminBench extra</h3>
+
+<p>HealthAdminBench is <strong>not</strong> in the default MedHELM install (<code class="language-plaintext highlighter-rouge">uv pip install -e .</code>). The scenario code lives in this repo, but Playwright and HAB itself are opt-in — the same idea as <code class="language-plaintext highlighter-rouge">[summarization]</code> and <code class="language-plaintext highlighter-rouge">[gated]</code> in <a href="/installation">Installation</a>.</p>
+
+<p>Install MedHELM <strong>and</strong> the HAB package into the <strong>same</strong> MedHELM virtualenv. Playwright must be available in that env, not only in HAB’s <code class="language-plaintext highlighter-rouge">.venv</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /path/to/medhelm
+uv venv <span class="nt">--python</span> 3.12 .venv
+<span class="nb">source</span> .venv/bin/activate
+uv pip <span class="nb">install</span> <span class="nt">-e</span> <span class="s2">".[health-admin-bench]"</span>   <span class="c"># MedHELM + Playwright extras (not default)</span>
+uv pip <span class="nb">install</span> <span class="nt">-e</span> <span class="s2">"</span><span class="nv">$HEALTH_ADMIN_BENCH_ROOT</span><span class="s2">"</span>  <span class="c"># HAB harness (separate repo)</span>
+python <span class="nt">-m</span> playwright <span class="nb">install </span>chromium
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Extra</th>
+      <th>What it adds</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[health-admin-bench]</code></td>
+      <td>Playwright, jmespath, loguru, pydantic-settings</td>
+    </tr>
+    <tr>
+      <td>Editable HAB install</td>
+      <td><code class="language-plaintext highlighter-rouge">harness</code> / <code class="language-plaintext highlighter-rouge">run.py</code> imports used by <code class="language-plaintext highlighter-rouge">HealthAdminBenchClient</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="3-leaderboard-ui-optional-before-helm-server">3. Leaderboard UI (optional, before <code class="language-plaintext highlighter-rouge">helm-server</code>)</h3>
+
+<p>A git clone does not ship a pre-built frontend. If you want the web UI:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /path/to/medhelm/helm-frontend
+npm <span class="nb">install
+</span>npm run build <span class="nt">--</span> <span class="nt">--outDir</span> <span class="s1">'../src/helm/benchmark/static_build'</span> <span class="nt">--emptyOutDir</span>
+</code></pre></div></div>
+
+<h2 id="credentials">Credentials</h2>
+
+<p>MedHELM agent and judge HTTP use <strong><code class="language-plaintext highlighter-rouge">prod_env/credentials.conf</code></strong> (HOCON), not HAB <code class="language-plaintext highlighter-rouge">.env</code> and not <code class="language-plaintext highlighter-rouge">OPENAI_API_KEY</code>. Create <code class="language-plaintext highlighter-rouge">prod_env/</code> next to <code class="language-plaintext highlighter-rouge">medhelm-run</code> if needed (the directory is gitignored).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Used by</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">openaiApiKey</code></td>
+      <td>Public OpenAI deployments (<code class="language-plaintext highlighter-rouge">openai/gpt-4o-…</code>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">xaiApiKey</code></td>
+      <td>Grok (<code class="language-plaintext highlighter-rouge">xai/grok-…</code>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">stanfordhealthcareApiKey</code> + <code class="language-plaintext highlighter-rouge">stanfordhealthcareEndpoint</code></td>
+      <td>Package judges YAML and <code class="language-plaintext highlighter-rouge">stanfordhealthcare/*</code> Azure/APIM</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">azureApiKey</code> + <code class="language-plaintext highlighter-rouge">azureEndpoint</code></td>
+      <td>A local <code class="language-plaintext highlighter-rouge">azure/…</code> row in <code class="language-plaintext highlighter-rouge">prod_env/model_deployments.yaml</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example (public OpenAI):</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openaiApiKey: sk-...
+xaiApiKey: xai-...
+</code></pre></div></div>
+
+<p>Example (your Azure OpenAI resource; prefix of the deployment name is the credential prefix):</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>azureApiKey: ...
+azureEndpoint: https://&lt;resource&gt;.openai.azure.com
+</code></pre></div></div>
+
+<p>You do <strong>not</strong> need <code class="language-plaintext highlighter-rouge">openaiApiKey</code> if the <strong>agent and judge</strong> both use Azure (<code class="language-plaintext highlighter-rouge">azure/…</code> or <code class="language-plaintext highlighter-rouge">stanfordhealthcare/…</code>).</p>
+
+<p>HAB <code class="language-plaintext highlighter-rouge">.env</code> is only for <strong><code class="language-plaintext highlighter-rouge">hab_native</code></strong> agents (Claude / Gemini) and the OpenRouter judge <strong>fallback</strong> when the envelope has no MedHELM judge:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> <span class="s2">"</span><span class="nv">$HEALTH_ADMIN_BENCH_ROOT</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s1">'ANTHROPIC_API_KEY=sk-ant-...'</span> <span class="o">&gt;&gt;</span> .env
+<span class="nb">echo</span> <span class="s1">'GEMINI_API_KEY=...'</span>           <span class="o">&gt;&gt;</span> .env
+<span class="nb">echo</span> <span class="s1">'OPENROUTER_API_KEY=sk-or-...'</span> <span class="o">&gt;&gt;</span> .env   <span class="c"># only if you skip jury_config_path</span>
+</code></pre></div></div>
+
+<p>Do not commit <code class="language-plaintext highlighter-rouge">.env</code> or <code class="language-plaintext highlighter-rouge">credentials.conf</code>.</p>
+
+<h2 id="portals">Portals</h2>
+
+<p>Hosted portals default to <code class="language-plaintext highlighter-rouge">https://emrportal.vercel.app</code>. To run a local EMR portal:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> <span class="s2">"</span><span class="nv">$HEALTH_ADMIN_BENCH_ROOT</span><span class="s2">/benchmark/v2/portals"</span>
+npm <span class="nb">install</span> <span class="o">&amp;&amp;</span> npm run dev
+</code></pre></div></div>
+
+<p>Then pass <code class="language-plaintext highlighter-rouge">env_base_url=http://localhost:3002</code> in the run entry.</p>
+
+<h2 id="parallelism">Parallelism</h2>
+
+<p>HealthAdminBench episodes are <strong>always serial</strong>. MedHELM <code class="language-plaintext highlighter-rouge">--num-threads</code> (default 4) is an in-process thread pool over <code class="language-plaintext highlighter-rouge">make_request()</code>, not HAB <code class="language-plaintext highlighter-rouge">--max-parallel</code> / <code class="language-plaintext highlighter-rouge">-j</code>. Playwright’s sync API and the harness <code class="language-plaintext highlighter-rouge">os.chdir</code> cannot overlap. If you pass <code class="language-plaintext highlighter-rouge">--num-threads 4</code>, MedHELM ignores it for HAB runs and still executes one episode at a time (you will see a warning). <code class="language-plaintext highlighter-rouge">--num-threads 1</code> avoids the warning.</p>
+
+<h2 id="smoke-test-no-frontier-api">Smoke test (no frontier API)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">simple/model1</code> maps to HealthAdminBench <code class="language-plaintext highlighter-rouge">RandomAgent</code>. Expect a failed episode on <code class="language-plaintext highlighter-rouge">emr-easy-1</code>: the random agent does not complete the workflow. This only checks that MedHELM can find HAB, launch Chromium, and write stats.</p>
+
+<p>The <strong>default judge is still Stanford Healthcare</strong>. Without <code class="language-plaintext highlighter-rouge">jury_config_path</code> (or SHC keys), LLM-judge subevals score 0 with <code class="language-plaintext highlighter-rouge">[COMPLETE_ERROR]</code> and the episode still finishes. Pass a public or Azure judges YAML if you want a real judge on this smoke.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">HEALTH_ADMIN_BENCH_ROOT</span><span class="o">=</span>/absolute/path/to/health-admin-bench
+<span class="nb">cd</span> /path/to/medhelm
+<span class="nb">source</span> .venv/bin/activate
+
+medhelm-run <span class="nt">--run-entries</span> <span class="se">\</span>
+  <span class="s2">"health_admin_bench:task_ids=emr-easy-1,max_steps=3,model=simple/model1,model_deployment=simple/model1"</span> <span class="se">\</span>
+  <span class="nt">--suite</span> hab-poc <span class="nt">--max-eval-instances</span> 1 <span class="nt">--num-threads</span> 1
+helm-summarize <span class="nt">--suite</span> hab-poc <span class="nt">-o</span> ./benchmark_output
+helm-server <span class="nt">--suite</span> hab-poc <span class="nt">-o</span> ./benchmark_output <span class="nt">--port</span> 8000
+</code></pre></div></div>
+
+<p>Open http://localhost:8000. HealthAdminBench is under <strong>Administration and Workflow</strong>.</p>
+
+<p>Optional standalone check (HAB CLI, same task):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> <span class="s2">"</span><span class="nv">$HEALTH_ADMIN_BENCH_ROOT</span><span class="s2">"</span>
+uv run hab run <span class="nt">--model</span> random <span class="nt">--task</span> emr-easy-1 <span class="nt">--observation-mode</span> axtree_only <span class="nt">--prompt-mode</span> general
+</code></pre></div></div>
+
+<h2 id="evaluated-model-helmbackedagent">Evaluated model (HelmBackedAgent)</h2>
+
+<p>If the run entry’s <code class="language-plaintext highlighter-rouge">model_deployment</code> exists and its client is <code class="language-plaintext highlighter-rouge">OpenAIClient</code> or a chat-compatible subclass (<code class="language-plaintext highlighter-rouge">GrokChatClient</code>, <code class="language-plaintext highlighter-rouge">AzureOpenAIClient</code>, OpenAI-API <code class="language-plaintext highlighter-rouge">base_url</code>), HealthAdminBenchClient builds <code class="language-plaintext highlighter-rouge">HelmBackedAgent</code>. No map row is required.</p>
+
+<p>Public OpenAI (needs <code class="language-plaintext highlighter-rouge">openaiApiKey</code>):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">HEALTH_ADMIN_BENCH_ROOT</span><span class="o">=</span>/absolute/path/to/health-admin-bench
+<span class="nb">cd</span> /path/to/medhelm
+<span class="nb">source</span> .venv/bin/activate
+
+medhelm-run <span class="nt">--run-entries</span> <span class="se">\</span>
+  <span class="s2">"health_admin_bench:task_ids=emr-easy-1,observation_mode=axtree_only,jury_config_path=src/helm/benchmark/static/health_admin_bench_judges.yaml,model=openai/gpt-4o-2024-05-13,model_deployment=openai/gpt-4o-2024-05-13"</span> <span class="se">\</span>
+  <span class="nt">--suite</span> hab-poc <span class="nt">--max-eval-instances</span> 1 <span class="nt">--num-threads</span> 1
+</code></pre></div></div>
+
+<p>Grok:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>medhelm-run <span class="nt">--run-entries</span> <span class="se">\</span>
+  <span class="s2">"health_admin_bench:task_ids=emr-easy-1,observation_mode=axtree_only,jury_config_path=src/helm/benchmark/static/health_admin_bench_judges.yaml,model=xai/grok-4-0709,model_deployment=xai/grok-4-0709"</span> <span class="se">\</span>
+  <span class="nt">--suite</span> hab-poc <span class="nt">--max-eval-instances</span> 1 <span class="nt">--num-threads</span> 1
+</code></pre></div></div>
+
+<p>Local OpenAI-compatible server: add a row in <code class="language-plaintext highlighter-rouge">prod_env/model_deployments.yaml</code> with <code class="language-plaintext highlighter-rouge">helm.clients.openai_client.OpenAIClient</code> and <code class="language-plaintext highlighter-rouge">base_url</code>. See <a href="/adding_new_models">Adding New Models</a>.</p>
+
+<p>Local <strong>Azure OpenAI</strong> (no public <code class="language-plaintext highlighter-rouge">openaiApiKey</code>): add a deployment whose name prefix matches the credential keys (<code class="language-plaintext highlighter-rouge">azure</code> → <code class="language-plaintext highlighter-rouge">azureApiKey</code> / <code class="language-plaintext highlighter-rouge">azureEndpoint</code>):</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># prod_env/model_deployments.yaml</span>
+<span class="na">model_deployments</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">azure/gpt-5-mini</span>
+    <span class="na">model_name</span><span class="pi">:</span> <span class="s">openai/gpt-5-mini-2025-08-07</span>
+    <span class="na">tokenizer_name</span><span class="pi">:</span> <span class="s">openai/o200k_base</span>
+    <span class="na">max_sequence_length</span><span class="pi">:</span> <span class="m">400000</span>
+    <span class="na">client_spec</span><span class="pi">:</span>
+      <span class="na">class_name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">helm.clients.azure_openai_client.AzureOpenAIClient"</span>
+      <span class="na">args</span><span class="pi">:</span>
+        <span class="na">azure_openai_deployment_name</span><span class="pi">:</span> <span class="s">gpt-5-mini</span>   <span class="c1"># Azure deployment name</span>
+        <span class="na">api_version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2024-06-01"</span>
+</code></pre></div></div>
+
+<p>Point the judge at the same deployment (example <code class="language-plaintext highlighter-rouge">prod_env/health_admin_bench_judges.yaml</code>):</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">judges</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">gpt</span>
+    <span class="na">model</span><span class="pi">:</span> <span class="s">openai/gpt-5-mini-2025-08-07</span>
+    <span class="na">model_deployment</span><span class="pi">:</span> <span class="s">azure/gpt-5-mini</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>medhelm-run <span class="nt">--run-entries</span> <span class="se">\</span>
+  <span class="s2">"health_admin_bench:task_ids=emr-easy-1,observation_mode=axtree_only,is_gui=true,jury_config_path=prod_env/health_admin_bench_judges.yaml,model=openai/gpt-5-mini-2025-08-07,model_deployment=azure/gpt-5-mini"</span> <span class="se">\</span>
+  <span class="nt">--suite</span> hab-azure <span class="nt">--max-eval-instances</span> 1 <span class="nt">--num-threads</span> 1
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">is_gui=true</code> is a <strong>run-entry</strong> argument (<code class="language-plaintext highlighter-rouge">headless=False</code>). There is no <code class="language-plaintext highlighter-rouge">medhelm-run --is-gui</code> flag.</p>
+
+<p>Stanford Healthcare Azure GPT-5 (needs <code class="language-plaintext highlighter-rouge">stanfordhealthcareApiKey</code> + <code class="language-plaintext highlighter-rouge">stanfordhealthcareEndpoint</code>): <code class="language-plaintext highlighter-rouge">model_deployment=stanfordhealthcare/gpt-5-2025-08-07</code>. Omit <code class="language-plaintext highlighter-rouge">jury_config_path</code> to reuse the package SHC judges.</p>
+
+<p>Non-OpenAI-chat clients fail closed unless <code class="language-plaintext highlighter-rouge">src/helm/benchmark/static/health_admin_bench_model_map.yaml</code> sets <code class="language-plaintext highlighter-rouge">backend: hab_native</code> (RandomAgent, Claude, Gemini).</p>
+
+<h2 id="judges">Judges</h2>
+
+<p>Reuse HealthBench <code class="language-plaintext highlighter-rouge">get_annotator_models_from_config(jury_config_path)</code>. The first YAML judge is copied onto the episode envelope. HAB <code class="language-plaintext highlighter-rouge">LLMJudge</code> still runs <strong>inside</strong> <code class="language-plaintext highlighter-rouge">evaluate_episode</code> (portal `` state, JSON parse, majority vote). Only the HTTP call goes through <code class="language-plaintext highlighter-rouge">AutoClient</code> via <code class="language-plaintext highlighter-rouge">llm_complete</code>.</p>
+
+<p>HAB may pass <code class="language-plaintext highlighter-rouge">system</code>, <code class="language-plaintext highlighter-rouge">temperature</code>, <code class="language-plaintext highlighter-rouge">max_tokens</code>, and a native judge <code class="language-plaintext highlighter-rouge">model</code> id (often <code class="language-plaintext highlighter-rouge">gpt-5.4</code> from the task JSON). MedHELM uses <strong>envelope</strong> <code class="language-plaintext highlighter-rouge">judge_model</code> / <code class="language-plaintext highlighter-rouge">judge_model_deployment</code> for the AutoClient <code class="language-plaintext highlighter-rouge">Request</code> — it does not treat HAB’s native id as a MedHELM model name. A one-argument <code class="language-plaintext highlighter-rouge">complete(prompt) -&gt; str</code> still works.</p>
+
+<p>If the callback raises (timeout, missing key, Azure/auth), HAB records <code class="language-plaintext highlighter-rouge">[COMPLETE_ERROR] Type: message</code>, scores that run 0, and continues majority vote. The episode returns a structured eval row instead of aborting <code class="language-plaintext highlighter-rouge">grade()</code>. Extra HTTP retries stay on HAB’s native path only.</p>
+
+<ul>
+  <li>Default: package <code class="language-plaintext highlighter-rouge">helm.benchmark.scenarios.medhelm.judges.yaml</code> (Stanford Healthcare → <code class="language-plaintext highlighter-rouge">stanfordhealthcareApiKey</code>).</li>
+  <li>Public OpenAI judge: <code class="language-plaintext highlighter-rouge">jury_config_path=src/helm/benchmark/static/health_admin_bench_judges.yaml</code> (<code class="language-plaintext highlighter-rouge">openaiApiKey</code>).</li>
+  <li>Local Azure judge: <code class="language-plaintext highlighter-rouge">jury_config_path=prod_env/health_admin_bench_judges.yaml</code> as above.</li>
+  <li>Override: <code class="language-plaintext highlighter-rouge">judge_model</code> / <code class="language-plaintext highlighter-rouge">judge_model_deployment</code>.</li>
+</ul>
+
+<p>Do not set the judge to <code class="language-plaintext highlighter-rouge">hab/harness</code>. Do not use the evaluated model as judge unless the run spec sets them equal on purpose. Keep HAB’s JSON grader contract <code class="language-plaintext highlighter-rouge">{score, reasoning, evidence_quote}</code> — HealthBench <code class="language-plaintext highlighter-rouge">&lt;score&gt;</code> tags parse as 0.</p>
+
+<h2 id="run-spec-arguments">Run-spec arguments</h2>
+
+<p>Commas separate args, so multiple task ids use <code class="language-plaintext highlighter-rouge">+</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>health_admin_bench:task_ids=emr-easy-1+emr-easy-2,task_set=prior_auth,difficulty=easy,model=...,model_deployment=...
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Default</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">task_ids</code></td>
+      <td>(all matching filters)</td>
+      <td>e.g. <code class="language-plaintext highlighter-rouge">emr-easy-1</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">task_set</code></td>
+      <td><code class="language-plaintext highlighter-rouge">prior_auth</code></td>
+      <td><code class="language-plaintext highlighter-rouge">prior_auth</code> | <code class="language-plaintext highlighter-rouge">appeals_denials</code> | <code class="language-plaintext highlighter-rouge">dme</code> | <code class="language-plaintext highlighter-rouge">all</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">difficulty</code></td>
+      <td><code class="language-plaintext highlighter-rouge">easy</code></td>
+      <td><code class="language-plaintext highlighter-rouge">easy</code> | <code class="language-plaintext highlighter-rouge">medium</code> | <code class="language-plaintext highlighter-rouge">hard</code> | <code class="language-plaintext highlighter-rouge">all</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">prompt_mode</code></td>
+      <td><code class="language-plaintext highlighter-rouge">general</code></td>
+      <td><code class="language-plaintext highlighter-rouge">zero_shot</code> | <code class="language-plaintext highlighter-rouge">general</code> | <code class="language-plaintext highlighter-rouge">task_specific</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">observation_mode</code></td>
+      <td><code class="language-plaintext highlighter-rouge">axtree_only</code></td>
+      <td><code class="language-plaintext highlighter-rouge">axtree_only</code> for HelmBackedAgent; <code class="language-plaintext highlighter-rouge">screenshot_only</code> / <code class="language-plaintext highlighter-rouge">both</code> are later</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">action_space</code></td>
+      <td><code class="language-plaintext highlighter-rouge">dom</code></td>
+      <td><code class="language-plaintext highlighter-rouge">dom</code> | <code class="language-plaintext highlighter-rouge">coordinate</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">env_base_url</code></td>
+      <td><code class="language-plaintext highlighter-rouge">https://emrportal.vercel.app</code></td>
+      <td>local: <code class="language-plaintext highlighter-rouge">http://localhost:3002</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">hab_root</code></td>
+      <td><code class="language-plaintext highlighter-rouge">$HEALTH_ADMIN_BENCH_ROOT</code></td>
+      <td>absolute path to the HAB checkout</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">max_steps</code></td>
+      <td>HAB defaults (easy ≈ 20)</td>
+      <td>cap episode length for smoke tests</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">is_gui</code></td>
+      <td><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td><code class="language-plaintext highlighter-rouge">true</code> shows Chromium. Put this <strong>in the run entry</strong>, not as <code class="language-plaintext highlighter-rouge">medhelm-run --is-gui</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jury_config_path</code></td>
+      <td>package <code class="language-plaintext highlighter-rouge">judges.yaml</code> (SHC)</td>
+      <td>see Judges above</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">judge_model</code> / <code class="language-plaintext highlighter-rouge">judge_model_deployment</code></td>
+      <td>first judge in that YAML</td>
+      <td>run-entry override</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">--max-eval-instances N</code> still applies after the scenario loads tasks. For all 20 prior-auth easy tasks use <code class="language-plaintext highlighter-rouge">task_ids=emr-easy-1+…+emr-easy-20</code> (or <code class="language-plaintext highlighter-rouge">task_set=prior_auth,difficulty=easy</code>) and <code class="language-plaintext highlighter-rouge">--max-eval-instances 20</code>.</p>
+
+<p>After a run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm-summarize <span class="nt">--suite</span> &lt;suite&gt; <span class="nt">-o</span> ./benchmark_output
+helm-server <span class="nt">--suite</span> &lt;suite&gt; <span class="nt">-o</span> ./benchmark_output <span class="nt">--port</span> 8000
+</code></pre></div></div>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symptom</th>
+      <th>Fix</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Task JSON / <code class="language-plaintext highlighter-rouge">run.py</code> not found</td>
+      <td>Export <code class="language-plaintext highlighter-rouge">HEALTH_ADMIN_BENCH_ROOT</code> or pass <code class="language-plaintext highlighter-rouge">hab_root=</code>. MedHELM also looks at <code class="language-plaintext highlighter-rouge">./health-admin-bench</code> and <code class="language-plaintext highlighter-rouge">../health-admin-bench</code> relative to cwd (not the package install path). Use the PacificAI fork (<code class="language-plaintext highlighter-rouge">main</code>), not the som-shahlab upstream.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ModuleNotFoundError: harness</code> / HAB imports</td>
+      <td><code class="language-plaintext highlighter-rouge">uv pip install -e "$HEALTH_ADMIN_BENCH_ROOT"</code> into the MedHELM venv.</td>
+    </tr>
+    <tr>
+      <td>Playwright browser missing</td>
+      <td><code class="language-plaintext highlighter-rouge">source .venv/bin/activate &amp;&amp; python -m playwright install chromium</code> (MedHELM venv).</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">The api_key client option must be set</code> / <code class="language-plaintext highlighter-rouge">openaiApiKey should be specified</code></td>
+      <td>HelmBackedAgent reads <code class="language-plaintext highlighter-rouge">prod_env/credentials.conf</code>, not HAB <code class="language-plaintext highlighter-rouge">.env</code>. Match the key to the deployment prefix (<code class="language-plaintext highlighter-rouge">openaiApiKey</code>, <code class="language-plaintext highlighter-rouge">azureApiKey</code>, <code class="language-plaintext highlighter-rouge">stanfordhealthcareApiKey</code>).</td>
+    </tr>
+    <tr>
+      <td>Judge looks for Stanford credentials / <code class="language-plaintext highlighter-rouge">stanfordhealthcareApiKey</code></td>
+      <td>Default judges YAML is SHC. Pass <code class="language-plaintext highlighter-rouge">jury_config_path=</code> to a public OpenAI or local Azure judges file.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[COMPLETE_ERROR]</code> / judge <code class="language-plaintext highlighter-rouge">run_scores=[0,0,0]</code></td>
+      <td>Callback failed (missing key, timeout, auth). Episode still finishes; fix credentials or <code class="language-plaintext highlighter-rouge">jury_config_path</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">prod_env/cache</code> does not exist</td>
+      <td>Create it once (<code class="language-plaintext highlighter-rouge">mkdir -p prod_env/cache</code>). Cache paths are stored absolute so HAB <code class="language-plaintext highlighter-rouge">os.chdir</code> does not resolve <code class="language-plaintext highlighter-rouge">prod_env/cache</code> under the HAB checkout.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">OPENROUTER_API_KEY is required</code></td>
+      <td>Only if no MedHELM judge is on the envelope. Prefer <code class="language-plaintext highlighter-rouge">jury_config_path</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">no agent for model X</code> / not OpenAI-chat-compatible</td>
+      <td>Use <code class="language-plaintext highlighter-rouge">OpenAIClient</code> / <code class="language-plaintext highlighter-rouge">GrokChatClient</code> / <code class="language-plaintext highlighter-rouge">AzureOpenAIClient</code>, or a <code class="language-plaintext highlighter-rouge">hab_native</code> map row.</td>
+    </tr>
+    <tr>
+      <td>missing <code class="language-plaintext highlighter-rouge">evaluated_model</code> / <code class="language-plaintext highlighter-rouge">evaluated_model_deployment</code></td>
+      <td>Set <code class="language-plaintext highlighter-rouge">model=</code> and <code class="language-plaintext highlighter-rouge">model_deployment=</code> on the run entry. The client fails with that message instead of a generic no-agent miss.</td>
+    </tr>
+    <tr>
+      <td>invalid <code class="language-plaintext highlighter-rouge">prompt_mode</code> / <code class="language-plaintext highlighter-rouge">observation_mode</code> / <code class="language-plaintext highlighter-rouge">action_space</code></td>
+      <td>Use <code class="language-plaintext highlighter-rouge">zero_shot</code> | <code class="language-plaintext highlighter-rouge">general</code> | <code class="language-plaintext highlighter-rouge">task_specific</code>, <code class="language-plaintext highlighter-rouge">screenshot_only</code> | <code class="language-plaintext highlighter-rouge">axtree_only</code> | <code class="language-plaintext highlighter-rouge">both</code>, <code class="language-plaintext highlighter-rouge">dom</code> | <code class="language-plaintext highlighter-rouge">coordinate</code>. The client lists those values in the error.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">must not be hab/harness</code></td>
+      <td>Agent and judge deployments cannot be <code class="language-plaintext highlighter-rouge">hab/harness</code>.</td>
+    </tr>
+    <tr>
+      <td>GUI never opens</td>
+      <td><code class="language-plaintext highlighter-rouge">is_gui=true</code> inside the run-entry string, not <code class="language-plaintext highlighter-rouge">--is-gui</code> on <code class="language-plaintext highlighter-rouge">medhelm-run</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ModuleNotFoundError: helm.benchmark.static_build</code></td>
+      <td>Build the frontend (step 3).</td>
+    </tr>
+    <tr>
+      <td>Warning about <code class="language-plaintext highlighter-rouge">--num-threads</code></td>
+      <td>Harmless; HAB episodes stay serial. Use <code class="language-plaintext highlighter-rouge">--num-threads 1</code> to silence it.</td>
+    </tr>
+    <tr>
+      <td>Hosted portal changed</td>
+      <td>Pin <code class="language-plaintext highlighter-rouge">env_base_url</code> or run local portals on <code class="language-plaintext highlighter-rouge">:3002</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="summary">Summary</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Step</th>
+      <th>Command</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Clone MedHELM</td>
+      <td><code class="language-plaintext highlighter-rouge">git clone https://github.com/PacificAI/medhelm.git</code></td>
+    </tr>
+    <tr>
+      <td>Clone HAB fork</td>
+      <td><code class="language-plaintext highlighter-rouge">git clone https://github.com/PacificAI/health-admin-bench.git</code></td>
+    </tr>
+    <tr>
+      <td>Point MedHELM at HAB</td>
+      <td><code class="language-plaintext highlighter-rouge">export HEALTH_ADMIN_BENCH_ROOT=/absolute/path/to/health-admin-bench</code></td>
+    </tr>
+    <tr>
+      <td>Install HAB</td>
+      <td><code class="language-plaintext highlighter-rouge">cd "$HEALTH_ADMIN_BENCH_ROOT" &amp;&amp; uv sync &amp;&amp; uv run hab install</code></td>
+    </tr>
+    <tr>
+      <td>Install MedHELM extra</td>
+      <td><code class="language-plaintext highlighter-rouge">uv pip install -e ".[health-admin-bench]" &amp;&amp; uv pip install -e "$HEALTH_ADMIN_BENCH_ROOT"</code></td>
+    </tr>
+    <tr>
+      <td>Smoke test</td>
+      <td><code class="language-plaintext highlighter-rouge">medhelm-run --run-entries "health_admin_bench:task_ids=emr-easy-1,max_steps=3,model=simple/model1,model_deployment=simple/model1" --suite hab-poc --max-eval-instances 1 --num-threads 1</code></td>
+    </tr>
+  </tbody>
+</table>
+
+      </div>
+    </main>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a href="https://github.com/PacificAI/medhelm">GitHub</a>
+      <span>MedHELM – Holistic Evaluation of Language Models</span>
+    </div>
+  </footer>
+  <script>
+(function() {
+  var el = document.getElementById('github-stars-count');
+  if (!el) return;
+  fetch('https://api.github.com/repos/PacificAI/medhelm')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      if (d.stargazers_count != null) el.textContent = d.stargazers_count;
+    })
+    .catch(function() {});
+})();
+</script>
+
+  <script src="/assets/js/theme-toggle.js" defer></script>
+</body>
+</html>

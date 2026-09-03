@@ -230,13 +230,23 @@
   <li>${score}@k: max_{i,j} score(Gi, Pj)</li>
 </ul>
 
+<h2 id="health_admin_bench_metrics"><code class="language-plaintext highlighter-rouge">health_admin_bench_metrics</code></h2>
+
+<p>Metrics for HealthAdminBench episode scores.</p>
+
+<h3 id="healthadminbenchmetric"><code class="language-plaintext highlighter-rouge">HealthAdminBenchMetric</code></h3>
+
+<p>Unpack HAB EvaluationResult JSON from the episode completion.</p>
+
+<h4 id="evaluate_generationadapter_spec-adapterspec-request_state-requeststate-metric_service-metricservice-eval_cache_path-str---liststat-2"><code class="language-plaintext highlighter-rouge">evaluate_generation(adapter_spec: AdapterSpec, request_state: RequestState, metric_service: MetricService, eval_cache_path: str) -&gt; List[Stat]</code></h4>
+
 <h2 id="llm_jury_metrics"><code class="language-plaintext highlighter-rouge">llm_jury_metrics</code></h2>
 
 <h3 id="llmjurymetricmetric_name-str-scenario_name-str-annotator_models-dictstr-annotatormodelinfo-default_score-float--00"><code class="language-plaintext highlighter-rouge">LLMJuryMetric(metric_name: str, scenario_name: str, annotator_models: Dict[str, AnnotatorModelInfo], default_score: float = 0.0)</code></h3>
 
 <p>Score metrics for LLM Jury.</p>
 
-<h4 id="evaluate_generationadapter_spec-adapterspec-request_state-requeststate-metric_service-metricservice-eval_cache_path-str---liststat-2"><code class="language-plaintext highlighter-rouge">evaluate_generation(adapter_spec: AdapterSpec, request_state: RequestState, metric_service: MetricService, eval_cache_path: str) -&gt; List[Stat]</code></h4>
+<h4 id="evaluate_generationadapter_spec-adapterspec-request_state-requeststate-metric_service-metricservice-eval_cache_path-str---liststat-3"><code class="language-plaintext highlighter-rouge">evaluate_generation(adapter_spec: AdapterSpec, request_state: RequestState, metric_service: MetricService, eval_cache_path: str) -&gt; List[Stat]</code></h4>
 
 <h2 id="medcalc_bench_metrics"><code class="language-plaintext highlighter-rouge">medcalc_bench_metrics</code></h2>
 
@@ -246,7 +256,7 @@
 
 <p>Exact match based on category: 1. Normal exact match: for categories “risk”, “severity” or “diagnosis”. 2. Variant exact match: for other categories, if the number calculated by the model falls between the values in the Lower limit and Upper limit columns, we mark it as accurate.</p>
 
-<h4 id="evaluate_generationadapter_spec-adapterspec-request_state-requeststate-metric_service-metricservice-eval_cache_path-str---liststat-3"><code class="language-plaintext highlighter-rouge">evaluate_generation(adapter_spec: AdapterSpec, request_state: RequestState, metric_service: MetricService, eval_cache_path: str) -&gt; List[Stat]</code></h4>
+<h4 id="evaluate_generationadapter_spec-adapterspec-request_state-requeststate-metric_service-metricservice-eval_cache_path-str---liststat-4"><code class="language-plaintext highlighter-rouge">evaluate_generation(adapter_spec: AdapterSpec, request_state: RequestState, metric_service: MetricService, eval_cache_path: str) -&gt; List[Stat]</code></h4>
 
 <p>Evaluate a single generation against reference labels.</p>
 
@@ -261,7 +271,7 @@
   <li><strong>Error Sentence Detection Accuracy</strong> : Whether the model correctly identifies the erroneous sentence when an error is present.</li>
 </ul>
 
-<h4 id="evaluate_generationadapter_spec-adapterspec-request_state-requeststate-metric_service-metricservice-eval_cache_path-str---liststat-4"><code class="language-plaintext highlighter-rouge">evaluate_generation(adapter_spec: AdapterSpec, request_state: RequestState, metric_service: MetricService, eval_cache_path: str) -&gt; List[Stat]</code></h4>
+<h4 id="evaluate_generationadapter_spec-adapterspec-request_state-requeststate-metric_service-metricservice-eval_cache_path-str---liststat-5"><code class="language-plaintext highlighter-rouge">evaluate_generation(adapter_spec: AdapterSpec, request_state: RequestState, metric_service: MetricService, eval_cache_path: str) -&gt; List[Stat]</code></h4>
 
 <p>Evaluate a single LLM generation against the ground truth labels.</p>
 
@@ -277,7 +287,7 @@
 
 <p><strong>“J18.9”, “J45.909”, “J47.1”, “J96.01”</strong></p>
 
-<h4 id="evaluate_generationadapter_spec-adapterspec-request_state-requeststate-metric_service-metricservice-eval_cache_path-str---liststat-5"><code class="language-plaintext highlighter-rouge">evaluate_generation(adapter_spec: AdapterSpec, request_state: RequestState, metric_service: MetricService, eval_cache_path: str) -&gt; List[Stat]</code></h4>
+<h4 id="evaluate_generationadapter_spec-adapterspec-request_state-requeststate-metric_service-metricservice-eval_cache_path-str---liststat-6"><code class="language-plaintext highlighter-rouge">evaluate_generation(adapter_spec: AdapterSpec, request_state: RequestState, metric_service: MetricService, eval_cache_path: str) -&gt; List[Stat]</code></h4>
 
 <p>Evaluate a single generation against reference labels.</p>
 
@@ -289,7 +299,7 @@
 
 <p>Computes two metrics: - sct_score: Normalized expert panel weight for the model’s chosen rating (0 to 1). - sct_expert_set_membership: Whether the model’s response falls within the expert agreement region (binary, averaged across instances).</p>
 
-<h4 id="evaluate_generationadapter_spec-adapterspec-request_state-requeststate-metric_service-metricservice-eval_cache_path-str---liststat-6"><code class="language-plaintext highlighter-rouge">evaluate_generation(adapter_spec: AdapterSpec, request_state: RequestState, metric_service: MetricService, eval_cache_path: str) -&gt; List[Stat]</code></h4>
+<h4 id="evaluate_generationadapter_spec-adapterspec-request_state-requeststate-metric_service-metricservice-eval_cache_path-str---liststat-7"><code class="language-plaintext highlighter-rouge">evaluate_generation(adapter_spec: AdapterSpec, request_state: RequestState, metric_service: MetricService, eval_cache_path: str) -&gt; List[Stat]</code></h4>
 
 <h2 id="summarization_metrics"><code class="language-plaintext highlighter-rouge">summarization_metrics</code></h2>
 
@@ -306,7 +316,7 @@
   <li>Faithfulness (SummaC)</li>
 </ol>
 
-<h4 id="evaluate_generationadapter_spec-adapterspec-request_state-requeststate-metric_service-metricservice-eval_cache_path-str---liststat-7"><code class="language-plaintext highlighter-rouge">evaluate_generation(adapter_spec: AdapterSpec, request_state: RequestState, metric_service: MetricService, eval_cache_path: str) -&gt; List[Stat]</code></h4>
+<h4 id="evaluate_generationadapter_spec-adapterspec-request_state-requeststate-metric_service-metricservice-eval_cache_path-str---liststat-8"><code class="language-plaintext highlighter-rouge">evaluate_generation(adapter_spec: AdapterSpec, request_state: RequestState, metric_service: MetricService, eval_cache_path: str) -&gt; List[Stat]</code></h4>
 
 <h2 id="ultra_suite_asr_classification_metrics"><code class="language-plaintext highlighter-rouge">ultra_suite_asr_classification_metrics</code></h2>
 
